@@ -1,0 +1,6 @@
+framework module Pods_DigitalHunt {
+  umbrella header "Pods-DigitalHunt-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,454 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		75EA5256DD0D002ECD02573A /* Pods_DigitalHunt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 207B0C9FEF46F96B96759274 /* Pods_DigitalHunt.framework */; };
+		EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */; };
+		EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */; };
+		EE54DD512ADF242E00DEBA4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD502ADF242E00DEBA4D /* ViewController.swift */; };
+		EE54DD542ADF242E00DEBA4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD522ADF242E00DEBA4D /* Main.storyboard */; };
+		EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD552ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld */; };
+		EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD582ADF242F00DEBA4D /* Assets.xcassets */; };
+		EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD5A2ADF242F00DEBA4D /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		117BA6E29A78EDB2FF86995B /* Pods-DigitalHunt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DigitalHunt.debug.xcconfig"; path = "Target Support Files/Pods-DigitalHunt/Pods-DigitalHunt.debug.xcconfig"; sourceTree = "<group>"; };
+		207B0C9FEF46F96B96759274 /* Pods_DigitalHunt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DigitalHunt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		983DA105525EEF1F58206DE1 /* Pods-DigitalHunt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DigitalHunt.release.xcconfig"; path = "Target Support Files/Pods-DigitalHunt/Pods-DigitalHunt.release.xcconfig"; sourceTree = "<group>"; };
+		EE54DD492ADF242E00DEBA4D /* DigitalHunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DigitalHunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		EE54DD502ADF242E00DEBA4D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EE54DD532ADF242E00DEBA4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EE54DD562ADF242E00DEBA4D /* DigitalHunt.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DigitalHunt.xcdatamodel; sourceTree = "<group>"; };
+		EE54DD582ADF242F00DEBA4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EE54DD5B2ADF242F00DEBA4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EE54DD5D2ADF242F00DEBA4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EE54DD462ADF242E00DEBA4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75EA5256DD0D002ECD02573A /* Pods_DigitalHunt.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AE16120D830F4ED3DF69372C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				117BA6E29A78EDB2FF86995B /* Pods-DigitalHunt.debug.xcconfig */,
+				983DA105525EEF1F58206DE1 /* Pods-DigitalHunt.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		EE54DD402ADF242E00DEBA4D = {
+			isa = PBXGroup;
+			children = (
+				EE54DD4B2ADF242E00DEBA4D /* DigitalHunt */,
+				EE54DD4A2ADF242E00DEBA4D /* Products */,
+				AE16120D830F4ED3DF69372C /* Pods */,
+				F9FC5C1356FE2882A9D6277A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		EE54DD4A2ADF242E00DEBA4D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EE54DD492ADF242E00DEBA4D /* DigitalHunt.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EE54DD4B2ADF242E00DEBA4D /* DigitalHunt */ = {
+			isa = PBXGroup;
+			children = (
+				EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */,
+				EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */,
+				EE54DD502ADF242E00DEBA4D /* ViewController.swift */,
+				EE54DD522ADF242E00DEBA4D /* Main.storyboard */,
+				EE54DD582ADF242F00DEBA4D /* Assets.xcassets */,
+				EE54DD5A2ADF242F00DEBA4D /* LaunchScreen.storyboard */,
+				EE54DD5D2ADF242F00DEBA4D /* Info.plist */,
+				EE54DD552ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld */,
+			);
+			path = DigitalHunt;
+			sourceTree = "<group>";
+		};
+		F9FC5C1356FE2882A9D6277A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				207B0C9FEF46F96B96759274 /* Pods_DigitalHunt.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE54DD482ADF242E00DEBA4D /* DigitalHunt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE54DD602ADF242F00DEBA4D /* Build configuration list for PBXNativeTarget "DigitalHunt" */;
+			buildPhases = (
+				DB265F66595DB359CE5CE43A /* [CP] Check Pods Manifest.lock */,
+				EE54DD452ADF242E00DEBA4D /* Sources */,
+				EE54DD462ADF242E00DEBA4D /* Frameworks */,
+				EE54DD472ADF242E00DEBA4D /* Resources */,
+				0990203BC9CC771232F71D68 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DigitalHunt;
+			productName = DigitalHunt;
+			productReference = EE54DD492ADF242E00DEBA4D /* DigitalHunt.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EE54DD412ADF242E00DEBA4D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					EE54DD482ADF242E00DEBA4D = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = EE54DD442ADF242E00DEBA4D /* Build configuration list for PBXProject "DigitalHunt" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE54DD402ADF242E00DEBA4D;
+			productRefGroup = EE54DD4A2ADF242E00DEBA4D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE54DD482ADF242E00DEBA4D /* DigitalHunt */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE54DD472ADF242E00DEBA4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */,
+				EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */,
+				EE54DD542ADF242E00DEBA4D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0990203BC9CC771232F71D68 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DigitalHunt/Pods-DigitalHunt-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-DigitalHunt/Pods-DigitalHunt-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-DigitalHunt/Pods-DigitalHunt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB265F66595DB359CE5CE43A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-DigitalHunt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE54DD452ADF242E00DEBA4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE54DD512ADF242E00DEBA4D /* ViewController.swift in Sources */,
+				EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */,
+				EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */,
+				EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EE54DD522ADF242E00DEBA4D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE54DD532ADF242E00DEBA4D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EE54DD5A2ADF242F00DEBA4D /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE54DD5B2ADF242F00DEBA4D /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EE54DD5E2ADF242F00DEBA4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EE54DD5F2ADF242F00DEBA4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EE54DD612ADF242F00DEBA4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 117BA6E29A78EDB2FF86995B /* Pods-DigitalHunt.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DigitalHunt/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DavideFermi.DigitalHunt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EE54DD622ADF242F00DEBA4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 983DA105525EEF1F58206DE1 /* Pods-DigitalHunt.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DigitalHunt/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DavideFermi.DigitalHunt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE54DD442ADF242E00DEBA4D /* Build configuration list for PBXProject "DigitalHunt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE54DD5E2ADF242F00DEBA4D /* Debug */,
+				EE54DD5F2ADF242F00DEBA4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE54DD602ADF242F00DEBA4D /* Build configuration list for PBXNativeTarget "DigitalHunt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EE54DD612ADF242F00DEBA4D /* Debug */,
+				EE54DD622ADF242F00DEBA4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		EE54DD552ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				EE54DD562ADF242E00DEBA4D /* DigitalHunt.xcdatamodel */,
+			);
+			currentVersion = EE54DD562ADF242E00DEBA4D /* DigitalHunt.xcdatamodel */;
+			path = DigitalHunt.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = EE54DD412ADF242E00DEBA4D /* Project object */;
+}
