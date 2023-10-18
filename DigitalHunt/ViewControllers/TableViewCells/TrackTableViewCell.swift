@@ -8,7 +8,18 @@
 import UIKit
 
 class TrackTableViewCell: UITableViewCell {
+    
+    //estende UItrackViewcell
 
+    
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    //tutte le celle di tipo TracktablelViewCell avranno una label
+      
+    @IBOutlet weak var kidFlag: UIImageView!
+       
+    @IBOutlet weak var quizFlag: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

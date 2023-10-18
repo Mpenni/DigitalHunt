@@ -9,15 +9,42 @@ import UIKit
 
 class TracksTableViewController: UITableViewController {
 
-    var tracks :[String] = []
+    var tracks: [Track] = []
+    var trackNames :[String] = []
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.rowHeight = 84.0
 
-        //tracks = metodo()
+
+        // Creare un'istanza del TrackAPIManager
+                let trackAPIManager = TrackAPIManager.shared
+                
+                // Eseguire l'operazione asincrona all'interno del blocco "async"
+        Task {
+            do {
+                let tracks = try await trackAPIManager.getAllTracks()
+                trackAPIManager.printTracksData()
+                
+                // Assegna direttamente i dati delle tracce all'array tracks
+                     self.tracks = tracks
+                
+                // Aggiornare l'UI sulla coda principale
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            } catch {
+                print("Errore nel recupero dei dati delle tracce: \(error)")
+            }
+        }
         
-        tracks = ["Alfoso","Beatrice","Carletto","Dante"]
+        
+        //tracks = ["Alfoso","Beatrice","Carletto","Dante"]
+        //sostituire con chiamata a classe APImanager
+        
+        tableView.reloadData() //è quella di default di tutti i tableviewcontroller
+        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -36,23 +63,55 @@ class TracksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         // il return sarà la count dell'array
+        //return tracks.count
         return tracks.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as! TrackTableViewCell
+        
+        //conversione forzata a TrackTableViewCell
+        
         // Configure the cell...
         //l'elemento alla posizione 0 sarà il primo percorso
         // la tableview è come un array a una dimensione, noi faremo una corrispondenza diretta
         // questo metodo viene chiamato da solo dalla did load
         
-        let track = tracks[indexPath.row]
-        cell.textLabel?.text = track //questa text label esiste di default
+        //let track = tracks[indexPath.row]
+        let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice
+        cell.titleLabel.text = track.name // Imposta la text label con la proprietà "name" dell'oggetto Track
+        
+        //cell.kidLabel.text = "ciao"
+        
+        // Imposta l'immagine in base a isKid (questo è un esempio, ma dovresti lavorare con l'oggetto Track per ottenere questa informazione)
+        
+       
+        if track.isKid {
+            // Se isKid è true, assegna l'immagine "figure.and.child.holdinghands" a cell.kidImageView
+            cell.kidFlag.isHidden = false
+            //let isKidString = track.isKid ? "true" : "false"
+            //print(track.name + "-" + isKidString )
+        } else {
+
+            cell.kidFlag.isHidden = true
+        }
+        
+        if track.isQuiz {
+            // Se isKid è true, assegna l'immagine "figure.and.child.holdinghands" a cell.kidImageView
+            cell.quizFlag.isHidden = false
+            //let isQuizString = track.isQuiz ? "true" : "false"
+            //print(track.name + "-" + isQuizString )
+        } else {
+
+            cell.quizFlag.isHidden = true
+        }
+                        
+        //cell.quizFlag.image = UIImage(named: "figure.and.child.holdinghands")
+        
         return cell
     }
-    
+               
 
     /*
     // Override to support conditional editing of the table view.

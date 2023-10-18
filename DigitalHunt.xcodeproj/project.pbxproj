@@ -15,6 +15,11 @@
 		EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD552ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld */; };
 		EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD582ADF242F00DEBA4D /* Assets.xcassets */; };
 		EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD5A2ADF242F00DEBA4D /* LaunchScreen.storyboard */; };
+		EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */; };
+		EE884A092ADF37F4007D92C2 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A082ADF37F4007D92C2 /* APIManager.swift */; };
+		EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */; };
+		EEE265752AE05959003E6DFD /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE265742AE05959003E6DFD /* Track.swift */; };
+		EEE265772AE05C62003E6DFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +35,11 @@
 		EE54DD582ADF242F00DEBA4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE54DD5B2ADF242F00DEBA4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE54DD5D2ADF242F00DEBA4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
+		EE884A082ADF37F4007D92C2 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
+		EEE265742AE05959003E6DFD /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +60,6 @@
 				117BA6E29A78EDB2FF86995B /* Pods-DigitalHunt.debug.xcconfig */,
 				983DA105525EEF1F58206DE1 /* Pods-DigitalHunt.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -75,9 +84,11 @@
 		EE54DD4B2ADF242E00DEBA4D /* DigitalHunt */ = {
 			isa = PBXGroup;
 			children = (
+				EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */,
+				EE884A072ADF37C3007D92C2 /* Models */,
+				EE884A042ADF3157007D92C2 /* ViewControllers */,
 				EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */,
 				EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */,
-				EE54DD502ADF242E00DEBA4D /* ViewController.swift */,
 				EE54DD522ADF242E00DEBA4D /* Main.storyboard */,
 				EE54DD582ADF242F00DEBA4D /* Assets.xcassets */,
 				EE54DD5A2ADF242F00DEBA4D /* LaunchScreen.storyboard */,
@@ -85,6 +96,33 @@
 				EE54DD552ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld */,
 			);
 			path = DigitalHunt;
+			sourceTree = "<group>";
+		};
+		EE884A042ADF3157007D92C2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				EE884A0A2ADF38B6007D92C2 /* TableViewCells */,
+				EE54DD502ADF242E00DEBA4D /* ViewController.swift */,
+				EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		EE884A072ADF37C3007D92C2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EE884A082ADF37F4007D92C2 /* APIManager.swift */,
+				EEE265742AE05959003E6DFD /* Track.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EE884A0A2ADF38B6007D92C2 /* TableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */,
+			);
+			path = TableViewCells;
 			sourceTree = "<group>";
 		};
 		F9FC5C1356FE2882A9D6277A /* Frameworks */ = {
@@ -156,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */,
+				EEE265772AE05C62003E6DFD /* GoogleService-Info.plist in Resources */,
 				EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */,
 				EE54DD542ADF242E00DEBA4D /* Main.storyboard in Resources */,
 			);
@@ -211,9 +250,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE54DD512ADF242E00DEBA4D /* ViewController.swift in Sources */,
+				EE884A092ADF37F4007D92C2 /* APIManager.swift in Sources */,
 				EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */,
+				EEE265752AE05959003E6DFD /* Track.swift in Sources */,
 				EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */,
+				EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */,
 				EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */,
+				EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,6 +409,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DigitalHunt/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -394,6 +438,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DigitalHunt/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
