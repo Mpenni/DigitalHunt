@@ -6,17 +6,43 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
-class HuntMapViewController: UIViewController {
+class HuntMapViewController: UIViewController, CLLocationManagerDelegate {
     
+    @IBOutlet weak var mapView: MKMapView!
+
+
     var track = Track()
+    let locationManager = CLLocationManager()
+    //let mapView = MKMapView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = track.name
         setupBackButton()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest // Configura l'accuratezza desiderata
+        locationManager.requestWhenInUseAuthorization() // Richiedi l'autorizzazione all'accesso alla posizione
 
+        locationManager.startUpdatingLocation()
+        
         // Do any additional setup after loading the view.
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+                
+        let coordinates : CLLocationCoordinate2D = manager.location!.coordinate
+        let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: coordinates, span: spanDegree)
+        mapView.setRegion(region, animated: true)
+        mapView.showsUserLocation = true
+        }
+    
+
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Errore nell'aggiornamento della posizione: \(error.localizedDescription)")
     }
     
     func setupBackButton(){

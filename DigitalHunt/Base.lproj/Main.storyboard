@@ -110,7 +110,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDE-y6-7lL">
-                                <rect key="frame" x="121.66666666666669" y="721" width="150" height="65"/>
+                                <rect key="frame" x="20.333333333333329" y="721" width="150" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="ck1-ff-Y7m"/>
                                     <constraint firstAttribute="width" constant="150" id="zol-gP-jVV"/>
@@ -122,7 +122,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="g1a-LL-mti">
-                                <rect key="frame" x="18" y="131" width="357" height="216"/>
+                                <rect key="frame" x="18" y="131" width="154.66666666666666" height="216"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="216" id="LIQ-w1-iZS"/>
@@ -140,7 +140,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz facile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9A4-cm-5LU">
-                                <rect key="frame" x="111" y="377" width="282" height="60"/>
+                                <rect key="frame" x="111" y="377" width="79.666666666666686" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="056-I3-IwB"/>
                                     <constraint firstAttribute="width" constant="200" id="UA4-wq-6ak"/>
@@ -150,7 +150,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u25-jw-zxW">
-                                <rect key="frame" x="30" y="640.66666666666663" width="333" height="20.333333333333371"/>
+                                <rect key="frame" x="30" y="640.66666666666663" width="130.66666666666666" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -222,6 +222,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="C2q-7F-ouY"/>
+                    <connections>
+                        <outlet property="mapView" destination="uFa-QL-b3G" id="fdl-tc-4Mj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cRb-j4-JtD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
