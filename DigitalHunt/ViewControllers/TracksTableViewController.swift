@@ -38,6 +38,11 @@ class TracksTableViewController: UITableViewController {
         }
         
         
+        let locationManager = LocationManager.shared
+        locationManager.requestAuthorization()
+        
+        
+        
         //tracks = ["Alfoso","Beatrice","Carletto","Dante"]
         //sostituire con chiamata a classe APImanager
         

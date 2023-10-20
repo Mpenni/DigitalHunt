@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class TrackDetailsViewController: UIViewController {
     
@@ -17,6 +18,39 @@ class TrackDetailsViewController: UIViewController {
         self.title = track.name
         descTextField.text = track.desc
         print("la desc selezionata è \(track.desc)" )
+        let locationManager = LocationManager.shared
+        var location = locationManager.locationManager.location
+        
+        print("La posizione è \(location?.coordinate.latitude)")
+        
+        if track.isKid {
+            // Se isKid è true, assegna l'immagine "figure.and.child.holdinghands" a cell.kidImageView
+            isKidIcon.isHidden = false
+            isKidLabel.isHidden = false
+            //let isKidString = track.isKid ? "true" : "false"
+            //print(track.name + "-" + isKidString )
+        } else {
+            isKidIcon.isHidden = true
+            isKidLabel.isHidden = true
+        }
+        
+        
+        
+        if let sourceLocation = locationManager.locationManager.location, let firstNode = track.Nodes.first {
+            // Creare un oggetto CLLocation per la posizione di destinazione utilizzando le coordinate del primo nodo
+            let destinationLocation = CLLocation(latitude: firstNode.lat, longitude: firstNode.long)
+
+            // Calcolare la distanza
+            let distance = sourceLocation.distance(from: destinationLocation)
+            
+            distanceLabel.text = "La distanza dalla tua posizione attuale al percorso è di \(Int(distance)) metri"
+        } else {
+            distanceLabel.text = "Posizione attuale non disponibile o nessun nodo disponibile per calcolare la distanza."
+        }
+        
+        
+
+
 
         // Do any additional setup after loading the view.
     }
@@ -26,6 +60,12 @@ class TrackDetailsViewController: UIViewController {
     }
 
     @IBOutlet weak var descTextField: UITextView!
+    
+    @IBOutlet weak var distanceLabel: UILabel!
+    
+    @IBOutlet weak var isKidIcon: UIImageView!
+    
+    @IBOutlet weak var isKidLabel: UILabel!
     
     // MARK: - Navigation
 

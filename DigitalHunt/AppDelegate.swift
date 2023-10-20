@@ -4,6 +4,8 @@
 //
 //  Created by Dave Stops on 17/10/23.
 //
+//  if Sandbox: bash(7591) deny(1) file-write-create [...]
+//  solution: Check that ENABLE_USER_SCRIPT_SANDBOXING is disabled in the project's build settings.
 
 import UIKit
 import CoreData

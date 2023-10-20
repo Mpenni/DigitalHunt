@@ -18,6 +18,7 @@
 		EE5C5ED12AE1915500EE601B /* APImanager2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED02AE1915500EE601B /* APImanager2.swift */; };
 		EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */; };
 		EE5C5ED52AE1DDA300EE601B /* HuntMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */; };
+		EE5C5ED72AE3077D00EE601B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED62AE3077D00EE601B /* LocationManager.swift */; };
 		EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C00EB2AE18D890054A2B3 /* Node.swift */; };
 		EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */; };
 		EE884A092ADF37F4007D92C2 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A082ADF37F4007D92C2 /* APIManager.swift */; };
@@ -42,6 +43,7 @@
 		EE5C5ED02AE1915500EE601B /* APImanager2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APImanager2.swift; sourceTree = "<group>"; };
 		EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsViewController.swift; sourceTree = "<group>"; };
 		EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntMapViewController.swift; sourceTree = "<group>"; };
+		EE5C5ED62AE3077D00EE601B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		EE7C00EB2AE18D890054A2B3 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		EE884A082ADF37F4007D92C2 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 				EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */,
 				EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */,
 				EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */,
+				EE5C5ED62AE3077D00EE601B /* LocationManager.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				EE5C5ED12AE1915500EE601B /* APImanager2.swift in Sources */,
 				EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */,
 				EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */,
+				EE5C5ED72AE3077D00EE601B /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,6 +432,8 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DigitalHunt/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "The app requires location to work!";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -457,6 +463,8 @@
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DigitalHunt/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "The app requires location to work!";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -140,7 +140,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quiz facile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9A4-cm-5LU">
-                                <rect key="frame" x="111" y="377" width="200" height="60"/>
+                                <rect key="frame" x="111" y="377" width="282" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="056-I3-IwB"/>
                                     <constraint firstAttribute="width" constant="200" id="UA4-wq-6ak"/>
@@ -149,19 +149,28 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u25-jw-zxW">
+                                <rect key="frame" x="30" y="640.66666666666663" width="333" height="20.333333333333371"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="II5-CL-tpP"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="hDE-y6-7lL" firstAttribute="top" secondItem="u25-jw-zxW" secondAttribute="bottom" constant="60" id="3NJ-LX-Vdb"/>
                             <constraint firstItem="g1a-LL-mti" firstAttribute="leading" secondItem="II5-CL-tpP" secondAttribute="leading" constant="18" id="3P4-EC-36O"/>
                             <constraint firstItem="g1a-LL-mti" firstAttribute="top" secondItem="II5-CL-tpP" secondAttribute="top" constant="28" id="B6V-BP-dOv"/>
                             <constraint firstItem="9A4-cm-5LU" firstAttribute="top" secondItem="g1a-LL-mti" secondAttribute="bottom" constant="30" id="Edb-zE-VQr"/>
                             <constraint firstItem="II5-CL-tpP" firstAttribute="trailing" secondItem="9A4-cm-5LU" secondAttribute="trailing" id="HM1-E6-boV"/>
                             <constraint firstItem="II5-CL-tpP" firstAttribute="bottom" secondItem="hDE-y6-7lL" secondAttribute="bottom" constant="32" id="HnD-FR-JQT"/>
+                            <constraint firstItem="u25-jw-zxW" firstAttribute="leading" secondItem="II5-CL-tpP" secondAttribute="leading" constant="30" id="NOj-WV-AZW"/>
                             <constraint firstItem="9A4-cm-5LU" firstAttribute="leading" secondItem="bUu-Cw-e2O" secondAttribute="trailing" constant="30" id="P1X-nW-ID0"/>
                             <constraint firstItem="bUu-Cw-e2O" firstAttribute="leading" secondItem="II5-CL-tpP" secondAttribute="leading" constant="18" id="ZZ3-54-pnA"/>
                             <constraint firstItem="II5-CL-tpP" firstAttribute="trailing" secondItem="g1a-LL-mti" secondAttribute="trailing" constant="18" id="bxi-9H-sLM"/>
                             <constraint firstItem="9A4-cm-5LU" firstAttribute="leading" secondItem="bUu-Cw-e2O" secondAttribute="trailing" constant="33" id="cBt-FV-8Pc"/>
+                            <constraint firstItem="II5-CL-tpP" firstAttribute="trailing" secondItem="u25-jw-zxW" secondAttribute="trailing" constant="30" id="heb-3P-3wi"/>
                             <constraint firstItem="hDE-y6-7lL" firstAttribute="centerX" secondItem="xPm-wg-6cX" secondAttribute="centerX" id="rIG-zq-yBl"/>
                             <constraint firstItem="bUu-Cw-e2O" firstAttribute="top" secondItem="g1a-LL-mti" secondAttribute="bottom" constant="30" id="rqU-h4-LzL"/>
                         </constraints>
@@ -169,6 +178,9 @@
                     <navigationItem key="navigationItem" id="Ndo-pe-aHc"/>
                     <connections>
                         <outlet property="descTextField" destination="g1a-LL-mti" id="Nj5-92-xs8"/>
+                        <outlet property="distanceLabel" destination="u25-jw-zxW" id="DMP-ms-gWf"/>
+                        <outlet property="isKidIcon" destination="bUu-Cw-e2O" id="Mfl-1i-1Rs"/>
+                        <outlet property="isKidLabel" destination="9A4-cm-5LU" id="CHB-RM-mlN"/>
                         <segue destination="4Kd-Zc-Bhc" kind="show" identifier="toHuntMapView" id="M5c-lz-4yl"/>
                     </connections>
                 </viewController>

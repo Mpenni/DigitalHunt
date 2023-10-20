@@ -10,7 +10,6 @@ import UIKit
 class TrackTableViewCell: UITableViewCell {
     
     //estende UItrackViewcell
-
     
     
     @IBOutlet weak var titleLabel: UILabel!
