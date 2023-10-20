@@ -15,6 +15,10 @@
 		EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD552ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld */; };
 		EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD582ADF242F00DEBA4D /* Assets.xcassets */; };
 		EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD5A2ADF242F00DEBA4D /* LaunchScreen.storyboard */; };
+		EE5C5ED12AE1915500EE601B /* APImanager2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED02AE1915500EE601B /* APImanager2.swift */; };
+		EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */; };
+		EE5C5ED52AE1DDA300EE601B /* HuntMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */; };
+		EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C00EB2AE18D890054A2B3 /* Node.swift */; };
 		EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */; };
 		EE884A092ADF37F4007D92C2 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A082ADF37F4007D92C2 /* APIManager.swift */; };
 		EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */; };
@@ -35,6 +39,10 @@
 		EE54DD582ADF242F00DEBA4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EE54DD5B2ADF242F00DEBA4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EE54DD5D2ADF242F00DEBA4D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EE5C5ED02AE1915500EE601B /* APImanager2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APImanager2.swift; sourceTree = "<group>"; };
+		EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsViewController.swift; sourceTree = "<group>"; };
+		EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntMapViewController.swift; sourceTree = "<group>"; };
+		EE7C00EB2AE18D890054A2B3 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		EE884A082ADF37F4007D92C2 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
@@ -104,6 +112,8 @@
 				EE884A0A2ADF38B6007D92C2 /* TableViewCells */,
 				EE54DD502ADF242E00DEBA4D /* ViewController.swift */,
 				EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */,
+				EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */,
+				EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -113,6 +123,8 @@
 			children = (
 				EE884A082ADF37F4007D92C2 /* APIManager.swift */,
 				EEE265742AE05959003E6DFD /* Track.swift */,
+				EE7C00EB2AE18D890054A2B3 /* Node.swift */,
+				EE5C5ED02AE1915500EE601B /* APImanager2.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -251,10 +263,14 @@
 			files = (
 				EE54DD512ADF242E00DEBA4D /* ViewController.swift in Sources */,
 				EE884A092ADF37F4007D92C2 /* APIManager.swift in Sources */,
+				EE5C5ED52AE1DDA300EE601B /* HuntMapViewController.swift in Sources */,
 				EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */,
+				EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */,
+				EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */,
 				EEE265752AE05959003E6DFD /* Track.swift in Sources */,
 				EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */,
 				EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */,
+				EE5C5ED12AE1915500EE601B /* APImanager2.swift in Sources */,
 				EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */,
 				EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */,
 			);

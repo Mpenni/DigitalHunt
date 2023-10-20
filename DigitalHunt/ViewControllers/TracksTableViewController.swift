@@ -15,11 +15,9 @@ class TracksTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.rowHeight = 84.0
-
-
+        
         // Creare un'istanza del TrackAPIManager
-                let trackAPIManager = TrackAPIManager.shared
+                let trackAPIManager = TrackAPIManager2.shared
                 
                 // Eseguire l'operazione asincrona all'interno del blocco "async"
         Task {
@@ -79,7 +77,7 @@ class TracksTableViewController: UITableViewController {
         // questo metodo viene chiamato da solo dalla did load
         
         //let track = tracks[indexPath.row]
-        let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice
+        let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice, il .row è l'indice della riga
         cell.titleLabel.text = track.name // Imposta la text label con la proprietà "name" dell'oggetto Track
         
         //cell.kidLabel.text = "ciao"
@@ -113,6 +111,11 @@ class TracksTableViewController: UITableViewController {
     }
                
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice
+        self.performSegue(withIdentifier: "toTrackDetails", sender: track)
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -148,14 +151,17 @@ class TracksTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+        let destController = segue.destination as! TrackDetailsViewController // lo forzo ad essere un TrackView
+        destController.track = track
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }

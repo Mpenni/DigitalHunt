@@ -1,3 +1,6 @@
+
+/*
+
 import Foundation
 import FirebaseFirestore
 
@@ -31,7 +34,7 @@ class TrackAPIManager {
                 let scheduledEnd = scheduledEndTimestamp?.dateValue()
                 
                 // Crea un oggetto "Track" utilizzando i dati ottenuti da Firebase
-                let track = Track(id: id, name: name, idLegs: idLegs, isKid: isKid, isQuiz: isQuiz, scheduledStart: scheduledStart, scheduledEnd: scheduledEnd)
+                let track = Track(id: id, isKid: isKid, isQuiz: isQuiz, scheduledStart: scheduledStart, scheduledEnd: scheduledEnd)
                 fetchedTracks.append(track)
             }
         }
@@ -54,3 +57,5 @@ class TrackAPIManager {
         }
     }
 }
+
+*/
