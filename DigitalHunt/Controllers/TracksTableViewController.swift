@@ -11,7 +11,10 @@ class TracksTableViewController: UITableViewController {
 
     var tracks: [Track] = []
     var trackNames :[String] = []
+    let statusManager = StatusManager.shared
 
+    
+    //NB AGGINUGERE CHECK PRESENZA ALMENO 2 NODI o non visualizza track
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +26,7 @@ class TracksTableViewController: UITableViewController {
         Task {
             do {
                 let tracks = try await trackAPIManager.getAllTracks()
-                trackAPIManager.printTracksData()
+                //trackAPIManager.printTracksData()
                 
                 // Assegna direttamente i dati delle tracce all'array tracks
                      self.tracks = tracks
@@ -36,9 +39,9 @@ class TracksTableViewController: UITableViewController {
                 print("Errore nel recupero dei dati delle tracce: \(error)")
             }
         }
+        checkStatus()
         
-        
-
+        print("currentTrack: \(statusManager.getStatusProp(key: "currentTrackId"))")
         
         //locationManager.requestAuthorization()
         
@@ -55,6 +58,10 @@ class TracksTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    private func checkStatus() {
+        //se non nullo, va a mappa con track giusta
     }
 
     // MARK: - Table view data source

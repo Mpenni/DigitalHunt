@@ -19,6 +19,7 @@
 		EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */; };
 		EE5C5ED52AE1DDA300EE601B /* HuntMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */; };
 		EE5C5ED72AE3077D00EE601B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED62AE3077D00EE601B /* LocationManager.swift */; };
+		EE5C5EDA2AE4123C00EE601B /* StatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED92AE4123C00EE601B /* StatusManager.swift */; };
 		EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C00EB2AE18D890054A2B3 /* Node.swift */; };
 		EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */; };
 		EE884A092ADF37F4007D92C2 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A082ADF37F4007D92C2 /* APIManager.swift */; };
@@ -44,6 +45,7 @@
 		EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailsViewController.swift; sourceTree = "<group>"; };
 		EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HuntMapViewController.swift; sourceTree = "<group>"; };
 		EE5C5ED62AE3077D00EE601B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		EE5C5ED92AE4123C00EE601B /* StatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusManager.swift; sourceTree = "<group>"; };
 		EE7C00EB2AE18D890054A2B3 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		EE884A082ADF37F4007D92C2 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
@@ -96,10 +98,10 @@
 			children = (
 				EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */,
 				EE884A072ADF37C3007D92C2 /* Models */,
-				EE884A042ADF3157007D92C2 /* ViewControllers */,
+				EE884A042ADF3157007D92C2 /* Controllers */,
 				EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */,
-				EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */,
 				EE54DD522ADF242E00DEBA4D /* Main.storyboard */,
+				EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */,
 				EE54DD582ADF242F00DEBA4D /* Assets.xcassets */,
 				EE54DD5A2ADF242F00DEBA4D /* LaunchScreen.storyboard */,
 				EE54DD5D2ADF242F00DEBA4D /* Info.plist */,
@@ -108,7 +110,7 @@
 			path = DigitalHunt;
 			sourceTree = "<group>";
 		};
-		EE884A042ADF3157007D92C2 /* ViewControllers */ = {
+		EE884A042ADF3157007D92C2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				EE884A0A2ADF38B6007D92C2 /* TableViewCells */,
@@ -117,8 +119,9 @@
 				EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */,
 				EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */,
 				EE5C5ED62AE3077D00EE601B /* LocationManager.swift */,
+				EE5C5ED92AE4123C00EE601B /* StatusManager.swift */,
 			);
-			path = ViewControllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		EE884A072ADF37C3007D92C2 /* Models */ = {
@@ -277,6 +280,7 @@
 				EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */,
 				EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */,
 				EE5C5ED72AE3077D00EE601B /* LocationManager.swift in Sources */,
+				EE5C5EDA2AE4123C00EE601B /* StatusManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

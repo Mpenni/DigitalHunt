@@ -12,6 +12,7 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     
     var track = Track()
     let locationManager = DHLocationManager.shared
+
     //var location : CLLocation?
     
     override func viewDidLoad() {
@@ -48,6 +49,7 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func startGameAction(_ sender: Any) {
+
         self.performSegue(withIdentifier: "toHuntMapView", sender: track)
     }
     
