@@ -34,6 +34,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate {
         updateLocationOnMap()
         defineTargetNode()
         checkIsSpecialNode()
+        drawMarker()
     }
     
     private func defineTargetNode() {
@@ -74,7 +75,23 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate {
             // error go to main
         }
     }
-
+    
+    private func drawMarker() {
+        let nodePin = MKPointAnnotation()
+        nodePin.coordinate.latitude = currentNode!.lat
+        nodePin.coordinate.longitude = currentNode!.long
+        if isStart {
+            nodePin.title = "INIZIO"
+        } else if isEnd {
+            nodePin.title = "FINE"
+        } else {
+            nodePin.title = "TAPPA"
+        }
+        //nodePin.subtitle = "Subtitle"
+        mapView.addAnnotation(nodePin)
+        let circle = MKCircle(center: nodePin.coordinate, radius: 20)
+            mapView.addOverlay(circle)
+    }
     
     private func updateLocationOnMap() {
         let region = locationManager.calculateRegion()
