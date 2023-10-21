@@ -63,8 +63,8 @@
          </EnvironmentVariable>
       </EnvironmentVariables>
       <LocationScenarioReference
-         identifier = "London, England"
-         referenceType = "1">
+         identifier = "../../../../Downloads/new (4).gpx"
+         referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction

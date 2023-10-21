@@ -3,29 +3,33 @@
 //  DigitalHunt
 //
 //  Created by Dave Stops on 19/10/23.
-//
+//  45.5 9.08
 
 import UIKit
 import CoreLocation
 import MapKit
 
-class HuntMapViewController: UIViewController, CLLocationManagerDelegate {
+class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
 
-
+    
     var track = Track() //??
     let locationManager = DHLocationManager.shared
     let statusManager = StatusManager.shared
     var currentNode :Node?
     var isStart :Bool = false
     var isEnd :Bool = false
+    
+    
+
 
 
     //let mapView = MKMapView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
         self.title = track.name
         statusManager.setStatusProp(key: "currentTrackId", value: track.id)
         setupBackButton()
@@ -89,7 +93,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate {
         }
         //nodePin.subtitle = "Subtitle"
         mapView.addAnnotation(nodePin)
-        let circle = MKCircle(center: nodePin.coordinate, radius: 20)
+        let circle = MKCircle(center: nodePin.coordinate, radius: 10)
             mapView.addOverlay(circle)
     }
     
@@ -101,12 +105,42 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         updateLocationOnMap()
+            
+        let currentLocation = locationManager.locationManager.location
+            let center = CLLocation(latitude: currentNode!.lat, longitude: currentNode!.long)
+            let distance = currentLocation!.distance(from: center)
+            print("distanza: \(distance)")
+            // Definisci il raggio del cerchio (10 metri)
+            let radius: CLLocationDistance = 10.0
+            
+            // Verifica se la distanza è inferiore al raggio
+            if distance <= radius {
+                // La posizione attuale è all'interno del cerchio
+                insideNode()
+            }
+        
+    }
+    
+    private func insideNode(){
+        print("INSIDE NODE!")
     }
     
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Errore nell'aggiornamento della posizione: \(error.localizedDescription)")
     }
+    
+    // Funzione per disegnare l'overlay del cerchio
+     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+         if let circleOverlay = overlay as? MKCircle {
+             let circleRenderer = MKCircleRenderer(overlay: circleOverlay)
+             circleRenderer.fillColor = UIColor.blue.withAlphaComponent(0.3) // Colore e opacità del cerchio
+             circleRenderer.strokeColor = UIColor.blue
+             circleRenderer.lineWidth = 1
+             return circleRenderer
+         }
+         return MKOverlayRenderer(overlay: overlay)
+     }
     
     func setupBackButton(){
         let newBackButton = UIBarButtonItem(title: "Annulla", style: .plain, target: self, action: #selector(back(_:)))

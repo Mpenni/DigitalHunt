@@ -2,6 +2,18 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../../Desktop/0.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:../../../Desktop/0.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:../../../Desktop/1.gpx">
+   </FileRef>
+   <FileRef
+      location = "group:../../../Downloads/new (4).gpx">
+   </FileRef>
+   <FileRef
       location = "group:DigitalHunt.xcodeproj">
    </FileRef>
    <FileRef
