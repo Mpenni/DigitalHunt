@@ -8,28 +8,27 @@
 import UIKit
 import CoreLocation
 
-class TrackDetailsViewController: UIViewController {
+class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     
     var track = Track()
     let locationManager = DHLocationManager.shared
     //var location : CLLocation?
-
+    
     override func viewDidLoad() {
-
+        
         super.viewDidLoad()
         self.title = track.name
         descTextField.text = track.desc
+        locationManager.locationManager.delegate = self
         //print("la desc selezionata è \(track.desc)" )
         //locationManager.startUpdatingLocation()
         //location = locationManager.myCurrentlocation
+        locationManager.requestAuthorization()
+        locationManager.locationManager.startUpdatingLocation()
+
         
-        if (locationManager.locationManager.location != nil)  {
-            print("La posizione è \(locationManager.locationManager.location?.coordinate.latitude)")
-        } else {
-            print("Non ho trovato posizione")
-        }
         
-        calculateDistanceFromHere()
+        
         
         //print("La posizione è \(location?.coordinate.latitude)")
         
@@ -44,14 +43,14 @@ class TrackDetailsViewController: UIViewController {
             isKidLabel.isHidden = true
         }
         
-    
+        
         // Do any additional setup after loading the view.
     }
     
     @IBAction func startGameAction(_ sender: Any) {
         self.performSegue(withIdentifier: "toHuntMapView", sender: track)
     }
-
+    
     @IBOutlet weak var descTextField: UITextView!
     
     @IBOutlet weak var distanceLabel: UILabel!
@@ -61,7 +60,7 @@ class TrackDetailsViewController: UIViewController {
     @IBOutlet weak var isKidLabel: UILabel!
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
@@ -71,9 +70,21 @@ class TrackDetailsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     
+    private func setupLocation() {
+
+        if (locationManager.locationManager.location != nil)  {
+            print("La posizione è \(locationManager.locationManager.location?.coordinate.latitude)")
+            calculateDistanceFromHere()
+        } else {
+            print("Non ho trovato posizione")
+        }
+        
+    
+    }
+    
     func calculateDistanceFromHere() {
-        print("LM: \(locationManager.locationManager.location)")
-        print("FN: \(track.Nodes.first)")
+        //print("LM: \(locationManager.locationManager.location)")
+        //print("FN: \(track.Nodes.first)")
         if let sourceLocation = locationManager.locationManager.location, let firstNode = track.Nodes.first {
         
             
@@ -86,6 +97,23 @@ class TrackDetailsViewController: UIViewController {
         } else {
             distanceLabel.text = "Posizione attuale non disponibile o nessun nodo disponibile per calcolare la distanza."
         }
+    }
+    
+    // CLLocationManagerDelegate methods
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("sono in didUpdateLcoation")
+        setupLocation()
+    }
+ 
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        print("Checcko")
+        locationManager.checkLocationAuthorization()
+        
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
     }
 
 }

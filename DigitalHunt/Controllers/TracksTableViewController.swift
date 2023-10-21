@@ -38,7 +38,7 @@ class TracksTableViewController: UITableViewController {
         }
         
         
-        let locationManager = DHLocationManager.shared
+
         
         //locationManager.requestAuthorization()
         
@@ -169,5 +169,11 @@ class TracksTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     
+    // CLLocationManagerDelegate methods
+/*
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)")
+    }
+  */    
 
 }

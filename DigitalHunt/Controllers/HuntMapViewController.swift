@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class HuntMapViewController: UIViewController {
+class HuntMapViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
 
@@ -22,16 +22,20 @@ class HuntMapViewController: UIViewController {
         super.viewDidLoad()
         self.title = track.name
         setupBackButton()
+        locationManager.locationManager.delegate = self
+        locationManager.locationManager.startUpdatingLocation()
+        updateLocationOnMap()
+    }
+    
+    private func updateLocationOnMap() {
+        let region = locationManager.calculateRegion()
+        mapView.setRegion(region, animated: true)
+        mapView.showsUserLocation = true
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-                
-        let coordinates : CLLocationCoordinate2D = manager.location!.coordinate
-        let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        let region = MKCoordinateRegion(center: coordinates, span: spanDegree)
-        mapView.setRegion(region, animated: true)
-        mapView.showsUserLocation = true
-        }
+        updateLocationOnMap()
+    }
     
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

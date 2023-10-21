@@ -19,25 +19,15 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     override init() {
         locationManager = CLLocationManager()
         super.init()  //perchè devo fare override dell'init del padre
-        locationManager.delegate = self   //appoggiati come delegate su questa stessa classe
-        requestAuthorization()
+        //locationManager.delegate = self   //appoggiati come delegate su questa stessa classe
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.startUpdatingLocation()
+        //locationManager.startUpdatingLocation()
     }
 
     func requestAuthorization() {  // lo lascio qua per eventuale riuso o aggiunta operazioni in questa fase
         locationManager.requestWhenInUseAuthorization()
     }
-/*
-    func startUpdatingLocation() {
-        locationManager.startUpdatingLocation()
-        location = locationManager.location
-        print("current GPS in updating Location: \(location?.coordinate.latitude) \(location?.coordinate.latitude)")
-        
-        //myCurrentlocation = locationManager.location
 
-    }
-*/
     func calculateDistance(to destinationLocation: CLLocation) -> CLLocationDistance? {
         if locationManager.location != nil {
             return locationManager.location!.distance(from: destinationLocation)
@@ -45,7 +35,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
         return nil
     }
 
-    private func checkLocationAuthorization() {
+    func checkLocationAuthorization() {
      
       switch locationManager.authorizationStatus {
       case .authorizedWhenInUse, .authorizedAlways:
@@ -66,16 +56,20 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
                 
     }
     
-    // Altri metodi relativi alla gestione della posizione
-
+    func calculateRegion() -> MKCoordinateRegion {
+        let coordinates : CLLocationCoordinate2D = locationManager.location!.coordinate
+        let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        return MKCoordinateRegion(center: coordinates, span: spanDegree)
+    }
+    
     // CLLocationManagerDelegate methods
-
+/*
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)")
     }
-    
+  */
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("Checcko")
+        print("ChecckodaClassePrimaria")
         checkLocationAuthorization()
         
     }
