@@ -38,8 +38,9 @@ class TracksTableViewController: UITableViewController {
         }
         
         
-        let locationManager = LocationManager.shared
-        locationManager.requestAuthorization()
+        let locationManager = DHLocationManager.shared
+        
+        //locationManager.requestAuthorization()
         
         
         

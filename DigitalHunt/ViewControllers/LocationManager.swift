@@ -9,58 +9,75 @@
 import UIKit
 import MapKit
 
-class LocationManager: NSObject, CLLocationManagerDelegate {
-    static let shared = LocationManager()
 
+class DHLocationManager: NSObject, CLLocationManagerDelegate {
+    
+    static let shared = DHLocationManager()  //per singleton
     var locationManager: CLLocationManager
-
+    //var location: CLLocation?
+    
     override init() {
         locationManager = CLLocationManager()
-        super.init()
-        locationManager.delegate = self
-    }
-
-    func requestAuthorization() {
-        locationManager.requestWhenInUseAuthorization()
-    }
-
-    func startUpdatingLocation() {
+        super.init()  //perchè devo fare override dell'init del padre
+        locationManager.delegate = self   //appoggiati come delegate su questa stessa classe
+        requestAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
     }
-    
-    func requestLocation() {
-        locationManager.requestLocation()
+
+    func requestAuthorization() {  // lo lascio qua per eventuale riuso o aggiunta operazioni in questa fase
+        locationManager.requestWhenInUseAuthorization()
     }
-    
-    func calculateDistance(from sourceLocation: CLLocation?, to destinationLocation: CLLocation) -> CLLocationDistance? {
-        if let source = sourceLocation {
-            return source.distance(from: destinationLocation)
+/*
+    func startUpdatingLocation() {
+        locationManager.startUpdatingLocation()
+        location = locationManager.location
+        print("current GPS in updating Location: \(location?.coordinate.latitude) \(location?.coordinate.latitude)")
+        
+        //myCurrentlocation = locationManager.location
+
+    }
+*/
+    func calculateDistance(to destinationLocation: CLLocation) -> CLLocationDistance? {
+        if locationManager.location != nil {
+            return locationManager.location!.distance(from: destinationLocation)
         }
         return nil
     }
 
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        guard let location = locationManager.location else {return}
-  
-  switch locationManager.authorizationStatus {
-  case .authorizedWhenInUse, .authorizedAlways:
-      //let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 750, longitudinalMeters: 750)
-      //mapView.setRegion(region, animated: true)
-      print("current GPS: \(location.coordinate.latitude) \(location.coordinate.latitude)")
-  case .denied:
-      print("Location services has been denied.")
-  case .notDetermined, .restricted:
-      print("Location cannot be determined or restricted.")
-  @unknown default:
-      print("Unknow error. Unable to get current location.")
-  }    }
-
+    private func checkLocationAuthorization() {
+     
+      switch locationManager.authorizationStatus {
+      case .authorizedWhenInUse, .authorizedAlways:
+          if (locationManager.location != nil)  {
+              print("Location non nil")
+          } else {
+              print("Non c'è una location")
+              return
+          }
+          print("current GPS in change aut: \(locationManager.location?.coordinate.latitude) \(locationManager.location?.coordinate.latitude)")
+      case .denied:
+          print("Location services has been denied.")
+      case .notDetermined, .restricted:
+          print("Location cannot be determined or restricted.")
+      @unknown default:
+          print("Unknow error. Unable to get current location.")
+      }
+                
+    }
+    
     // Altri metodi relativi alla gestione della posizione
 
     // CLLocationManagerDelegate methods
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        // Gestisci gli aggiornamenti sulla posizione qui
+        print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)")
+    }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        print("Checcko")
+        checkLocationAuthorization()
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

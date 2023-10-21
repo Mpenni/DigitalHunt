@@ -9,26 +9,19 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class HuntMapViewController: UIViewController, CLLocationManagerDelegate {
+class HuntMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MKMapView!
 
 
     var track = Track()
-    let locationManager = CLLocationManager()
+    let locationManager = DHLocationManager.shared
     //let mapView = MKMapView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = track.name
         setupBackButton()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest // Configura l'accuratezza desiderata
-        locationManager.requestWhenInUseAuthorization() // Richiedi l'autorizzazione all'accesso alla posizione
-
-        locationManager.startUpdatingLocation()
-        
-        // Do any additional setup after loading the view.
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

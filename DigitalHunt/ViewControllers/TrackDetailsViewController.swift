@@ -11,17 +11,27 @@ import CoreLocation
 class TrackDetailsViewController: UIViewController {
     
     var track = Track()
+    let locationManager = DHLocationManager.shared
+    //var location : CLLocation?
 
     override func viewDidLoad() {
 
         super.viewDidLoad()
         self.title = track.name
         descTextField.text = track.desc
-        print("la desc selezionata è \(track.desc)" )
-        let locationManager = LocationManager.shared
-        var location = locationManager.locationManager.location
+        //print("la desc selezionata è \(track.desc)" )
+        //locationManager.startUpdatingLocation()
+        //location = locationManager.myCurrentlocation
         
-        print("La posizione è \(location?.coordinate.latitude)")
+        if (locationManager.locationManager.location != nil)  {
+            print("La posizione è \(locationManager.locationManager.location?.coordinate.latitude)")
+        } else {
+            print("Non ho trovato posizione")
+        }
+        
+        calculateDistanceFromHere()
+        
+        //print("La posizione è \(location?.coordinate.latitude)")
         
         if track.isKid {
             // Se isKid è true, assegna l'immagine "figure.and.child.holdinghands" a cell.kidImageView
@@ -34,24 +44,7 @@ class TrackDetailsViewController: UIViewController {
             isKidLabel.isHidden = true
         }
         
-        
-        
-        if let sourceLocation = locationManager.locationManager.location, let firstNode = track.Nodes.first {
-            // Creare un oggetto CLLocation per la posizione di destinazione utilizzando le coordinate del primo nodo
-            let destinationLocation = CLLocation(latitude: firstNode.lat, longitude: firstNode.long)
-
-            // Calcolare la distanza
-            let distance = sourceLocation.distance(from: destinationLocation)
-            
-            distanceLabel.text = "La distanza dalla tua posizione attuale al percorso è di \(Int(distance)) metri"
-        } else {
-            distanceLabel.text = "Posizione attuale non disponibile o nessun nodo disponibile per calcolare la distanza."
-        }
-        
-        
-
-
-
+    
         // Do any additional setup after loading the view.
     }
     
@@ -78,5 +71,21 @@ class TrackDetailsViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     
+    func calculateDistanceFromHere() {
+        print("LM: \(locationManager.locationManager.location)")
+        print("FN: \(track.Nodes.first)")
+        if let sourceLocation = locationManager.locationManager.location, let firstNode = track.Nodes.first {
+        
+            
+            let destinationLocation = CLLocation(latitude: firstNode.lat, longitude: firstNode.long)
+
+            // Calcolare la distanza
+            let distance = sourceLocation.distance(from: destinationLocation)
+            
+            distanceLabel.text = "La distanza dalla tua posizione attuale al percorso è di \(Int(distance)) metri"
+        } else {
+            distanceLabel.text = "Posizione attuale non disponibile o nessun nodo disponibile per calcolare la distanza."
+        }
+    }
 
 }
