@@ -45,7 +45,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
               print("Non c'è una location")
               return
           }
-          print("current GPS in change aut: \(locationManager.location?.coordinate.latitude) \(locationManager.location?.coordinate.latitude)")
+          print("Posizione Corrente (LocationManager-ChangeAut): \(locationManager.location?.coordinate.latitude) \(locationManager.location?.coordinate.latitude)")
       case .denied:
           print("Location services has been denied.")
       case .notDetermined, .restricted:

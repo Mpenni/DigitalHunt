@@ -14,6 +14,7 @@ class Track {
     let Nodes: [Node]
     let isKid: Bool
     let isQuiz: Bool
+    let currentNodeIndex: Int
     let scheduledStart: Date?
     let scheduledEnd: Date?
     
@@ -24,11 +25,12 @@ class Track {
         self.Nodes = []
         self.isKid = false
         self.isQuiz = false
+        self.currentNodeIndex = 0
         self.scheduledStart = nil
         self.scheduledEnd = nil
         
     } //costruttore vuoto che mi serve in trackDetails
-
+    
     init(id: String, name: String, desc: String, nodes: [Node], isKid: Bool, isQuiz: Bool, scheduledStart: Date?, scheduledEnd: Date?) {
         self.id = id
         self.name = name
@@ -36,7 +38,10 @@ class Track {
         self.Nodes = nodes
         self.isKid = isKid
         self.isQuiz = isQuiz
+        self.currentNodeIndex = 0
         self.scheduledStart = scheduledStart
         self.scheduledEnd = scheduledEnd
-    }    
+        
+    }
+    
 }

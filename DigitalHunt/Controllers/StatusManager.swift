@@ -11,8 +11,12 @@ class StatusManager {
     
     static let shared = StatusManager()
     
-    private init() {}
+    private let dateFormatter = DateFormatter()
     
+    
+    private init() {
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    }
     
     func setStatusProp(key: String, value: String) {
         UserDefaults.standard.set(value, forKey: key)
@@ -22,11 +26,25 @@ class StatusManager {
         UserDefaults.standard.string(forKey: key)
     }
     
-    func printAll() {
+    func resetStatus() {
         for k in ["currentTrackId", "nextNodeId", "startTime"] {
-            print((getStatusProp(key: k) ?? "not set") as String)
+        UserDefaults.standard.set(nil, forKey: k)
         }
     }
     
+    func setStartTimeNow() {
+        let currentDateTime = Date()
+        let formattedDate = dateFormatter.string(from: currentDateTime)
+        setStatusProp(key: "startTime", value: formattedDate)
+    }
     
+    func printAll() {
+        for k in ["currentTrackId", "nextNodeId", "startTime"] {
+            if let value = getStatusProp(key: k) {
+                print("\(k): \(value)")
+            } else {
+                print("\(k): not set")
+            }
+        }
+    }
 }

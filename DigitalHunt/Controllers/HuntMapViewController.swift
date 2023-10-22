@@ -13,6 +13,9 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     
     @IBOutlet weak var mapView: MKMapView!
 
+    @IBOutlet weak var distanceLabel: UILabel!
+    
+    @IBOutlet weak var timeLabel: UILabel!
     
     var track = Track() //??
     let locationManager = DHLocationManager.shared
@@ -21,10 +24,10 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     var isStart :Bool = false
     var isEnd :Bool = false
     
-    
-
-
-
+    var timer:Timer = Timer()
+    var count:Int = 0
+    var timerCounting = false
+   
     //let mapView = MKMapView()
 
     override func viewDidLoad() {
@@ -32,6 +35,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         mapView.delegate = self
         self.title = track.name
         statusManager.setStatusProp(key: "currentTrackId", value: track.id)
+        statusManager.printAll()
         setupBackButton()
         locationManager.locationManager.delegate = self
         locationManager.locationManager.startUpdatingLocation()
@@ -39,10 +43,43 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         defineTargetNode()
         checkIsSpecialNode()
         drawMarker()
+        checkIsInsideNode()
+        
+        //#TODO: Gestire Time fuori da qua
+        timerCounting = true
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
     }
+    
+    @objc func timerCounter() -> Void
+    {
+        count = count + 1
+        let time = secondsToHoursMinutesSeconds(seconds: count)
+        let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
+        timeLabel.text = timeString
+    
+    }
+    
+    func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int)
+    {
+        return ((seconds / 3600), ((seconds % 3600) / 60),((seconds % 3600) % 60))
+    }
+    
+    func makeTimeString(hours: Int, minutes: Int, seconds : Int) -> String
+    {
+        var timeString = ""
+        timeString += String(format: "%02d", hours)
+        timeString += ":"
+        timeString += String(format: "%02d", minutes)
+        timeString += ":"
+        timeString += String(format: "%02d", seconds)
+        return timeString
+    }
+    
+    
     
     private func defineTargetNode() {
         if statusManager.getStatusProp(key: "currentTrackId") != track.id {//some error go to main
+            // TODO: manage error and exit
             }
         if statusManager.getStatusProp(key: "nextNodeId") == nil {
             currentNode = track.Nodes.first!
@@ -96,6 +133,12 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         let circle = MKCircle(center: nodePin.coordinate, radius: 10)
             mapView.addOverlay(circle)
     }
+
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        updateLocationOnMap()
+        checkIsInsideNode()
+    }
     
     private func updateLocationOnMap() {
         let region = locationManager.calculateRegion()
@@ -103,26 +146,34 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         mapView.showsUserLocation = true
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        updateLocationOnMap()
-            
+    private func checkIsInsideNode() {
         let currentLocation = locationManager.locationManager.location
-            let center = CLLocation(latitude: currentNode!.lat, longitude: currentNode!.long)
-            let distance = currentLocation!.distance(from: center)
-            print("distanza: \(distance)")
-            // Definisci il raggio del cerchio (10 metri)
-            let radius: CLLocationDistance = 10.0
-            
-            // Verifica se la distanza è inferiore al raggio
-            if distance <= radius {
-                // La posizione attuale è all'interno del cerchio
-                insideNode()
-            }
-        
+        let center = CLLocation(latitude: currentNode!.lat, longitude: currentNode!.long)
+        let distance = Int(round(currentLocation!.distance(from: center)))
+        print("distanza: \(distance)")
+        distanceLabel.text = "\(distance)m"
+        //let radius: CLLocationDistance = 10.0
+        let radius = 10
+        if distance <= radius {
+            distanceLabel.text = "0m"
+            insideNode()
+        } else {
+            distanceLabel.text = "\(distance-10)m"
+        }
     }
-    
+
     private func insideNode(){
         print("INSIDE NODE!")
+        if isStart {
+            startGame()
+        }
+    }
+    
+    private func startGame(){
+        statusManager.printAll()
+        print("StartGame!")
+        statusManager.setStartTimeNow()
+        statusManager.printAll()
     }
     
 
@@ -134,7 +185,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
      func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
          if let circleOverlay = overlay as? MKCircle {
              let circleRenderer = MKCircleRenderer(overlay: circleOverlay)
-             circleRenderer.fillColor = UIColor.blue.withAlphaComponent(0.3) // Colore e opacità del cerchio
+             circleRenderer.fillColor = UIColor.blue.withAlphaComponent(0.3)
              circleRenderer.strokeColor = UIColor.blue
              circleRenderer.lineWidth = 1
              return circleRenderer
@@ -150,8 +201,10 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
 
     @objc func back(_ sender: UIBarButtonItem?) {
         navigationItem.hidesBackButton = true
-        let ac = UIAlertController(title: "Annullare la gara in corso?", message: nil, preferredStyle: .alert)
+        let ac = UIAlertController(title: "Annullare la gara in corso? Questa azione cancellerà tutti i tuoi progressi", message: nil, preferredStyle: .alert)
         let yes = UIAlertAction(title: "Si", style: .destructive, handler: { action in
+            self.statusManager.resetStatus()
+            self.statusManager.printAll()
             self.navigationController?.popViewController(animated: true)
         })
         let no = UIAlertAction(title: "No", style: .default, handler: nil)

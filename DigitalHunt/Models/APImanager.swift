@@ -8,8 +8,8 @@
 import Foundation
 import FirebaseFirestore
 
-class TrackAPIManager2 {
-    static let shared = TrackAPIManager2()
+class TrackAPIManager {
+    static let shared = TrackAPIManager()
     
     private init() {}
     
@@ -29,7 +29,8 @@ class TrackAPIManager2 {
             if let name = data["name"] as? String, // Verifica se "name" è una stringa
                let desc =  data["desc"] as? String,
                let isKid = data["isKid"] as? Bool,
-               let isQuiz = data["isQuiz"] as? Bool {
+               let isQuiz = data["isQuiz"] as? Bool,
+               let idNodes = data["idNodes"] as? [String], idNodes.count >= 2 {  //per essere valido, il track deve avere almeno un inizio e un arrivo.
                
                 let id = document.documentID
                 let idNodes = data["idNodes"] as? [String] ?? [] // Leggi l'array "idNodes" con un valore predefinito vuoto

@@ -5,6 +5,9 @@
 //  Created by Dave Stops on 17/10/23.
 //
 
+// #TODO: Gestire altri casi di autorizzazione location, anche durante game, compreso perdita segnale
+
+
 import UIKit
 
 class TracksTableViewController: UITableViewController {
@@ -13,16 +16,16 @@ class TracksTableViewController: UITableViewController {
     var trackNames :[String] = []
     let statusManager = StatusManager.shared
 
-    
-    //NB AGGINUGERE CHECK PRESENZA ALMENO 2 NODI o non visualizza track
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("#############")
+        print("# APP START #")
+        print("#############")
         
         // Creare un'istanza del TrackAPIManager
-                let trackAPIManager = TrackAPIManager2.shared
+        let trackAPIManager = TrackAPIManager.shared
                 
-                // Eseguire l'operazione asincrona all'interno del blocco "async"
+        // Eseguire l'operazione asincrona all'interno del blocco "async"
         Task {
             do {
                 let tracks = try await trackAPIManager.getAllTracks()
@@ -43,13 +46,6 @@ class TracksTableViewController: UITableViewController {
         
         print("currentTrack: \(statusManager.getStatusProp(key: "currentTrackId"))")
         
-        //locationManager.requestAuthorization()
-        
-        
-        
-        //tracks = ["Alfoso","Beatrice","Carletto","Dante"]
-        //sostituire con chiamata a classe APImanager
-        
         tableView.reloadData() //è quella di default di tutti i tableviewcontroller
         
         
@@ -61,7 +57,8 @@ class TracksTableViewController: UITableViewController {
     }
     
     private func checkStatus() {
-        //se non nullo, va a mappa con track giusta
+        statusManager.printAll()
+        // #TODO: se non nullo, va a mappa con track giusta
     }
 
     // MARK: - Table view data source

@@ -27,10 +27,6 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.requestAuthorization()
         locationManager.locationManager.startUpdatingLocation()
 
-        
-        
-        
-        
         //print("La posizione è \(location?.coordinate.latitude)")
         
         if track.isKid {
@@ -43,7 +39,6 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
             isKidIcon.isHidden = true
             isKidLabel.isHidden = true
         }
-        
         
         // Do any additional setup after loading the view.
     }
@@ -75,7 +70,8 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     private func setupLocation() {
 
         if (locationManager.locationManager.location != nil)  {
-            print("La posizione è \(locationManager.locationManager.location?.coordinate.latitude)")
+            print("Posizione Corrente (TrackDetails-didUpdateLocation): \(locationManager.locationManager.location?.coordinate.latitude) \(locationManager.locationManager.location?.coordinate.latitude)")
+            //print("La posizione è \(locationManager.locationManager.location?.coordinate.latitude)")
             calculateDistanceFromHere()
         } else {
             print("Non ho trovato posizione")
@@ -104,12 +100,12 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     // CLLocationManagerDelegate methods
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("sono in didUpdateLcoation")
+        //print("sono in didUpdateLcoation")
         setupLocation()
     }
  
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("Checcko")
+        print("Controllo Autorizzazioni Location (TrackDetails)")
         locationManager.checkLocationAuthorization()
         
     }

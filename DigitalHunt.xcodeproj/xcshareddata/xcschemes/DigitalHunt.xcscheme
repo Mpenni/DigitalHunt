@@ -63,7 +63,7 @@
          </EnvironmentVariable>
       </EnvironmentVariables>
       <LocationScenarioReference
-         identifier = "../../../../Downloads/new (4).gpx"
+         identifier = "../../../../Desktop/1.gpx"
          referenceType = "0">
       </LocationScenarioReference>
    </LaunchAction>
