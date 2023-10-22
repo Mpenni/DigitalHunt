@@ -27,14 +27,14 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     func requestAuthorization() {  // lo lascio qua per eventuale riuso o aggiunta operazioni in questa fase
         locationManager.requestWhenInUseAuthorization()
     }
-
+/*
     func calculateDistance(to destinationLocation: CLLocation) -> CLLocationDistance? {
         if locationManager.location != nil {
             return locationManager.location!.distance(from: destinationLocation)
         }
         return nil
     }
-
+*/
     func checkLocationAuthorization() {
      
       switch locationManager.authorizationStatus {
@@ -60,6 +60,12 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
         let coordinates : CLLocationCoordinate2D = locationManager.location!.coordinate
         let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         return MKCoordinateRegion(center: coordinates, span: spanDegree)
+    }
+    
+    func calculateDistanceFromHere(lat: Double, long: Double) -> Int {
+        let destinationLocation = CLLocation(latitude: lat, longitude: long)
+        let distance = locationManager.location?.distance(from: destinationLocation)
+        return Int(distance ?? -1)
     }
     
     // CLLocationManagerDelegate methods

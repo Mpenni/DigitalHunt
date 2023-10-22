@@ -20,21 +20,17 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     var track = Track() //??
     let locationManager = DHLocationManager.shared
     let statusManager = StatusManager.shared
-    var currentNode :Node?
+    let timeManager = TimeManager.shared
+    var currentNode :Node?  //#TODO non è meglio usare solo track.nodes[currentNodeIndex]?
     var isStart :Bool = false
     var isEnd :Bool = false
-    
-    var timer:Timer = Timer()
-    var count:Int = 0
-    var timerCounting = false
-   
-    //let mapView = MKMapView()
-
+    var distance: Int = -1
+       
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         self.title = track.name
-        statusManager.setStatusProp(key: "currentTrackId", value: track.id)
+        statusManager.setStatusPropString(key: "currentTrackId", value: track.id)
         statusManager.printAll()
         setupBackButton()
         locationManager.locationManager.delegate = self
@@ -45,48 +41,22 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         drawMarker()
         checkIsInsideNode()
         
-        //#TODO: Gestire Time fuori da qua
-        timerCounting = true
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+        timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}
     }
-    
-    @objc func timerCounter() -> Void
-    {
-        count = count + 1
-        let time = secondsToHoursMinutesSeconds(seconds: count)
-        let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
-        timeLabel.text = timeString
-    
-    }
-    
-    func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int)
-    {
-        return ((seconds / 3600), ((seconds % 3600) / 60),((seconds % 3600) % 60))
-    }
-    
-    func makeTimeString(hours: Int, minutes: Int, seconds : Int) -> String
-    {
-        var timeString = ""
-        timeString += String(format: "%02d", hours)
-        timeString += ":"
-        timeString += String(format: "%02d", minutes)
-        timeString += ":"
-        timeString += String(format: "%02d", seconds)
-        return timeString
-    }
-    
-    
     
     private func defineTargetNode() {
-        if statusManager.getStatusProp(key: "currentTrackId") != track.id {//some error go to main
+        if statusManager.getStatusPropString(key: "currentTrackId") != track.id {//some error go to main
             // TODO: manage error and exit
             }
-        if statusManager.getStatusProp(key: "nextNodeId") == nil {
-            currentNode = track.Nodes.first!
-            statusManager.setStatusProp(key: "nextNodeId", value: currentNode!.id)
-            } else if statusManager.getStatusProp(key: "nextNodeId") != nil {
-            currentNode = track.Nodes.first(where: { $0.id == statusManager.getStatusProp(key: "nextNodeId")})!
-            } else {
+        if statusManager.getStatusPropInt(key: "currentNodeIndex") == nil {
+            // non c'è in status currentNode
+            currentNode = track.getCurrentNode()
+            //currentNode = track.Nodes.first!
+            statusManager.setStatusPropInt(key: "currentNodeIndex", value: track.currentNodeIndex)
+        } else if statusManager.getStatusPropInt(key: "currentNodeIndex") != nil {
+            // c'è in status currentNode
+            currentNode = track.Nodes[statusManager.getStatusPropInt(key: "currentNodeIndex")!]
+        } else {
             //some error go to main
             }
         if currentNode == nil {
@@ -147,6 +117,20 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     private func checkIsInsideNode() {
+        let radius = 10
+        distance = locationManager.calculateDistanceFromHere(lat: currentNode!.lat, long: currentNode!.long)
+        if distance < 0 {
+            distanceLabel.text = "-nd-"
+        } else if distance <= radius {
+            distanceLabel.text = "0m"
+            insideNode()
+        } else {
+            distanceLabel.text = "\(distance-10)m"
+        }
+    }
+    /*
+    
+    private func checkIsInsideNode2() {
         let currentLocation = locationManager.locationManager.location
         let center = CLLocation(latitude: currentNode!.lat, longitude: currentNode!.long)
         let distance = Int(round(currentLocation!.distance(from: center)))
@@ -161,19 +145,28 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             distanceLabel.text = "\(distance-10)m"
         }
     }
-
+*/
     private func insideNode(){
         print("INSIDE NODE!")
+        if isEnd {
+            endGame()
+        } else
         if isStart {
             startGame()
         }
+        // l'incremento dell'index node lo faccio al termine del quiz
     }
     
     private func startGame(){
         statusManager.printAll()
         print("StartGame!")
         statusManager.setStartTimeNow()
+        timeManager.startTimer()
         statusManager.printAll()
+    }
+    
+    private func endGame() {
+        print("EndGame!")
     }
     
 

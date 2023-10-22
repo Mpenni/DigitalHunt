@@ -18,16 +18,24 @@ class StatusManager {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     }
     
-    func setStatusProp(key: String, value: String) {
+    func setStatusPropString(key: String, value: String) {
         UserDefaults.standard.set(value, forKey: key)
     }
-    
-    func getStatusProp(key: String) -> String? {
+
+    func setStatusPropInt(key: String, value: Int) {
+        UserDefaults.standard.set(value, forKey: key)
+    }
+
+    func getStatusPropString(key: String) -> String? {
         UserDefaults.standard.string(forKey: key)
+    }
+
+    func getStatusPropInt(key: String) -> Int? {
+        UserDefaults.standard.integer(forKey: key)
     }
     
     func resetStatus() {
-        for k in ["currentTrackId", "nextNodeId", "startTime"] {
+        for k in ["currentTrackId", "currentNodeIndex", "startTime"] {
         UserDefaults.standard.set(nil, forKey: k)
         }
     }
@@ -35,12 +43,14 @@ class StatusManager {
     func setStartTimeNow() {
         let currentDateTime = Date()
         let formattedDate = dateFormatter.string(from: currentDateTime)
-        setStatusProp(key: "startTime", value: formattedDate)
+        setStatusPropString(key: "startTime", value: formattedDate)
     }
     
     func printAll() {
-        for k in ["currentTrackId", "nextNodeId", "startTime"] {
-            if let value = getStatusProp(key: k) {
+        for k in ["currentTrackId", "currentNodeIndex", "startTime"] {
+            if let value = getStatusPropString(key: k) {
+                print("\(k): \(value)")
+            } else if let value = getStatusPropInt(key: k) {
                 print("\(k): \(value)")
             } else {
                 print("\(k): not set")

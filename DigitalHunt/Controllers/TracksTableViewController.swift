@@ -6,6 +6,15 @@
 //
 
 // #TODO: Gestire altri casi di autorizzazione location, anche durante game, compreso perdita segnale
+// #TODO: popolare track
+// #TODO: creare percorsi simulatore
+// #TODO: gestione record
+// #TODO: LABEL scheduledTime
+// #TODO: gestione se scheduled con check time
+// #TODO: creazione classe GameController?
+// #TODO: BIG: QUIZ
+// #TODO: BIG: QRCODESCANNER
+// #TODO: BIG: DOCUMENTAZIONE
 
 
 import UIKit
@@ -44,7 +53,7 @@ class TracksTableViewController: UITableViewController {
         }
         checkStatus()
         
-        print("currentTrack: \(statusManager.getStatusProp(key: "currentTrackId"))")
+        print("currentTrack: \(statusManager.getStatusPropString(key: "currentTrackId"))")
         
         tableView.reloadData() //è quella di default di tutti i tableviewcontroller
         

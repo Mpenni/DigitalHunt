@@ -121,7 +121,7 @@
                                     <action selector="startGameAction:" destination="7Xv-vz-o2N" eventType="touchUpInside" id="cht-Xz-AIp"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="g1a-LL-mti">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" editable="NO" textAlignment="justified" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g1a-LL-mti">
                                 <rect key="frame" x="18" y="131" width="357" height="216"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>

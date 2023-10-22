@@ -20,6 +20,7 @@
 		EE5C5ED72AE3077D00EE601B /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED62AE3077D00EE601B /* LocationManager.swift */; };
 		EE5C5EDA2AE4123C00EE601B /* StatusManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5ED92AE4123C00EE601B /* StatusManager.swift */; };
 		EE5C5EDC2AE50B3E00EE601B /* APImanager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5EDB2AE50B3E00EE601B /* APImanager.swift */; };
+		EE5C5EDE2AE558BB00EE601B /* TimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5C5EDD2AE558BB00EE601B /* TimeManager.swift */; };
 		EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE7C00EB2AE18D890054A2B3 /* Node.swift */; };
 		EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */; };
 		EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */; };
@@ -45,6 +46,7 @@
 		EE5C5ED62AE3077D00EE601B /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		EE5C5ED92AE4123C00EE601B /* StatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusManager.swift; sourceTree = "<group>"; };
 		EE5C5EDB2AE50B3E00EE601B /* APImanager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APImanager.swift; sourceTree = "<group>"; };
+		EE5C5EDD2AE558BB00EE601B /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
 		EE7C00EB2AE18D890054A2B3 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */,
 				EE5C5ED62AE3077D00EE601B /* LocationManager.swift */,
 				EE5C5ED92AE4123C00EE601B /* StatusManager.swift */,
+				EE5C5EDD2AE558BB00EE601B /* TimeManager.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 			files = (
 				EE54DD512ADF242E00DEBA4D /* ViewController.swift in Sources */,
 				EE5C5ED52AE1DDA300EE601B /* HuntMapViewController.swift in Sources */,
+				EE5C5EDE2AE558BB00EE601B /* TimeManager.swift in Sources */,
 				EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */,
 				EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */,
 				EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */,

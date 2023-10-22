@@ -12,6 +12,7 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     
     var track = Track()
     let locationManager = DHLocationManager.shared
+    var distance :Int = -1
 
     //var location : CLLocation?
     
@@ -81,6 +82,17 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func calculateDistanceFromHere() {
+        distance = locationManager.calculateDistanceFromHere(lat: track.Nodes.first!.lat, long: track.Nodes.first!.long)
+        if distance >= 0 {
+            distanceLabel.text = "La distanza dalla tua posizione attuale al percorso è di \(distance) metri"
+        } else {
+            distanceLabel.text = "Posizione attuale non disponibile o nessun nodo disponibile per calcolare la distanza."
+        }
+        
+    }
+    
+    /*
+    func calculateDistanceFromHere2() {
         //print("LM: \(locationManager.locationManager.location)")
         //print("FN: \(track.Nodes.first)")
         if let sourceLocation = locationManager.locationManager.location, let firstNode = track.Nodes.first {
@@ -95,7 +107,10 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         } else {
             distanceLabel.text = "Posizione attuale non disponibile o nessun nodo disponibile per calcolare la distanza."
         }
+     */
     }
+    
+    
     
     // CLLocationManagerDelegate methods
 

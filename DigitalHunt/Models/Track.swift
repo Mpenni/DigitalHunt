@@ -44,4 +44,12 @@ class Track {
         
     }
     
+    func getCurrentNode() -> Node? {
+        if currentNodeIndex >= 0, currentNodeIndex < Nodes.count {
+            return Nodes[currentNodeIndex]
+        } else {
+            return nil
+        }
+    }
+    
 }
