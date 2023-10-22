@@ -22,7 +22,7 @@ class Track {
         self.id = ""
         self.name = ""
         self.desc = ""
-        self.Nodes = []
+        self.Nodes = []  // NON VA MINUSCOLO?!?
         self.isKid = false
         self.isQuiz = false
         self.currentNodeIndex = 0
@@ -51,5 +51,14 @@ class Track {
             return nil
         }
     }
+    
+    func checkIsStartNode() -> Bool {
+        return currentNodeIndex == 0
+    }
+    
+    func checkIsEndNode() -> Bool {
+        return currentNodeIndex == Nodes.count - 1
+    }
+    
     
 }

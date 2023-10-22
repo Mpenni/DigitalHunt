@@ -47,6 +47,7 @@
 		EE5C5ED92AE4123C00EE601B /* StatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusManager.swift; sourceTree = "<group>"; };
 		EE5C5EDB2AE50B3E00EE601B /* APImanager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APImanager.swift; sourceTree = "<group>"; };
 		EE5C5EDD2AE558BB00EE601B /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
+		EE5C5EE02AE5763600EE601B /* 1_0.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = 1_0.gpx; sourceTree = "<group>"; };
 		EE7C00EB2AE18D890054A2B3 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		EE54DD4B2ADF242E00DEBA4D /* DigitalHunt */ = {
 			isa = PBXGroup;
 			children = (
+				EE5C5EDF2AE572E700EE601B /* GPXforSimulateLocation */,
 				EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */,
 				EE884A072ADF37C3007D92C2 /* Models */,
 				EE884A042ADF3157007D92C2 /* Controllers */,
@@ -108,6 +110,14 @@
 				EE54DD552ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld */,
 			);
 			path = DigitalHunt;
+			sourceTree = "<group>";
+		};
+		EE5C5EDF2AE572E700EE601B /* GPXforSimulateLocation */ = {
+			isa = PBXGroup;
+			children = (
+				EE5C5EE02AE5763600EE601B /* 1_0.gpx */,
+			);
+			path = GPXforSimulateLocation;
 			sourceTree = "<group>";
 		};
 		EE884A042ADF3157007D92C2 /* Controllers */ = {

@@ -107,9 +107,9 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         } else {
             distanceLabel.text = "Posizione attuale non disponibile o nessun nodo disponibile per calcolare la distanza."
         }
-     */
+  
     }
-    
+     */
     
     
     // CLLocationManagerDelegate methods

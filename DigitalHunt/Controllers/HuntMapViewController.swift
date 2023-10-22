@@ -17,6 +17,10 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     
     @IBOutlet weak var timeLabel: UILabel!
     
+    @IBOutlet weak var legLabel: UILabel!
+    
+    @IBOutlet weak var infoLabel: UILabel!
+    
     var track = Track() //??
     let locationManager = DHLocationManager.shared
     let statusManager = StatusManager.shared
@@ -24,6 +28,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     var currentNode :Node?  //#TODO non è meglio usare solo track.nodes[currentNodeIndex]?
     var isStart :Bool = false
     var isEnd :Bool = false
+    var coordinates : CLLocationCoordinate2D?
     var distance: Int = -1
        
     override func viewDidLoad() {
@@ -35,14 +40,31 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         setupBackButton()
         locationManager.locationManager.delegate = self
         locationManager.locationManager.startUpdatingLocation()
-        updateLocationOnMap()
+        
+        //updateLocationOnMap()
+        loadMap()
+        
         defineTargetNode()
         checkIsSpecialNode()
+        updateLabels()
         drawMarker()
         checkIsInsideNode()
         
         timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}
     }
+    
+    private func loadMap() {
+        guard let userLocation = locationManager.locationManager.location else {
+                print("Posizione non disponibile.")
+                return
+        }
+        coordinates = locationManager.locationManager.location!.coordinate
+        let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: coordinates!, span: spanDegree)
+        mapView.setRegion(region, animated: true)
+        mapView.showsUserLocation = true
+    }
+    
     
     private func defineTargetNode() {
         if statusManager.getStatusPropString(key: "currentTrackId") != track.id {//some error go to main
@@ -64,7 +86,15 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         }
     }
     
-    func checkIsSpecialNode() {
+    private func checkIsSpecialNode() {
+        isStart = track.checkIsStartNode()
+        isEnd = track.checkIsEndNode()
+        print("isStart \(isStart)")
+        print("isEnd \(isEnd)")        
+    }
+    
+    /*
+    func checkIsSpecialNode2() {
         if let firstNode = track.Nodes.first, let lastNode = track.Nodes.last {
             if currentNode!.id == firstNode.id {
                 isStart = true
@@ -85,7 +115,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             isEnd = false
             // error go to main
         }
-    }
+    } */
     
     private func drawMarker() {
         let nodePin = MKPointAnnotation()
@@ -103,6 +133,15 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         let circle = MKCircle(center: nodePin.coordinate, radius: 10)
             mapView.addOverlay(circle)
     }
+    
+    private func updateLabels() {
+        legLabel.text = "\(track.currentNodeIndex) di \(track.Nodes.count)"
+        if track.currentNodeIndex == 0 {
+            infoLabel.text = "Procedi verso l'area 'INIZIO'"
+        } else {
+            infoLabel.text = "Procedi verso la prossima area'"
+        }
+    }
 
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -111,9 +150,12 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     private func updateLocationOnMap() {
-        let region = locationManager.calculateRegion()
-        mapView.setRegion(region, animated: true)
-        mapView.showsUserLocation = true
+        guard let userLocation = locationManager.locationManager.location else {
+                print("Posizione non disponibile.")
+                return
+        }
+        coordinates = locationManager.locationManager.location!.coordinate
+        mapView.setCenter(coordinates!, animated: true)
     }
     
     private func checkIsInsideNode() {
