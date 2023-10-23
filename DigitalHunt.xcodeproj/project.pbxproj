@@ -26,6 +26,10 @@
 		EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */; };
 		EEE265752AE05959003E6DFD /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE265742AE05959003E6DFD /* Track.swift */; };
 		EEE265772AE05C62003E6DFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */; };
+		EEF889572AE6FA6B0020DB72 /* TriviaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889562AE6FA6B0020DB72 /* TriviaResponse.swift */; };
+		EEF889592AE6FABA0020DB72 /* TriviaQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889582AE6FABA0020DB72 /* TriviaQuestion.swift */; };
+		EEF8895C2AE6FBEE0020DB72 /* TriviaAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8895B2AE6FBEE0020DB72 /* TriviaAPIManager.swift */; };
+		EEF8895E2AE6FC8A0020DB72 /* TriviaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8895D2AE6FC8A0020DB72 /* TriviaController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +57,10 @@
 		EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		EEE265742AE05959003E6DFD /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EEF889562AE6FA6B0020DB72 /* TriviaResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaResponse.swift; sourceTree = "<group>"; };
+		EEF889582AE6FABA0020DB72 /* TriviaQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaQuestion.swift; sourceTree = "<group>"; };
+		EEF8895B2AE6FBEE0020DB72 /* TriviaAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaAPIManager.swift; sourceTree = "<group>"; };
+		EEF8895D2AE6FC8A0020DB72 /* TriviaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriviaController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +105,7 @@
 		EE54DD4B2ADF242E00DEBA4D /* DigitalHunt */ = {
 			isa = PBXGroup;
 			children = (
+				EEF8895A2AE6FB950020DB72 /* APIManager */,
 				EE5C5EDF2AE572E700EE601B /* GPXforSimulateLocation */,
 				EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */,
 				EE884A072ADF37C3007D92C2 /* Models */,
@@ -125,6 +134,7 @@
 			children = (
 				EE884A0A2ADF38B6007D92C2 /* TableViewCells */,
 				EE54DD502ADF242E00DEBA4D /* ViewController.swift */,
+				EEF8895D2AE6FC8A0020DB72 /* TriviaController.swift */,
 				EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */,
 				EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */,
 				EE5C5ED42AE1DDA300EE601B /* HuntMapViewController.swift */,
@@ -140,7 +150,8 @@
 			children = (
 				EEE265742AE05959003E6DFD /* Track.swift */,
 				EE7C00EB2AE18D890054A2B3 /* Node.swift */,
-				EE5C5EDB2AE50B3E00EE601B /* APImanager.swift */,
+				EEF889562AE6FA6B0020DB72 /* TriviaResponse.swift */,
+				EEF889582AE6FABA0020DB72 /* TriviaQuestion.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -151,6 +162,15 @@
 				EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */,
 			);
 			path = TableViewCells;
+			sourceTree = "<group>";
+		};
+		EEF8895A2AE6FB950020DB72 /* APIManager */ = {
+			isa = PBXGroup;
+			children = (
+				EE5C5EDB2AE50B3E00EE601B /* APImanager.swift */,
+				EEF8895B2AE6FBEE0020DB72 /* TriviaAPIManager.swift */,
+			);
+			path = APIManager;
 			sourceTree = "<group>";
 		};
 		F9FC5C1356FE2882A9D6277A /* Frameworks */ = {
@@ -279,16 +299,20 @@
 			files = (
 				EE54DD512ADF242E00DEBA4D /* ViewController.swift in Sources */,
 				EE5C5ED52AE1DDA300EE601B /* HuntMapViewController.swift in Sources */,
+				EEF889592AE6FABA0020DB72 /* TriviaQuestion.swift in Sources */,
+				EEF8895C2AE6FBEE0020DB72 /* TriviaAPIManager.swift in Sources */,
 				EE5C5EDE2AE558BB00EE601B /* TimeManager.swift in Sources */,
 				EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */,
 				EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */,
 				EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */,
 				EEE265752AE05959003E6DFD /* Track.swift in Sources */,
 				EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */,
+				EEF8895E2AE6FC8A0020DB72 /* TriviaController.swift in Sources */,
 				EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */,
 				EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */,
 				EE5C5EDC2AE50B3E00EE601B /* APImanager.swift in Sources */,
 				EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */,
+				EEF889572AE6FA6B0020DB72 /* TriviaResponse.swift in Sources */,
 				EE5C5ED72AE3077D00EE601B /* LocationManager.swift in Sources */,
 				EE5C5EDA2AE4123C00EE601B /* StatusManager.swift in Sources */,
 			);

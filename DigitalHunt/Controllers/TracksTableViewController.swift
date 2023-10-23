@@ -12,6 +12,7 @@
 // #TODO: LABEL scheduledTime
 // #TODO: gestione se scheduled con check time
 // #TODO: creazione classe GameController?
+// #TODO: rename APImanager in TrackAPImanager
 // #TODO: BIG: QUIZ
 // #TODO: BIG: QRCODESCANNER
 // #TODO: BIG: DOCUMENTAZIONE

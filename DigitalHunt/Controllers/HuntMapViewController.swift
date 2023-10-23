@@ -205,6 +205,10 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             startGame()
         }
         //per scopi di debug:
+        self.performSegue(withIdentifier: "toQuizView", sender: track)
+
+        
+        
         //currentNode = track.changeNode()
         //print("Curren Node inddex: \(track.currentNodeIndex)")
         //drawAreaInMap()
