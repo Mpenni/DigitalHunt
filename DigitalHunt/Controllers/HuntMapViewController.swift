@@ -44,11 +44,8 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         //updateLocationOnMap()
         loadMap()
         
-        defineTargetNode()
-        checkIsSpecialNode()
-        updateLabels()
-        drawMarker()
-        checkIsInsideNode()
+        drawAreaInMap()
+
         
         timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}
     }
@@ -64,6 +61,15 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         mapView.setRegion(region, animated: true)
         mapView.showsUserLocation = true
     }
+    
+    private func drawAreaInMap() {
+        defineTargetNode()
+        checkIsSpecialNode()
+        updateLabels()
+        drawMarker()
+        checkIsInsideNode()
+    }
+    
     
     
     private func defineTargetNode() {
@@ -190,12 +196,18 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
 */
     private func insideNode(){
         print("INSIDE NODE!")
+        infoLabel.text = "Hai raggiunto la destinazione"  //x debug
         if isEnd {
             endGame()
+            return
         } else
         if isStart {
             startGame()
         }
+        //per scopi di debug:
+        //currentNode = track.changeNode()
+        //print("Curren Node inddex: \(track.currentNodeIndex)")
+        //drawAreaInMap()
         // l'incremento dell'index node lo faccio al termine del quiz
     }
     

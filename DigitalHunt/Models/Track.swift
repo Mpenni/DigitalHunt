@@ -14,7 +14,7 @@ class Track {
     let Nodes: [Node]
     let isKid: Bool
     let isQuiz: Bool
-    let currentNodeIndex: Int
+    var currentNodeIndex: Int
     let scheduledStart: Date?
     let scheduledEnd: Date?
     
@@ -58,6 +58,11 @@ class Track {
     
     func checkIsEndNode() -> Bool {
         return currentNodeIndex == Nodes.count - 1
+    }
+    
+    func changeNode() -> Node {
+        currentNodeIndex += 1
+        return Nodes[currentNodeIndex]
     }
     
     
