@@ -16,9 +16,7 @@ class TimeManager {
     var timerCounting = false  //mi serve?
     var updateHandler: ((String) -> Void)?
     let statusManager = StatusManager.shared
-    
-    //#TODO: far partire timer se esiste già uno startGame
-    
+        
     private init() {
     }
     

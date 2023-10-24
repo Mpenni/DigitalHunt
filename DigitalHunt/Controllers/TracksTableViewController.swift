@@ -10,12 +10,12 @@
 // #TODO: creare percorsi simulatore
 // #TODO: gestione record
 // #TODO: LABEL scheduledTime
-// #TODO: gestione se scheduled con check time
-// #TODO: creazione classe GameController?
+// #TODO: gestione se scheduled con check time e inibile bottone
 // #TODO: rename APImanager in TrackAPImanager
-// #TODO: BIG: QUIZ
+// #TODO: BIG: QUIZ in progress
 // #TODO: BIG: QRCODESCANNER
 // #TODO: BIG: DOCUMENTAZIONE
+// #TODO: help in game
 
 
 import UIKit

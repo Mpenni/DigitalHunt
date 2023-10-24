@@ -30,6 +30,7 @@ class TriviaController: UIViewController {
     }
     
     override func viewDidLoad() {
+        print("sono in TriviaController!")
         super.viewDidLoad()
         self.title = "QUIZ per Tappa \(track.currentNodeIndex+1)"
         qAns03.setTitle("UFFA!", for: .normal)
@@ -44,11 +45,13 @@ class TriviaController: UIViewController {
                 //aggiungere metodo che pesca domande da json
             } else if let questions = fetchedTriviaQuestions {
                 self.triviaQuestions = questions
+                /*/
                 for question in questions {
                     print("Categoria: \(question.category)")
                     print("Domanda: \(question.question)")
                     print("Risposta corretta: \(question.correct_answer)")
                 }
+                 */
                 self.populateView()
                 
             }
@@ -62,8 +65,8 @@ class TriviaController: UIViewController {
             //fai metodo next question che verifica se la domanda è lìultima
             self.currentQuestion = self.triviaQuestions?[self.currentQuestionIndex]
             
-            print("CurrentQuestionText: \(currentQuestion?.question)")
-            self.qNumber.text = "Domanda \(self.currentQuestionIndex + 1) di \(triviaQuestions?.count)"
+            //print("CurrentQuestionText: \(currentQuestion?.question)")
+            self.qNumber.text = "Domanda \(self.currentQuestionIndex + 1) di \(triviaQuestions!.count)"
             self.qCategory.text = decode(from: currentQuestion!.category)
             self.qText.text = decode(from: currentQuestion!.question)
             populateButtons()
@@ -95,12 +98,13 @@ class TriviaController: UIViewController {
         qAns03.addTarget(self, action: #selector(handleAnswer), for: .touchUpInside)
         qAns04.addTarget(self, action: #selector(handleAnswer), for: .touchUpInside)
         
+        /*
         // Imposta il tag dei bottoni in base alla posizione della risposta corretta
         qAns01.tag = 0
         qAns02.tag = 1
         qAns03.tag = 2
         qAns04.tag = 3
-        
+        */
         
     }
     
@@ -109,6 +113,7 @@ class TriviaController: UIViewController {
         let selectedAnswer = sender.titleLabel?.text
         if selectedAnswer == currentQuestion?.correct_answer {
             print("Risposta GIUSTA!")
+            navigationController?.popViewController(animated: true)
             populateView()
             // Gestisci la risposta corretta
         } else {

@@ -25,32 +25,54 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     let locationManager = DHLocationManager.shared
     let statusManager = StatusManager.shared
     let timeManager = TimeManager.shared
-    var currentNode :Node?  //#TODO non è meglio usare solo track.nodes[currentNodeIndex]?
-    var isStart :Bool = false
-    var isEnd :Bool = false
-    var coordinates : CLLocationCoordinate2D?
+    var currentNode: Node?  //#TODO non è meglio usare solo track.nodes[currentNodeIndex]?
+    var isStart: Bool = false
+    var isEnd: Bool = false
+    var coordinates :CLLocationCoordinate2D?
     var distance: Int = -1
+    var userIsInsideNode : Bool = false
+    var areaCircle: MKCircle?
+    var nodePin: MKPointAnnotation?
        
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
         self.title = track.name
         statusManager.setStatusPropString(key: "currentTrackId", value: track.id)
-        statusManager.printAll()
         setupBackButton()
         locationManager.locationManager.delegate = self
         locationManager.locationManager.startUpdatingLocation()
         
         //updateLocationOnMap()
-        loadMap()
-        
-        drawAreaInMap()
-
         
         timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}
+        print("finedidload")
     }
     
-    private func loadMap() {
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        userIsInsideNode = false
+        print("inizioDidAppera")
+        print("NODOOOOO! \(currentNode?.name)")
+        print("track.currennodeindex= \(track.currentNodeIndex)")
+        currentNode = track.changeNode()
+        statusManager.setStatusPropInt(key: "currentNodeIndex", value: track.currentNodeIndex)
+        //incrementare status
+        print("NODOOOOO! \(currentNode?.name)")
+        print("track.currennodeindex= \(track.currentNodeIndex)")
+        print("LAT in DIDAPPEAR \(currentNode?.lat)")
+        statusManager.printAll()
+        resetMarker()
+        loadUserOnMap()
+        drawAreaInMap()
+        print("fineDidAppear")
+    }
+    
+    
+    
+    
+    
+    private func loadUserOnMap() {
         guard let userLocation = locationManager.locationManager.location else {
                 print("Posizione non disponibile.")
                 return
@@ -63,6 +85,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     private func drawAreaInMap() {
+        print("start drawAreaInMap")
         defineTargetNode()
         checkIsSpecialNode()
         updateLabels()
@@ -95,49 +118,38 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     private func checkIsSpecialNode() {
         isStart = track.checkIsStartNode()
         isEnd = track.checkIsEndNode()
-        print("isStart \(isStart)")
-        print("isEnd \(isEnd)")        
+        //print("isStart \(isStart)")
+        //print("isEnd \(isEnd)")
     }
     
-    /*
-    func checkIsSpecialNode2() {
-        if let firstNode = track.Nodes.first, let lastNode = track.Nodes.last {
-            if currentNode!.id == firstNode.id {
-                isStart = true
-                isEnd = false
-                print("Il nodo corrente è la partenza!")
-            } else if currentNode!.id == lastNode.id {
-                isStart = false
-                isEnd = true
-                print("Il nodo corrente è l'arrivo!")
-            } else {
-                isStart = false
-                isEnd = false
-                print("Il nodo corrente non è importante!")
-            }
-        } else {
-            // Nessun nodo disponibile in Nodes
-            isStart = false
-            isEnd = false
-            // error go to main
-        }
-    } */
+   
     
     private func drawMarker() {
-        let nodePin = MKPointAnnotation()
-        nodePin.coordinate.latitude = currentNode!.lat
-        nodePin.coordinate.longitude = currentNode!.long
+        nodePin = MKPointAnnotation()
+        nodePin!.coordinate.latitude = currentNode!.lat
+        nodePin!.coordinate.longitude = currentNode!.long
         if isStart {
-            nodePin.title = "INIZIO"
+            nodePin!.title = "INIZIO"
         } else if isEnd {
-            nodePin.title = "FINE"
+            nodePin!.title = "FINE"
         } else {
-            nodePin.title = "TAPPA"
+            nodePin!.title = "TAPPA \(track.currentNodeIndex + 1)"
         }
         //nodePin.subtitle = "Subtitle"
-        mapView.addAnnotation(nodePin)
-        let circle = MKCircle(center: nodePin.coordinate, radius: 10)
-            mapView.addOverlay(circle)
+        mapView.addAnnotation(nodePin!)
+        areaCircle = MKCircle(center: nodePin!.coordinate, radius: 10)
+        mapView.addOverlay(areaCircle!)
+    }
+    
+    private func resetMarker() {
+        if let circle = areaCircle {
+            mapView.removeOverlay(circle)
+            areaCircle = nil
+        }
+        if let pin = nodePin {
+            mapView.removeAnnotation(pin)
+            nodePin = nil
+        }
     }
     
     private func updateLabels() {
@@ -148,9 +160,9 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             infoLabel.text = "Procedi verso la prossima area'"
         }
     }
-
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("sono in DID UPDATE LOCATION")
         updateLocationOnMap()
         checkIsInsideNode()
     }
@@ -165,37 +177,27 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     private func checkIsInsideNode() {
-        let radius = 10
-        distance = locationManager.calculateDistanceFromHere(lat: currentNode!.lat, long: currentNode!.long)
-        if distance < 0 {
-            distanceLabel.text = "-nd-"
-        } else if distance <= radius {
-            distanceLabel.text = "0m"
-            insideNode()
-        } else {
-            distanceLabel.text = "\(distance-10)m"
+        if !userIsInsideNode {
+            print("startCheckisIsnide")
+            let radius = 10
+            distance = locationManager.calculateDistanceFromHere(lat: currentNode!.lat, long: currentNode!.long)
+            print("LATITUDE \(currentNode?.lat)")
+            print("DISTANCE \(distance)")
+
+            if distance < 0 {
+                distanceLabel.text = "-nd-"
+            } else if distance <= radius {
+                distanceLabel.text = "0m"
+                insideNode()
+            } else {
+                distanceLabel.text = "\(distance-10)m"
+            }
         }
     }
-    /*
     
-    private func checkIsInsideNode2() {
-        let currentLocation = locationManager.locationManager.location
-        let center = CLLocation(latitude: currentNode!.lat, longitude: currentNode!.long)
-        let distance = Int(round(currentLocation!.distance(from: center)))
-        print("distanza: \(distance)")
-        distanceLabel.text = "\(distance)m"
-        //let radius: CLLocationDistance = 10.0
-        let radius = 10
-        if distance <= radius {
-            distanceLabel.text = "0m"
-            insideNode()
-        } else {
-            distanceLabel.text = "\(distance-10)m"
-        }
-    }
-*/
     private func insideNode(){
         print("INSIDE NODE!")
+        userIsInsideNode = true
         infoLabel.text = "Hai raggiunto la destinazione"  //x debug
         if isEnd {
             endGame()
@@ -205,8 +207,13 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             startGame()
         }
         //per scopi di debug:
-        self.performSegue(withIdentifier: "toQuizView", sender: track)
+        if track.isQuiz {
+            self.performSegue(withIdentifier: "toQuizView", sender: track)
+        } else {
+            self.performSegue(withIdentifier: "toQRCodeView", sender: track)
 
+        }
+        // se is quiz false -> lettura/inserimento QRCODE
         
         
         //currentNode = track.changeNode()
@@ -216,15 +223,16 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     private func startGame(){
-        statusManager.printAll()
+        //statusManager.printAll()
         print("StartGame!")
         statusManager.setStartTimeNow()
         timeManager.startTimer()
-        statusManager.printAll()
+        //statusManager.printAll()
     }
     
     private func endGame() {
         print("EndGame!")
+        // #TODO: stop timer
     }
     
 
@@ -264,14 +272,23 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         self.present(ac, animated: true, completion: nil)
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toQuizView" {
+            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+            let destController = segue.destination as! TriviaController // lo forzo ad essere un TrackView
+            destController.track = track
+        } else if segue.identifier == "toQRCodeView" {
+            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+            //let destController = segue.destination as! QRCodeController // lo forzo ad essere un TrackView
+            //destController.track = track
+        }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }

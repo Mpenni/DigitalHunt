@@ -38,7 +38,7 @@ class Track {
         self.Nodes = nodes
         self.isKid = isKid
         self.isQuiz = isQuiz
-        self.currentNodeIndex = 0
+        self.currentNodeIndex = -1
         self.scheduledStart = scheduledStart
         self.scheduledEnd = scheduledEnd
         
