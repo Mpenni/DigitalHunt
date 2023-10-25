@@ -66,6 +66,12 @@ class TimeManager {
         return dateFormatter.date(from: dateString)
     }
     
+    func getStringFromDate(_ date: Date) -> String? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            return dateFormatter.string(from: date)
+    }
+    
     func startCountDown(duration: Int) {
         // Imposta il timer con l'intervallo specificato (ad esempio, 60 secondi)
         self.countDownDuration = duration

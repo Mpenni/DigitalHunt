@@ -12,6 +12,7 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     
     var track = Track()
     let locationManager = DHLocationManager.shared
+    let timeManager = TimeManager.shared
     var distance :Int = -1
 
     //var location : CLLocation?
@@ -41,7 +42,11 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
             isKidLabel.isHidden = true
         }
         
-        // Do any additional setup after loading the view.
+        if !track.isQuiz {
+            populateIsNotQuiz()
+        }
+        
+        // se not game disable button if not in range
     }
     
     @IBAction func startGameAction(_ sender: Any) {
@@ -57,6 +62,13 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var isKidLabel: UILabel!
     
+    @IBOutlet weak var startLabel: UILabel!
+    
+    @IBOutlet weak var endLabel: UILabel!
+    
+    @IBOutlet weak var startLabelInfo: UILabel!
+        
+    @IBOutlet weak var endLabelInfo: UILabel!
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -66,6 +78,18 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         destController.track = track
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+    }
+    
+    private func populateIsNotQuiz(){
+        startLabelInfo.isHidden = false
+        endLabelInfo.isHidden = false
+        startLabel.isHidden = false
+        endLabel.isHidden = false
+        startLabel.text = timeManager.getStringFromDate(track.scheduledStart!)
+        endLabel.text = timeManager.getStringFromDate(track.scheduledEnd!)
+        
+        
+        
     }
     
     private func setupLocation() {

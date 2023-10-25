@@ -30,6 +30,8 @@
 		EEF889592AE6FABA0020DB72 /* TriviaQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889582AE6FABA0020DB72 /* TriviaQuestion.swift */; };
 		EEF8895C2AE6FBEE0020DB72 /* TriviaAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8895B2AE6FBEE0020DB72 /* TriviaAPIManager.swift */; };
 		EEF8895E2AE6FC8A0020DB72 /* TriviaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8895D2AE6FC8A0020DB72 /* TriviaController.swift */; };
+		EEF889612AE9AA880020DB72 /* easyQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = EEF889602AE9AA880020DB72 /* easyQuestions.json */; };
+		EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = EEF889622AE9AADD0020DB72 /* normalQuestions.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,8 @@
 		EEF889582AE6FABA0020DB72 /* TriviaQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaQuestion.swift; sourceTree = "<group>"; };
 		EEF8895B2AE6FBEE0020DB72 /* TriviaAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaAPIManager.swift; sourceTree = "<group>"; };
 		EEF8895D2AE6FC8A0020DB72 /* TriviaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriviaController.swift; sourceTree = "<group>"; };
+		EEF889602AE9AA880020DB72 /* easyQuestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = easyQuestions.json; sourceTree = "<group>"; };
+		EEF889622AE9AADD0020DB72 /* normalQuestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = normalQuestions.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,9 @@
 		EE54DD4B2ADF242E00DEBA4D /* DigitalHunt */ = {
 			isa = PBXGroup;
 			children = (
+				EEF889602AE9AA880020DB72 /* easyQuestions.json */,
+				EEF889622AE9AADD0020DB72 /* normalQuestions.json */,
+				EEF8895F2AE9A9CC0020DB72 /* SpareQuestions */,
 				EEF8895A2AE6FB950020DB72 /* APIManager */,
 				EE5C5EDF2AE572E700EE601B /* GPXforSimulateLocation */,
 				EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */,
@@ -171,6 +178,13 @@
 				EEF8895B2AE6FBEE0020DB72 /* TriviaAPIManager.swift */,
 			);
 			path = APIManager;
+			sourceTree = "<group>";
+		};
+		EEF8895F2AE9A9CC0020DB72 /* SpareQuestions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SpareQuestions;
 			sourceTree = "<group>";
 		};
 		F9FC5C1356FE2882A9D6277A /* Frameworks */ = {
@@ -241,9 +255,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */,
 				EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */,
 				EEE265772AE05C62003E6DFD /* GoogleService-Info.plist in Resources */,
 				EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */,
+				EEF889612AE9AA880020DB72 /* easyQuestions.json in Resources */,
 				EE54DD542ADF242E00DEBA4D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

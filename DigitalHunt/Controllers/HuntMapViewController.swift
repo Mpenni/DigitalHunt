@@ -196,6 +196,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     private func insideNode(){
+        //check is not quiz + SCHEDULED TIME
         print("INSIDE NODE!")
         userIsInsideNode = true
         infoLabel.text = "Hai raggiunto la destinazione"  //x debug
