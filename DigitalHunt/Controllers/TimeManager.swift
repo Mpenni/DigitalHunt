@@ -15,6 +15,8 @@ class TimeManager {
     var count:Int = 0
     var timerCounting = false  //mi serve?
     var updateHandler: ((String) -> Void)?
+    var updateHandlerCD: ((Int) -> Void)?
+    var countDownDuration:Int = 0
     let statusManager = StatusManager.shared
         
     private init() {
@@ -62,6 +64,27 @@ class TimeManager {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormatter.date(from: dateString)
+    }
+    
+    func startCountDown(duration: Int) {
+        // Imposta il timer con l'intervallo specificato (ad esempio, 60 secondi)
+        self.countDownDuration = duration
+        self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCountDown), userInfo: nil, repeats: true)
+    }
+
+    @objc func timerCountDown() {
+        // Riduci il valore di duration di 1 secondo
+        countDownDuration -= 1
+        
+        // Verifica se la durata è arrivata a zero
+        if countDownDuration < 0 {
+            // Ferma il timer
+            timer.invalidate()
+            // Notifica che il conto alla rovescia è terminato
+        } else {
+            // Aggiorna il gestore per visualizzare il nuovo valore del conto alla rovescia
+            updateHandlerCD?(countDownDuration)
+        }
     }
     
     
