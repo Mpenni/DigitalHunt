@@ -265,6 +265,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         let yes = UIAlertAction(title: "Si", style: .destructive, handler: { action in
             self.statusManager.resetStatus()
             self.statusManager.printAll()
+            self.timeManager.stopTimer()
             self.navigationController?.popViewController(animated: true)
         })
         let no = UIAlertAction(title: "No", style: .default, handler: nil)

@@ -18,11 +18,13 @@ class TimeManager {
     var updateHandlerCD: ((Int) -> Void)?
     var countDownDuration:Int = 0
     let statusManager = StatusManager.shared
+    var timerEnabled: Bool = false
         
     private init() {
     }
     
     func startTimer() {
+        timerEnabled = true
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
     }
     
@@ -39,7 +41,19 @@ class TimeManager {
 
         let time = secondsToHoursMinutesSeconds(seconds: count)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
-        updateHandler?(timeString)
+        print("update timer")
+        if timerEnabled {
+            updateHandler?(timeString)}
+        else {
+            timer.invalidate()
+            print("invalidate")
+            }
+    }
+    
+    func stopTimer() {
+        //timer.invalidate()
+        print("STOP TIMER!")
+        timerEnabled = false
     }
 
     
@@ -60,16 +74,18 @@ class TimeManager {
     }
     
 
-    func getDateFromString(_ dateString: String) -> Date? {
+    func getDateFromString(_ dateString: String?) -> Date? {
+        if dateString == nil {return nil}
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return dateFormatter.date(from: dateString)
+        return dateFormatter.date(from: dateString!)
     }
     
-    func getStringFromDate(_ date: Date) -> String? {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            return dateFormatter.string(from: date)
+    func getStringFromDate(_ date: Date?) -> String? {
+        if date == nil {return nil}
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.string(from: date!)
     }
     
     func startCountDown(duration: Int) {
@@ -92,6 +108,7 @@ class TimeManager {
             updateHandlerCD?(countDownDuration)
         }
     }
+
     
     
 }

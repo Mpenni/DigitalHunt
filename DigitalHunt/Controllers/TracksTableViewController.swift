@@ -36,8 +36,42 @@ class TracksTableViewController: UITableViewController {
         // Eseguire l'operazione asincrona all'interno del blocco "async"
         Task {
             do {
-                let tracks = try await trackAPIManager.getAllTracks()
+                
+                
+                var tracks = try await trackAPIManager.getAllTracks()
                 //trackAPIManager.printTracksData()
+                
+                for track in tracks {
+                    //print("Track ID: \(track.id)")
+                    print("Name: \(track.name)")
+                    print("Desc: \(track.desc)")
+                    print("Is Kid: \(track.isKid)")
+                    print("Is Quiz: \(track.isQuiz)")
+                    print("Is scheduledStart: \(track.scheduledStart)")
+                    print("Is scheduledEnd: \(track.scheduledEnd)")
+
+                    if !track.Nodes.isEmpty {
+                        print("Nodes:")
+                        for node in track.Nodes {
+                            //print("Node ID: \(node.id)")
+                            print("      Name: \(node.name)")
+                            print("      Latitude: \(node.lat)")
+                            print("      Longitude: \(node.long)")
+                        }
+                    } else {
+                        print("No Nodes for this track.")
+                    }
+
+                }
+                
+                print("lung \(tracks.count)" )
+                tracks = tracks.filter { track in
+                    track.Nodes.count >= 2 &&
+                    (track.isQuiz || (track.scheduledStart != nil && track.scheduledEnd != nil))
+                }
+                print("lung \(tracks.count)" )
+
+                
                 
                 // Assegna direttamente i dati delle tracce all'array tracks
                      self.tracks = tracks

@@ -10,6 +10,8 @@ import FirebaseFirestore
 
 class TrackAPIManager {
     static let shared = TrackAPIManager()
+    let timeManager = TimeManager.shared
+
     
     private init() {}
     
@@ -30,14 +32,16 @@ class TrackAPIManager {
                let desc =  data["desc"] as? String,
                let isKid = data["isKid"] as? Bool,
                let isQuiz = data["isQuiz"] as? Bool,
-               let idNodes = data["idNodes"] as? [String], idNodes.count >= 2 {  //per essere valido, il track deve avere almeno un inizio e un arrivo.
+               let idNodes = data["idNodes"] as? [String] {  //per essere valido, il track deve avere almeno un inizio e un arrivo.
                
                 let id = document.documentID
-                let idNodes = data["idNodes"] as? [String] ?? [] // Leggi l'array "idNodes" con un valore predefinito vuoto
-                let scheduledStartTimestamp = data["scheduledStart"] as? Timestamp
-                let scheduledEndTimestamp = data["scheduledEnd"] as? Timestamp
-                let scheduledStart = scheduledStartTimestamp?.dateValue()
-                let scheduledEnd = scheduledEndTimestamp?.dateValue()
+                //let idNodes = data["idNodes"] as? [String] ?? [] // Leggi l'array "idNodes" con un valore predefinito vuoto
+                let scheduledStart = timeManager.getDateFromString(data["scheduledStart"] as? String)
+                let scheduledEnd = timeManager.getDateFromString(data["scheduledEnd"] as? String)
+
+                //let scheduledEnd = data["scheduledEnd"] as? Date
+                //let scheduledStart = scheduledStartTimestamp?.dateValue()
+                //let scheduledEnd = scheduledEndTimestamp?.dateValue()
                 
                 // Qui dovresti recuperare i dati dei nodes associati ai track
                 let nodes = try await getNodesForTrack(idNodes: idNodes)

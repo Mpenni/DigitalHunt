@@ -68,6 +68,8 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var startLabelInfo: UILabel!
         
+    @IBOutlet weak var startButton: UIButton!
+    
     @IBOutlet weak var endLabelInfo: UILabel!
     // MARK: - Navigation
     
@@ -85,12 +87,26 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         endLabelInfo.isHidden = false
         startLabel.isHidden = false
         endLabel.isHidden = false
-        startLabel.text = timeManager.getStringFromDate(track.scheduledStart!)
-        endLabel.text = timeManager.getStringFromDate(track.scheduledEnd!)
+        startLabel.text = timeManager.getStringFromDate(track.scheduledStart) ?? "-nd-"
+        endLabel.text = timeManager.getStringFromDate(track.scheduledEnd) ?? "-nd-"
+        checkDates()
         
         
         
     }
+    
+    private func checkDates() {
+        let currentDate = Date()
+        print (currentDate)
+        print ("start \(track.scheduledStart!)")
+        print ("end \(track.scheduledEnd!)")
+
+        if track.scheduledStart! > currentDate || track.scheduledEnd! < currentDate {
+            startButton.isEnabled = false
+            print("disabilito tasto start")
+        }
+    }
+    
     
     private func setupLocation() {
 
