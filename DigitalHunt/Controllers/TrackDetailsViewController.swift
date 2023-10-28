@@ -13,6 +13,8 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     var track = Track()
     let locationManager = DHLocationManager.shared
     let timeManager = TimeManager.shared
+    let statusManager = StatusManager.shared
+
     var distance :Int = -1
 
     //var location : CLLocation?
@@ -49,10 +51,41 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         // se not game disable button if not in range
     }
     
+    /*
     @IBAction func startGameAction(_ sender: Any) {
 
         self.performSegue(withIdentifier: "toHuntMapView", sender: track)
     }
+    */
+    
+    @IBAction func startGameAction(_ sender: Any) {
+        //se esiste un trackId nello Status e non coincide con quello selezionato -> Alert
+        if let statusTrackId = statusManager.getStatusPropString(key: "currentTrackId"),
+           statusTrackId != track.id {
+            let alertController = UIAlertController(
+                title: "Start the game?",
+                message: "Starting the game will erase all your progress. Do you want to continue?",
+                preferredStyle: .alert
+            )
+            
+            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in
+                //resetto lo status e procedo
+                self!.statusManager.resetStatus()
+                self!.performSegue(withIdentifier: "toHuntMapView", sender: self!.track)
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            
+            alertController.addAction(continueAction)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true, completion: nil)
+        } else {
+            self.performSegue(withIdentifier: "toHuntMapView", sender: track)
+        }
+    }
+
+
     
     @IBOutlet weak var descTextField: UITextView!
     

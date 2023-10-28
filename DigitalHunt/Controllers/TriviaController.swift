@@ -12,6 +12,7 @@ class TriviaController: UIViewController {
     var track = Track()
     let triviaAPIManager = TriviaAPIManager.shared
     let timeManager = TimeManager.shared
+    let statusManager = StatusManager.shared
     var currentQuestionIndex :Int = -1
     var triviaQuestions: [TriviaQuestion]?
     var currentQuestion: TriviaQuestion?
@@ -36,6 +37,7 @@ class TriviaController: UIViewController {
     
     override func viewDidLoad() {
         print("sono in TriviaController!")
+        setupBackButton()
         super.viewDidLoad()
         self.title = "QUIZ per Tappa \(track.currentNodeIndex+1)"
         fetchTriviaQuestionsFromAPI()
@@ -106,6 +108,7 @@ class TriviaController: UIViewController {
     
     private func stopQuestion() {
         print("Tutte le domande sono state mostrate")
+        setupButton(enable: false)
         infoLabel.text = "Attendi fino al termine della penalità"
         timeManager.startCountDown(duration: delay)
         timeManager.updateHandlerCD = { [weak self] countDownDuration in
@@ -119,7 +122,7 @@ class TriviaController: UIViewController {
     
     private func populateButtons() {
         
-        setupButton()
+        setupButton(enable: true)
         
         allAnswers = currentQuestion!.incorrect_answers
         allAnswers.append(currentQuestion!.correct_answer)
@@ -179,18 +182,14 @@ class TriviaController: UIViewController {
         return from
     }
     
-    private func setupButton() {
-        qAns01.isEnabled = true
-        qAns02.isEnabled = true
-        qAns03.isEnabled = true
-        qAns04.isEnabled = true
-        //qAns01.backgroundColor = UIColor.clear
-        //qAns02.backgroundColor = UIColor.clear
-        //qAns03.backgroundColor = UIColor.clear
-        //qAns04.backgroundColor = UIColor.clear
-
-        
+    private func setupButton(enable: Bool) {
+        qAns01.isEnabled = enable
+        qAns02.isEnabled = enable
+        qAns03.isEnabled = enable
+        qAns04.isEnabled = enable
     }
+    
+
     
     func disableButtonAtIndex(_ index: Int) {  //è obbligatorio il _?
         switch index {
@@ -223,6 +222,24 @@ class TriviaController: UIViewController {
         for index in disabledButtons {
             disableButtonAtIndex(index)
         }
+    }
+    
+    func setupBackButton(){
+        let newBackButton = UIBarButtonItem(title: "Annulla", style: .plain, target: self, action: #selector(back(_:)))
+        navigationItem.leftBarButtonItem = newBackButton
+
+    }
+
+    @objc func back(_ sender: UIBarButtonItem?) {
+        navigationItem.hidesBackButton = true
+        let ac = UIAlertController(title: "Questa azione ti farà uscire dall'applicazione", message: nil, preferredStyle: .alert)
+        let yes = UIAlertAction(title: "Si", style: .destructive, handler: { action in
+            UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
+        })
+        let no = UIAlertAction(title: "No", style: .default, handler: nil)
+        ac.addAction(yes)
+        ac.addAction(no)
+        self.present(ac, animated: true, completion: nil)
     }
     
     

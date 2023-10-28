@@ -3,7 +3,7 @@
 //  DigitalHunt
 //
 //  Created by Dave Stops on 18/10/23.
-// rAVbYNK89hAHJT41dNik LAdg2gqlbVV36fuP8EW2 oco5kKupFumeY9tpo6Uy
+// 
 
 import Foundation
 
@@ -42,6 +42,11 @@ class Track {
         self.scheduledStart = scheduledStart
         self.scheduledEnd = scheduledEnd
         
+    }
+    
+    func setCurrentNodeIndex(index: Int) {
+        currentNodeIndex = index
+        print("setto index in track da status = \(index)")
     }
     
     func getCurrentNode() -> Node? {

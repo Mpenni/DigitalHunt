@@ -24,24 +24,26 @@ class TimeManager {
     }
     
     func startTimer() {
-        timerEnabled = true
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)
+        if timerEnabled == false {
+            timerEnabled = true
+            if let startTimeString = statusManager.getStatusPropString(key: "startTime"), let startTime = getDateFromString(startTimeString) {
+                let currentTime = Date()
+                let timeDifference = currentTime.timeIntervalSince(startTime)
+                count = Int(timeDifference)
+            } else {
+                count = 0
+            }
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)}
+        else {
+            print("Timer già partito")
+        }
     }
     
     @objc func timerCounter()
     {
-        if let startTimeString = statusManager.getStatusPropString(key: "startTime"), let startTime = getDateFromString(startTimeString) {
-            let currentTime = Date()
-            let timeDifference = currentTime.timeIntervalSince(startTime)
-            count = Int(timeDifference)
-        } else {
-            // Errore nel recupero del tempo di inizio o trasformazione in data
-            count = 0
-        }
-
         let time = secondsToHoursMinutesSeconds(seconds: count)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
-        print("update timer")
+        //print("update timer")
         if timerEnabled {
             updateHandler?(timeString)}
         else {

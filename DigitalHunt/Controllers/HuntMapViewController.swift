@@ -38,7 +38,7 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         super.viewDidLoad()
         mapView.delegate = self
         self.title = track.name
-        statusManager.setStatusPropString(key: "currentTrackId", value: track.id)
+        checkStatus()
         setupBackButton()
         locationManager.locationManager.delegate = self
         locationManager.locationManager.startUpdatingLocation()
@@ -52,15 +52,19 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         userIsInsideNode = false
+
         print("inizioDidAppera")
-        print("NODOOOOO! \(currentNode?.name)")
+        //print("NODOOOOO! \(currentNode?.name)")
         print("track.currennodeindex= \(track.currentNodeIndex)")
+
+        
+
         currentNode = track.changeNode()
         statusManager.setStatusPropInt(key: "currentNodeIndex", value: track.currentNodeIndex)
         //incrementare status
-        print("NODOOOOO! \(currentNode?.name)")
+        //print("NODOOOOO! \(currentNode?.name)")
         print("track.currennodeindex= \(track.currentNodeIndex)")
-        print("LAT in DIDAPPEAR \(currentNode?.lat)")
+        //print("LAT in DIDAPPEAR \(currentNode?.lat)")
         statusManager.printAll()
         resetMarker()
         loadUserOnMap()
@@ -68,6 +72,14 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         print("fineDidAppear")
     }
     
+    private func checkStatus() {
+        if statusManager.getStatusPropString(key: "currentTrackId") == nil {
+            statusManager.setStatusPropString(key: "currentTrackId", value: track.id)
+        }
+        if let index = statusManager.getStatusPropInt(key: "currentNodeIndex") {
+            track.setCurrentNodeIndex(index: index - 1) //viene poi incrementato
+        }
+    }
     
     
     
@@ -226,13 +238,16 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     private func startGame(){
         //statusManager.printAll()
         print("StartGame!")
-        statusManager.setStartTimeNow()
+        if statusManager.getStatusPropString(key: "startTime") == nil {
+            statusManager.setStartTimeNow()
+        }
         timeManager.startTimer()
         //statusManager.printAll()
     }
     
     private func endGame() {
         print("EndGame!")
+        statusManager.resetStatus()
         // #TODO: stop timer
     }
     

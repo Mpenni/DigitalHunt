@@ -33,6 +33,7 @@
 		EEF889612AE9AA880020DB72 /* easyQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = EEF889602AE9AA880020DB72 /* easyQuestions.json */; };
 		EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = EEF889622AE9AADD0020DB72 /* normalQuestions.json */; };
 		EEF889652AECFFA50020DB72 /* 2_1.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEF889642AECFFA50020DB72 /* 2_1.gpx */; };
+		EEF889672AED58380020DB72 /* QRCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889662AED58380020DB72 /* QRCodeController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		EEF889602AE9AA880020DB72 /* easyQuestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = easyQuestions.json; sourceTree = "<group>"; };
 		EEF889622AE9AADD0020DB72 /* normalQuestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = normalQuestions.json; sourceTree = "<group>"; };
 		EEF889642AECFFA50020DB72 /* 2_1.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 2_1.gpx; sourceTree = "<group>"; };
+		EEF889662AED58380020DB72 /* QRCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 				EE5C5ED62AE3077D00EE601B /* LocationManager.swift */,
 				EE5C5ED92AE4123C00EE601B /* StatusManager.swift */,
 				EE5C5EDD2AE558BB00EE601B /* TimeManager.swift */,
+				EEF889662AED58380020DB72 /* QRCodeController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 				EE5C5EDE2AE558BB00EE601B /* TimeManager.swift in Sources */,
 				EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */,
 				EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */,
+				EEF889672AED58380020DB72 /* QRCodeController.swift in Sources */,
 				EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */,
 				EEE265752AE05959003E6DFD /* Track.swift in Sources */,
 				EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */,

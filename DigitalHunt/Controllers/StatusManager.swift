@@ -13,6 +13,8 @@ class StatusManager {
     
     private let dateFormatter = DateFormatter()
     
+    private let statusLog: Bool = true
+    
     
     private init() {
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -20,21 +22,29 @@ class StatusManager {
     
     func setStatusPropString(key: String, value: String) {
         UserDefaults.standard.set(value, forKey: key)
+        if statusLog {print("Set STATUS \(key): \(value)")}
     }
 
     func setStatusPropInt(key: String, value: Int) {
         UserDefaults.standard.set(value, forKey: key)
+        if statusLog {print("Set STATUS \(key): \(value)")}
+
     }
 
     func getStatusPropString(key: String) -> String? {
-        UserDefaults.standard.string(forKey: key)
+        let value = UserDefaults.standard.string(forKey: key)
+        if statusLog {print("Get STATUS \(key): \(String(describing: value))")}
+        return value
     }
 
     func getStatusPropInt(key: String) -> Int? {
-        UserDefaults.standard.integer(forKey: key)
+        let value = UserDefaults.standard.integer(forKey: key)
+        if statusLog {print("Get STATUS\(key): \(value)")}
+        return value
     }
     
     func resetStatus() {
+        if statusLog {print("Reset STATUS")}
         for k in ["currentTrackId", "currentNodeIndex", "startTime"] {
         UserDefaults.standard.set(nil, forKey: k)
         }

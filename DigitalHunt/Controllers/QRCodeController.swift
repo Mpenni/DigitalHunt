@@ -1,8 +1,22 @@
 //
-//  QRCodeController.swift
+//  QuizController.swift
 //  DigitalHunt
 //
-//  Created by Dave Stops on 28/10/23.
+//  Created by Dave Stops on 23/10/23.
 //
 
-import Foundation
+import UIKit
+
+class QRCodeController: UIViewController {
+    
+    var track = Track()
+ 
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+     
+    }
+
+    
+}
+
