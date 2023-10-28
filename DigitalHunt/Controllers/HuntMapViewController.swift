@@ -21,11 +21,11 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     
     @IBOutlet weak var infoLabel: UILabel!
     
-    var track = Track() //??
+    var track = Track()
     let locationManager = DHLocationManager.shared
     let statusManager = StatusManager.shared
     let timeManager = TimeManager.shared
-    var currentNode: Node?  //#TODO non è meglio usare solo track.nodes[currentNodeIndex]?
+    var currentNode: Node?
     var isStart: Bool = false
     var isEnd: Bool = false
     var coordinates :CLLocationCoordinate2D?
@@ -42,23 +42,16 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         setupBackButton()
         locationManager.locationManager.delegate = self
         locationManager.locationManager.startUpdatingLocation()
-        
-        //updateLocationOnMap()
-        
-        timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}
         print("finedidload")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        userIsInsideNode = false
-
         print("inizioDidAppera")
-        //print("NODOOOOO! \(currentNode?.name)")
+
+        userIsInsideNode = false
+        timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}
         print("track.currennodeindex= \(track.currentNodeIndex)")
-
-        
-
         currentNode = track.changeNode()
         statusManager.setStatusPropInt(key: "currentNodeIndex", value: track.currentNodeIndex)
         //incrementare status
@@ -77,12 +70,9 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             statusManager.setStatusPropString(key: "currentTrackId", value: track.id)
         }
         if let index = statusManager.getStatusPropInt(key: "currentNodeIndex") {
-            track.setCurrentNodeIndex(index: index - 1) //viene poi incrementato
+            track.setCurrentNodeIndex(index: index - 1) //poichè viene poi incrementato
         }
     }
-    
-    
-    
     
     private func loadUserOnMap() {
         guard let userLocation = locationManager.locationManager.location else {
@@ -130,8 +120,6 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     private func checkIsSpecialNode() {
         isStart = track.checkIsStartNode()
         isEnd = track.checkIsEndNode()
-        //print("isStart \(isStart)")
-        //print("isEnd \(isEnd)")
     }
     
    
@@ -169,7 +157,11 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         if track.currentNodeIndex == 0 {
             infoLabel.text = "Procedi verso l'area 'INIZIO'"
         } else {
-            infoLabel.text = "Procedi verso la prossima area'"
+            infoLabel.text = "Procedi verso la prossima area"
+            print("timerEnabled: \(timeManager.timerEnabled)")
+            timeManager.startTimer()
+            print("timerEnabled: \(timeManager.timerEnabled)")
+            
         }
     }
     
@@ -208,7 +200,6 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
     }
     
     private func insideNode(){
-        //check is not quiz + SCHEDULED TIME
         print("INSIDE NODE!")
         userIsInsideNode = true
         infoLabel.text = "Hai raggiunto la destinazione"  //x debug
@@ -219,20 +210,11 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
         if isStart {
             startGame()
         }
-        //per scopi di debug:
         if track.isQuiz {
             self.performSegue(withIdentifier: "toQuizView", sender: track)
         } else {
             self.performSegue(withIdentifier: "toQRCodeView", sender: track)
-
         }
-        // se is quiz false -> lettura/inserimento QRCODE
-        
-        
-        //currentNode = track.changeNode()
-        //print("Curren Node inddex: \(track.currentNodeIndex)")
-        //drawAreaInMap()
-        // l'incremento dell'index node lo faccio al termine del quiz
     }
     
     private func startGame(){
@@ -300,6 +282,10 @@ class HuntMapViewController: UIViewController, CLLocationManagerDelegate, MKMapV
             destController.track = track
         } else if segue.identifier == "toQRCodeView" {
             let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+            
+            let destController = segue.destination as! QRCodeController // lo forzo ad essere un TrackView
+            destController.track = track
+            
             //let destController = segue.destination as! QRCodeController // lo forzo ad essere un TrackView
             //destController.track = track
         }

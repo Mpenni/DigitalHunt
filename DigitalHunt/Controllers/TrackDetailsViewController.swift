@@ -30,6 +30,8 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         //location = locationManager.myCurrentlocation
         locationManager.requestAuthorization()
         locationManager.locationManager.startUpdatingLocation()
+        setupLocation()
+
 
         //print("La posizione è \(location?.coordinate.latitude)")
         

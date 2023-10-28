@@ -12,13 +12,15 @@ class Node {
     let lat: Double
     let long: Double
     let desc: String?
+    let code: String?
 
-    init(id: String, name: String, lat: Double, long: Double, desc: String?) {
+    init(id: String, name: String, lat: Double, long: Double, desc: String?, code: String?) {
         self.id = id
         self.name = name
         self.lat = lat
         self.long = long
         self.desc = desc
+        self.code = code
     }
     
     convenience init(id: String, data: [String :Any]) {  //coinvenience: se dentro un costruttore chiamo altro costruttore
@@ -28,8 +30,9 @@ class Node {
         let lat = data["lat"] as? Double ?? 0.0
         let long = data["long"] as? Double ?? 0.0
         let desc = data["desc"] as? String
+        let code = data["code"] as? String
                
-        self.init(id: id, name: name, lat: lat, long: long, desc: desc)
+        self.init(id: id, name: name, lat: lat, long: long, desc: desc, code: code)
         
     }
     

@@ -33,6 +33,7 @@ class TimeManager {
             } else {
                 count = 0
             }
+            
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)}
         else {
             print("Timer già partito")
@@ -41,10 +42,13 @@ class TimeManager {
     
     @objc func timerCounter()
     {
+        count += 1
         let time = secondsToHoursMinutesSeconds(seconds: count)
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
-        //print("update timer")
+        print("update timer")
         if timerEnabled {
+            print("\(timerEnabled)")
+            print("\(timeString)")
             updateHandler?(timeString)}
         else {
             timer.invalidate()

@@ -112,7 +112,7 @@ class TriviaController: UIViewController {
         infoLabel.text = "Attendi fino al termine della penalità"
         timeManager.startCountDown(duration: delay)
         timeManager.updateHandlerCD = { [weak self] countDownDuration in
-            self?.delayLabel.text = "\(countDownDuration) sec."
+            self?.delayLabel.text = "Ritardo accumulato: \(countDownDuration) sec."
             
             if countDownDuration == 0 {
                 self?.navigationController?.popViewController(animated: true)
@@ -167,7 +167,7 @@ class TriviaController: UIViewController {
         //sender.backgroundColor = UIColor.red
         sender.isEnabled = false
         delay += penalty
-        delayLabel.text = "Ritardo accumulato: \(delay)sec."
+        delayLabel.text = "Ritardo accumulato: \(delay) sec."
     }
     
     
