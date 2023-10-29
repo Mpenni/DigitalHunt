@@ -62,7 +62,7 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func startGameAction(_ sender: Any) {
         //se esiste un trackId nello Status e non coincide con quello selezionato -> Alert
-        if let statusTrackId = statusManager.getStatusPropString(key: "currentTrackId"),
+        if let statusTrackId = statusManager.getStatusProp(key: "currentTrackId"),
            statusTrackId != track.id {
             let alertController = UIAlertController(
                 title: "Start the game?",

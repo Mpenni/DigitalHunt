@@ -12,9 +12,10 @@ import MapKit
 
 class DHLocationManager: NSObject, CLLocationManagerDelegate {
     
-    static let shared = DHLocationManager()  //per singleton
+    static let shared = DHLocationManager()  
     var locationManager: CLLocationManager
-    //var location: CLLocation?
+    private let showLog: Bool = false
+
     
     override init() {
         locationManager = CLLocationManager()
@@ -25,6 +26,8 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     }
 
     func requestAuthorization() {  // lo lascio qua per eventuale riuso o aggiunta operazioni in questa fase
+        if showLog { print("LocMan - sono in 'requestAuthorization()'")}
+
         locationManager.requestWhenInUseAuthorization()
     }
 /*
@@ -36,16 +39,18 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     }
 */
     func checkLocationAuthorization() {
-     
+    if showLog { print("LocMan - sono in 'checkLocationAuthorization()'")}
       switch locationManager.authorizationStatus {
       case .authorizedWhenInUse, .authorizedAlways:
           if (locationManager.location != nil)  {
-              print("Location non nil")
+              if showLog { print("LocMan - location non NIL")}
           } else {
-              print("Non c'è una location")
+              if showLog { print("LocMan - location NIL")}
               return
           }
-          print("Posizione Corrente (LocationManager-ChangeAut): \(locationManager.location?.coordinate.latitude) \(locationManager.location?.coordinate.latitude)")
+          if showLog { print("LocMan - trovata posizione:")}
+          if showLog { print("       -> trovata posizione: \(String(describing: locationManager.location?.coordinate.latitude))")}
+          if showLog { print("       -> trovata posizione: \(String(describing: locationManager.location?.coordinate.longitude))")}
       case .denied:
           print("Location services has been denied.")
       case .notDetermined, .restricted:
@@ -57,6 +62,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     func calculateRegion() -> MKCoordinateRegion {
+        if showLog { print("LocMan - sono in 'calculateRegion()'")}
         let coordinates : CLLocationCoordinate2D = locationManager.location!.coordinate
         let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         return MKCoordinateRegion(center: coordinates, span: spanDegree)
@@ -65,6 +71,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     func calculateDistanceFromHere(lat: Double, long: Double) -> Int {
         let destinationLocation = CLLocation(latitude: lat, longitude: long)
         let distance = locationManager.location?.distance(from: destinationLocation)
+        if showLog { print("LocMan - sono in 'calculateDistanceFromHere'")}
         return Int(distance ?? -1)
     }
     
@@ -75,9 +82,8 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     }
   */
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("ChecckodaClassePrimaria")
+        if showLog { print("LocMan - sono in 'locationManagerDidChangeAuthorization' in classe primaria")}
         checkLocationAuthorization()
-        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

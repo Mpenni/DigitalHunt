@@ -11,6 +11,9 @@ import FirebaseFirestore
 class TrackAPIManager {
     static let shared = TrackAPIManager()
     let timeManager = TimeManager.shared
+    
+    private let showLog: Bool = false
+
 
     
     private init() {}
@@ -23,8 +26,12 @@ class TrackAPIManager {
         
         // Utilizza "await" per aspettare il risultato dell'operazione Firebase
         let querySnapshot = try await db.collection("tracks").getDocuments()
+        if showLog { print("TrackAPIMan - dimensione risultato query: \(querySnapshot.documents.count)") }
+
         
         var fetchedTracks: [Track] = [] // Crea un array temporaneo per le tracce
+        
+        
         
         for document in querySnapshot.documents {
             let data = document.data()
@@ -32,28 +39,28 @@ class TrackAPIManager {
                let desc =  data["desc"] as? String,
                let isKid = data["isKid"] as? Bool,
                let isQuiz = data["isQuiz"] as? Bool,
-               let idNodes = data["idNodes"] as? [String] {  //per essere valido, il track deve avere almeno un inizio e un arrivo.
+               let idNodes = data["idNodes"] as? [String] {  //per essere valido, il track deve avere almeno un nodo.
                
                 let id = document.documentID
                 //let idNodes = data["idNodes"] as? [String] ?? [] // Leggi l'array "idNodes" con un valore predefinito vuoto
                 let scheduledStart = timeManager.getDateFromString(data["scheduledStart"] as? String)
                 let scheduledEnd = timeManager.getDateFromString(data["scheduledEnd"] as? String)
-
-                //let scheduledEnd = data["scheduledEnd"] as? Date
-                //let scheduledStart = scheduledStartTimestamp?.dateValue()
-                //let scheduledEnd = scheduledEndTimestamp?.dateValue()
                 
-                // Qui dovresti recuperare i dati dei nodes associati ai track
+                // Recupero i dati dei nodes associati ai track
                 let nodes = try await getNodesForTrack(idNodes: idNodes)
                 
                 // Crea un oggetto "Track" utilizzando i dati ottenuti da Firebase
                 let track = Track(id: id, name: name, desc: desc, nodes: nodes, isKid: isKid, isQuiz: isQuiz, scheduledStart: scheduledStart, scheduledEnd: scheduledEnd)
                 fetchedTracks.append(track)
+            } else {
+                if showLog { print("TrackAPIMan - il track \(data["name"] ?? "nd") è stato scartato perchè non soddisfa le condizioni di base") }
             }
         }
         
         // Aggiorna l'array delle tracce con i dati appena ottenuti
         self.tracks = fetchedTracks
+        
+        if showLog { print("TrackAPIMan - dimensione finale risultato: \(tracks.count)") }
         
         // Restituisci l'array delle tracce
         return fetchedTracks
@@ -61,6 +68,7 @@ class TrackAPIManager {
     
     // Funzione asincrona per recuperare i dati dei nodes associati ai track
     private func getNodesForTrack(idNodes: [String]) async throws -> [Node] {
+        if showLog { print("TrackAPIMan - richiesto dettaglio per \(idNodes.count) nodi") }
         let db = Firestore.firestore()
         var nodes: [Node] = []
         
@@ -71,7 +79,7 @@ class TrackAPIManager {
                 nodes.append(node)
             }
         }
-        
+        if showLog { print("TrackAPIMan - restituito dettaglio per \(nodes.count) nodi") }
         return nodes
     }
     

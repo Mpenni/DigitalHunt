@@ -24,7 +24,7 @@ class TimeManager {
     let statusManager = StatusManager.shared
     var timerEnabled: Bool = false
     
-    private let showLog: Bool = true
+    private let showLog: Bool = false
 
         
     private init() {
@@ -35,7 +35,7 @@ class TimeManager {
         if timerEnabled == false {
             if showLog {print("TimeM: checkStatus")}
             timerEnabled = true
-            if let startTimeString = statusManager.getStatusPropString(key: "startTime"), let startTime = getDateFromString(startTimeString) {
+            if let startTimeString = statusManager.getStatusProp(key: "startTime"), let startTime = getDateFromString(startTimeString) {
                 let currentTime = Date()
                 let timeDifference = currentTime.timeIntervalSince(startTime)
                 count = Int(timeDifference)

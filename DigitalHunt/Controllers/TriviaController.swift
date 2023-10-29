@@ -13,6 +13,8 @@ class TriviaController: UIViewController {
     let triviaAPIManager = TriviaAPIManager.shared
     let timeManager = TimeManager.shared
     let statusManager = StatusManager.shared
+    let configManager = ConfigManager.shared
+
     var currentQuestionIndex :Int = -1
     var triviaQuestions: [TriviaQuestion]?
     var currentQuestion: TriviaQuestion?
@@ -40,7 +42,15 @@ class TriviaController: UIViewController {
         setupBackButton()
         super.viewDidLoad()
         self.title = "QUIZ per Tappa \(track.currentNodeIndex+1)"
+        setConfig()
         fetchTriviaQuestionsFromAPI()
+    }
+    
+    private func setConfig() {
+        if  let confPenalty = configManager.getValue(forKey: "trivia.penalty") as? Int {
+            print("CONFIGGGG Value penalty: \(confPenalty)")
+            penalty = confPenalty
+        }
     }
     
     private func fetchTriviaQuestionsFromAPI() {
@@ -168,6 +178,12 @@ class TriviaController: UIViewController {
         sender.isEnabled = false
         delay += penalty
         delayLabel.text = "Ritardo accumulato: \(delay) sec."
+        
+        if !qAns01.isEnabled && !qAns02.isEnabled && !qAns03.isEnabled && !qAns04.isEnabled {
+                // Se tutti i bottoni sono disabilitati, passa automaticamente a correctAnswer (a volte API restituisce dati non coerenti)
+                correctAnswer()
+            }
+        
     }
     
     

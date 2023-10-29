@@ -9,8 +9,6 @@
 // #TODO: popolare track
 // #TODO: creare percorsi simulatore
 // #TODO: gestione record
-// #TODO: LABEL scheduledTime
-// #TODO: gestione se scheduled con check time e inibile bottone
 // #TODO: rename APImanager in TrackAPImanager
 // #TODO: BIG: QRCODESCANNER
 // #TODO: BIG: DOCUMENTAZIONE
@@ -22,54 +20,61 @@ class TracksTableViewController: UITableViewController {
 
     var tracks: [Track] = []
     var trackNames :[String] = []
-    let statusManager = StatusManager.shared
+    //let statusManager = StatusManager.shared
+    //let configManager = ConfigManager.shared
+    let trackAPIManager = TrackAPIManager.shared //#TODO: era in DidLoad!
+    
+    
+    private let showLog: Bool = false
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("#############")
         print("# APP START #")
         print("#############")
-        
-        // Creare un'istanza del TrackAPIManager
-        let trackAPIManager = TrackAPIManager.shared
-                
+
         // Eseguire l'operazione asincrona all'interno del blocco "async"
         Task {
             do {
-                
-                
                 var tracks = try await trackAPIManager.getAllTracks()
+                if showLog { print("TTC - chiamo  'trackAPIManager.getAllTracks()'")}
+
                 //trackAPIManager.printTracksData()
                 
-                for track in tracks {
-                    //print("Track ID: \(track.id)")
-                    print("Name: \(track.name)")
-                    print("Desc: \(track.desc)")
-                    print("Is Kid: \(track.isKid)")
-                    print("Is Quiz: \(track.isQuiz)")
-                    print("Is scheduledStart: \(track.scheduledStart)")
-                    print("Is scheduledEnd: \(track.scheduledEnd)")
-
-                    if !track.Nodes.isEmpty {
-                        print("Nodes:")
-                        for node in track.Nodes {
-                            //print("Node ID: \(node.id)")
-                            print("      Name: \(node.name)")
-                            print("      Latitude: \(node.lat)")
-                            print("      Longitude: \(node.long)")
-                        }
-                    } else {
-                        print("No Nodes for this track.")
+                if showLog {
+                    for track in tracks {
+                        //print("Track ID: \(track.id)")
+                        print("TTC - TrackName: \(track.name)")
+                        /*     print("Desc: \(track.desc)")
+                         print("Is Kid: \(track.isKid)")
+                         print("Is Quiz: \(track.isQuiz)")
+                         print("Is scheduledStart: \(track.scheduledStart)")
+                         print("Is scheduledEnd: \(track.scheduledEnd)")
+                         
+                         if !track.Nodes.isEmpty {
+                         print("Nodes:")
+                         for node in track.Nodes {
+                         //print("Node ID: \(node.id)")
+                         print("      Name: \(node.name)")
+                         print("      Latitude: \(node.lat)")
+                         print("      Longitude: \(node.long)")
+                         }
+                         } else {
+                         print("No Nodes for this track.")
+                         }
+                         */
                     }
-
                 }
                 
-                print("lung \(tracks.count)" )
+                if showLog { print("TTC - Lunghezza tracks prima del filtro: \(tracks.count)") }
+                
+                if showLog { print("TTC - Applico filtro a tracks") }
                 tracks = tracks.filter { track in
                     track.Nodes.count >= 2 &&
                     (track.isQuiz || (track.scheduledStart != nil && track.scheduledEnd != nil))
                 }
-                print("lung \(tracks.count)" )
+                if showLog { print("TTC - Lunghezza tracks dopo filtro: \(tracks.count)")}
 
                 
                 
@@ -81,15 +86,13 @@ class TracksTableViewController: UITableViewController {
                     self.tableView.reloadData()
                 }
             } catch {
-                print("Errore nel recupero dei dati delle tracce: \(error)")
+                print("ERROR TTC - Errore nel recupero dei dati delle tracce: \(error)")
             }
         }
-        checkStatus()
         
-        print("currentTrack: \(statusManager.getStatusPropString(key: "currentTrackId"))")
-        
+        //checkStatus()
+                
         tableView.reloadData() //è quella di default di tutti i tableviewcontroller
-        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -97,12 +100,13 @@ class TracksTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    
+    /*
     private func checkStatus() {
         statusManager.printAll()
         // #TODO: se non nullo, va a mappa con track giusta
     }
-
+    */
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -122,49 +126,35 @@ class TracksTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as! TrackTableViewCell
         
         //conversione forzata a TrackTableViewCell
-        
+        if showLog { print("TTC - creo riga \(indexPath.row + 1)") }
         // Configure the cell...
         //l'elemento alla posizione 0 sarà il primo percorso
         // la tableview è come un array a una dimensione, noi faremo una corrispondenza diretta
         // questo metodo viene chiamato da solo dalla did load
         
-        //let track = tracks[indexPath.row]
         let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice, il .row è l'indice della riga
-        cell.titleLabel.text = track.name // Imposta la text label con la proprietà "name" dell'oggetto Track
         
-        //cell.kidLabel.text = "ciao"
-        
-        // Imposta l'immagine in base a isKid (questo è un esempio, ma dovresti lavorare con l'oggetto Track per ottenere questa informazione)
-        
+        cell.titleLabel.text = track.name
+                
        
         if track.isKid {
-            // Se isKid è true, assegna l'immagine "figure.and.child.holdinghands" a cell.kidImageView
             cell.kidFlag.isHidden = false
-            //let isKidString = track.isKid ? "true" : "false"
-            //print(track.name + "-" + isKidString )
         } else {
-
             cell.kidFlag.isHidden = true
         }
         
         if track.isQuiz {
-            // Se isKid è true, assegna l'immagine "figure.and.child.holdinghands" a cell.kidImageView
             cell.quizFlag.isHidden = false
-            //let isQuizString = track.isQuiz ? "true" : "false"
-            //print(track.name + "-" + isQuizString )
         } else {
-
             cell.quizFlag.isHidden = true
         }
                         
-        //cell.quizFlag.image = UIImage(named: "figure.and.child.holdinghands")
-        
         return cell
     }
                
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice
+        if showLog { print("TTC - goToTrackDetails per riga \(indexPath.row + 1)") }
         self.performSegue(withIdentifier: "toTrackDetails", sender: track)
     }
     
@@ -214,12 +204,4 @@ class TracksTableViewController: UITableViewController {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    
-    // CLLocationManagerDelegate methods
-/*
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)")
-    }
-  */    
-
 }

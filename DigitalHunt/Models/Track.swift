@@ -46,7 +46,7 @@ class Track {
     
     func setCurrentNodeIndex(index: Int) {
         currentNodeIndex = index
-        print("setto index in track da status = \(index)")
+        //print("setto index in track da status = \(index)")
     }
     
     func getCurrentNode() -> Node? {

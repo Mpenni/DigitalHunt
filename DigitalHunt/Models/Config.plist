@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!--
-   Property List.plist
-   DigitalHunt
-
-   Created by Dave Stops on 29/10/23.
-   Copyright (c) 2023 ___ORGANIZATIONNAME___. All rights reserved.
--->
 <plist version="1.0">
-<dict/>
+<dict>
+	<key>map.radius</key>
+	<integer>100</integer>
+	<key>trivia.penalty</key>
+	<integer>2</integer>
+	<key>trivia.questionNumber</key>
+	<integer>2</integer>
+</dict>
 </plist>
