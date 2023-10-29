@@ -45,12 +45,14 @@ class TrackAPIManager {
                 //let idNodes = data["idNodes"] as? [String] ?? [] // Leggi l'array "idNodes" con un valore predefinito vuoto
                 let scheduledStart = timeManager.getDateFromString(data["scheduledStart"] as? String)
                 let scheduledEnd = timeManager.getDateFromString(data["scheduledEnd"] as? String)
+                let recordUserId = data["recordUserId"] as? String
+                let recordUserTime = data["recordUserTime"] as? Int
                 
                 // Recupero i dati dei nodes associati ai track
                 let nodes = try await getNodesForTrack(idNodes: idNodes)
                 
                 // Crea un oggetto "Track" utilizzando i dati ottenuti da Firebase
-                let track = Track(id: id, name: name, desc: desc, nodes: nodes, isKid: isKid, isQuiz: isQuiz, scheduledStart: scheduledStart, scheduledEnd: scheduledEnd)
+                let track = Track(id: id, name: name, desc: desc, nodes: nodes, isKid: isKid, isQuiz: isQuiz, scheduledStart: scheduledStart, scheduledEnd: scheduledEnd, recordUserId: recordUserId, recordUserTime: recordUserTime)
                 fetchedTracks.append(track)
             } else {
                 if showLog { print("TrackAPIMan - il track \(data["name"] ?? "nd") è stato scartato perchè non soddisfa le condizioni di base") }

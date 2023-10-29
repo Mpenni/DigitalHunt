@@ -17,6 +17,8 @@ class Track {
     var currentNodeIndex: Int
     let scheduledStart: Date?
     let scheduledEnd: Date?
+    let recordUserId: String?
+    let recordUserTime: Int?
     
     init () {
         self.id = ""
@@ -28,10 +30,12 @@ class Track {
         self.currentNodeIndex = 0
         self.scheduledStart = nil
         self.scheduledEnd = nil
+        self.recordUserId = nil
+        self.recordUserTime = nil
         
     } //costruttore vuoto che mi serve in trackDetails
     
-    init(id: String, name: String, desc: String, nodes: [Node], isKid: Bool, isQuiz: Bool, scheduledStart: Date?, scheduledEnd: Date?) {
+    init(id: String, name: String, desc: String, nodes: [Node], isKid: Bool, isQuiz: Bool, scheduledStart: Date?, scheduledEnd: Date?, recordUserId: String?, recordUserTime: Int?) {
         self.id = id
         self.name = name
         self.desc = desc
@@ -41,7 +45,8 @@ class Track {
         self.currentNodeIndex = -1
         self.scheduledStart = scheduledStart
         self.scheduledEnd = scheduledEnd
-        
+        self.recordUserId = recordUserId
+        self.recordUserTime = recordUserTime
     }
     
     func setCurrentNodeIndex(index: Int) {

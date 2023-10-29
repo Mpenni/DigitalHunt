@@ -211,9 +211,11 @@ class HuntMapViewController: UIViewController {
     
     private func endGame() {
         if showLog { print("HMapC - 'endGame()' -> resetStatus e stopTimer")}
-
-        statusManager.resetStatus()
+        statusManager.setMyTotalGameTime ()
+        //statusManager.resetStatus() fare in EndView
         timeManager.stopTimer()
+        self.performSegue(withIdentifier: "toEndView", sender: track)
+
     }
    
     /*
@@ -288,6 +290,11 @@ class HuntMapViewController: UIViewController {
             
             //let destController = segue.destination as! QRCodeController // lo forzo ad essere un TrackView
             //destController.track = track
+        } else if segue.identifier == "toEndView" {
+            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+            
+            let destController = segue.destination as! EndPageController // lo forzo ad essere un TrackView
+            destController.track = track
         }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.

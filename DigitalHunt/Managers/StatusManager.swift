@@ -15,6 +15,9 @@ class StatusManager {
     
     private let showLog: Bool = false
     
+    private let timeManager = TimeManager.shared
+
+    
     private init() {
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     }
@@ -44,7 +47,7 @@ class StatusManager {
     
     func printAll() {
         if showLog { print("printALL in STATUS:") }
-        for k in ["currentTrackId", "currentNodeIndex", "startTime"] {
+        for k in ["currentTrackId", "currentNodeIndex", "startTime", "myFinalTime"] {
             if let value = getStatusProp(key: k) {
                 print("    -> \(k): \(value)")
             } else {
@@ -54,10 +57,57 @@ class StatusManager {
     }
     
     func setStartTimeNow() {
-    let currentDateTime = Date()
-    let formattedDate = dateFormatter.string(from: currentDateTime)
-    setStatusProp(key: "startTime", value: formattedDate)
+        let currentDateTime = Date()
+        let formattedDate = dateFormatter.string(from: currentDateTime)
+        setStatusProp(key: "startTime", value: formattedDate)
     }
+    
+    
+    func setMyTotalGameTime () {
+        let currentDateTime = Date()
+
+        if let startTimeString = getStatusProp(key: "startTime") {
+            if let startTime = timeManager.getDateFromString(startTimeString) {
+                let timeDifference = currentDateTime.timeIntervalSince(startTime)
+                // Ora timeDifference contiene la differenza in secondi tra currentDateTime e startTime
+                print("total time: \(timeDifference)")
+                setStatusProp(key: "myFinalTime", value: String(timeDifference))
+            } else {
+                // Se non è possibile convertire la data di inizio
+                setStatusProp(key: "myFinalTime", value: nil)
+            }
+        } else {
+            // Se "startTime" non è presente
+            setStatusProp(key: "myFinalTime", value: nil)
+        }
+    }
+    
+    func getUserUniqueId() -> String {
+        if let currentUniqueId = getStatusProp(key: "UserUniqueId") {
+            print("UserUniqueId presente in stato")
+            return currentUniqueId
+        } else {
+            let newUniqueId = generateUniqueAlphanumericCode()
+            print("UserUniqueId non presente, generato e salvato nuovo: \(newUniqueId)")
+            setStatusProp(key: "UserUniqueId", value: newUniqueId)
+            return newUniqueId
+        }
+    }
+    
+    func deleteUserUniqueId() { //solo per scopi di debug
+        setStatusProp(key: "UserUniqueId", value: nil)
+    }
+        
+    private func generateUniqueAlphanumericCode() -> String {
+        let uuid = UUID()
+        let uuidString = uuid.uuidString
+        // Rimuovi trattini e converti in maiuscolo (per codice più pulito, standardizzato e casesensitive)
+        let alphanumericCode = uuidString.replacingOccurrences(of: "-", with: "").uppercased()
+        return alphanumericCode
+    }
+    
+
+    
 }
 
 

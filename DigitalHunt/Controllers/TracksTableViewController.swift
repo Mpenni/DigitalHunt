@@ -20,7 +20,7 @@ class TracksTableViewController: UITableViewController {
 
     var tracks: [Track] = []
     var trackNames :[String] = []
-    //let statusManager = StatusManager.shared
+    let statusManager = StatusManager.shared //poi togliere
     //let configManager = ConfigManager.shared
     let trackAPIManager = TrackAPIManager.shared //#TODO: era in DidLoad!
     
@@ -33,6 +33,14 @@ class TracksTableViewController: UITableViewController {
         print("#############")
         print("# APP START #")
         print("#############")
+        
+        print("UNIQUE_1: \(statusManager.getUserUniqueId())")
+        print("UNIQUE_2: \(statusManager.getUserUniqueId())")
+        print("UNIQUE_DEL: \(statusManager.deleteUserUniqueId())")
+        print("UNIQUE_3: \(statusManager.getUserUniqueId())")
+        print("UNIQUE_4: \(statusManager.getUserUniqueId())")
+
+
 
         // Eseguire l'operazione asincrona all'interno del blocco "async"
         Task {
