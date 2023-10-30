@@ -13,9 +13,11 @@ class StatusManager {
     
     private let dateFormatter = DateFormatter()
     
-    private let showLog: Bool = false
+    private let showLog: Bool = true
     
-    private let timeManager = TimeManager.shared
+    //let timeManager = TimeManager.shared
+
+    //private let timeManager = TimeManager.shared
 
     
     private init() {
@@ -67,11 +69,11 @@ class StatusManager {
         let currentDateTime = Date()
 
         if let startTimeString = getStatusProp(key: "startTime") {
-            if let startTime = timeManager.getDateFromString(startTimeString) {
+            if let startTime = getDateFromString(startTimeString) {
                 let timeDifference = currentDateTime.timeIntervalSince(startTime)
                 // Ora timeDifference contiene la differenza in secondi tra currentDateTime e startTime
                 print("total time: \(timeDifference)")
-                setStatusProp(key: "myFinalTime", value: String(timeDifference))
+                setStatusProp(key: "myFinalTime", value: String(Int(round(timeDifference)))) //da 27,0 a 27
             } else {
                 // Se non è possibile convertire la data di inizio
                 setStatusProp(key: "myFinalTime", value: nil)
@@ -81,6 +83,7 @@ class StatusManager {
             setStatusProp(key: "myFinalTime", value: nil)
         }
     }
+    
     
     func getUserUniqueId() -> String {
         if let currentUniqueId = getStatusProp(key: "UserUniqueId") {
@@ -104,6 +107,13 @@ class StatusManager {
         // Rimuovi trattini e converti in maiuscolo (per codice più pulito, standardizzato e casesensitive)
         let alphanumericCode = uuidString.replacingOccurrences(of: "-", with: "").uppercased()
         return alphanumericCode
+    }
+    
+    func getDateFromString(_ dateString: String?) -> Date? {
+        if dateString == nil {return nil}
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.date(from: dateString!)
     }
     
 

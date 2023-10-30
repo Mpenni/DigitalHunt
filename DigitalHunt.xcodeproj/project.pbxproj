@@ -38,6 +38,8 @@
 		EEF8896B2AEDA4900020DB72 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8896A2AEDA4900020DB72 /* NavigationManager.swift */; };
 		EEF8896F2AEE42C10020DB72 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEF8896E2AEE42C00020DB72 /* Config.plist */; };
 		EEF889712AEE45DA0020DB72 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889702AEE45DA0020DB72 /* ConfigManager.swift */; };
+		EEFFEC6F2AF05606000D7B5A /* Track00_00->01.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC6E2AF05606000D7B5A /* Track00_00->01.gpx */; };
+		EEFFEC712AF05933000D7B5A /* Track00_01->02.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC702AF05933000D7B5A /* Track00_01->02.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +79,9 @@
 		EEF8896A2AEDA4900020DB72 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		EEF8896E2AEE42C00020DB72 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		EEF889702AEE45DA0020DB72 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		EEFFEC6D2AF05575000D7B5A /* Track00_00.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Track00_00.gpx; sourceTree = "<group>"; };
+		EEFFEC6E2AF05606000D7B5A /* Track00_00->01.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Track00_00->01.gpx"; sourceTree = "<group>"; };
+		EEFFEC702AF05933000D7B5A /* Track00_01->02.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Track00_01->02.gpx"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +148,9 @@
 			children = (
 				EEF889642AECFFA50020DB72 /* 2_1.gpx */,
 				EE5C5EE02AE5763600EE601B /* 1_0.gpx */,
+				EEFFEC6D2AF05575000D7B5A /* Track00_00.gpx */,
+				EEFFEC6E2AF05606000D7B5A /* Track00_00->01.gpx */,
+				EEFFEC702AF05933000D7B5A /* Track00_01->02.gpx */,
 			);
 			path = GPXforSimulateLocation;
 			sourceTree = "<group>";
@@ -291,12 +299,14 @@
 			files = (
 				EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */,
 				EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */,
+				EEFFEC6F2AF05606000D7B5A /* Track00_00->01.gpx in Resources */,
 				EEE265772AE05C62003E6DFD /* GoogleService-Info.plist in Resources */,
 				EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */,
 				EEF889612AE9AA880020DB72 /* easyQuestions.json in Resources */,
 				EE54DD542ADF242E00DEBA4D /* Main.storyboard in Resources */,
 				EEF8896F2AEE42C10020DB72 /* Config.plist in Resources */,
 				EEF889652AECFFA50020DB72 /* 2_1.gpx in Resources */,
+				EEFFEC712AF05933000D7B5A /* Track00_01->02.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

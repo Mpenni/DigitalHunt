@@ -13,6 +13,11 @@
 // #TODO: BIG: QRCODESCANNER
 // #TODO: BIG: DOCUMENTAZIONE
 
+// #TODO: BUG: icona quiz in track ma track 00 non è quiz
+// sistemare zoom in did update?
+// in code NON uscire da app (forse anche in game), ma resettare
+
+
 
 import UIKit
 
@@ -20,12 +25,12 @@ class TracksTableViewController: UITableViewController {
 
     var tracks: [Track] = []
     var trackNames :[String] = []
-    let statusManager = StatusManager.shared //poi togliere
+    //let statusManager = StatusManager.shared //poi togliere
     //let configManager = ConfigManager.shared
     let trackAPIManager = TrackAPIManager.shared //#TODO: era in DidLoad!
     
     
-    private let showLog: Bool = false
+    private let showLog: Bool = true
 
 
     override func viewDidLoad() {
@@ -33,13 +38,13 @@ class TracksTableViewController: UITableViewController {
         print("#############")
         print("# APP START #")
         print("#############")
-        
+        /*
         print("UNIQUE_1: \(statusManager.getUserUniqueId())")
         print("UNIQUE_2: \(statusManager.getUserUniqueId())")
         print("UNIQUE_DEL: \(statusManager.deleteUserUniqueId())")
         print("UNIQUE_3: \(statusManager.getUserUniqueId())")
         print("UNIQUE_4: \(statusManager.getUserUniqueId())")
-
+*/
 
 
         // Eseguire l'operazione asincrona all'interno del blocco "async"

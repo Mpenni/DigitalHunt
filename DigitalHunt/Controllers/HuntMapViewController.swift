@@ -37,7 +37,7 @@ class HuntMapViewController: UIViewController {
     var nodePin: MKPointAnnotation?
     var radius: Int = 10
     
-    private let showLog: Bool = true
+    private let showLog: Bool = false
 
        
     override func viewDidLoad() {
@@ -144,7 +144,7 @@ class HuntMapViewController: UIViewController {
 
     private func updateLabels() {
         if showLog { print("HMapC - setto infoLabel e LegLabel")}
-        legLabel.text = "\(track.currentNodeIndex) di \(track.Nodes.count)"
+        legLabel.text = "\(track.currentNodeIndex) di \(track.Nodes.count - 1)"
         if track.currentNodeIndex == 0 {
             infoLabel.text = "Procedi verso l'area 'INIZIO'"
         } else {
@@ -211,7 +211,7 @@ class HuntMapViewController: UIViewController {
     
     private func endGame() {
         if showLog { print("HMapC - 'endGame()' -> resetStatus e stopTimer")}
-        statusManager.setMyTotalGameTime ()
+        statusManager.setMyTotalGameTime()
         //statusManager.resetStatus() fare in EndView
         timeManager.stopTimer()
         self.performSegue(withIdentifier: "toEndView", sender: track)

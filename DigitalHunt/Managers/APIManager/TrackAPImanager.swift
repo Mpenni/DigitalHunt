@@ -12,7 +12,7 @@ class TrackAPIManager {
     static let shared = TrackAPIManager()
     let timeManager = TimeManager.shared
     
-    private let showLog: Bool = false
+    private let showLog: Bool = true
 
 
     

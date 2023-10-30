@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>map.radius</key>
-	<integer>100</integer>
+	<integer>10</integer>
 	<key>trivia.penalty</key>
 	<integer>2</integer>
 	<key>trivia.questionNumber</key>

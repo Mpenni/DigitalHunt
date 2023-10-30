@@ -631,8 +631,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-nd-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd8-T0-6au">
-                                <rect key="frame" x="179" y="172" width="35" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-nd-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xd8-T0-6au">
+                                <rect key="frame" x="71" y="172" width="251" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="251" id="jli-fZ-j5f"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -660,6 +663,7 @@
                         <constraints>
                             <constraint firstItem="MHV-XC-z2b" firstAttribute="top" secondItem="ViF-wi-X4V" secondAttribute="bottom" constant="16" id="0hf-un-c0C"/>
                             <constraint firstItem="NOo-SA-Mq0" firstAttribute="top" secondItem="B0E-BX-nTD" secondAttribute="top" constant="32" id="2Az-fQ-5rO"/>
+                            <constraint firstItem="Xd8-T0-6au" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="Gy4-2s-ymz"/>
                             <constraint firstItem="NOo-SA-Mq0" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="IoE-vI-E9E"/>
                             <constraint firstItem="ryb-rx-Mgu" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="U1w-UT-lGY"/>
                             <constraint firstItem="ryb-rx-Mgu" firstAttribute="top" secondItem="MHV-XC-z2b" secondAttribute="bottom" constant="32" id="Ydl-8d-EQa"/>

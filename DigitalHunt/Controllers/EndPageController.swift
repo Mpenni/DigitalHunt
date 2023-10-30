@@ -9,7 +9,7 @@
 import UIKit
 
 class EndPageController: UIViewController, UITextFieldDelegate {
-    
+
     var track = Track()
     let timeManager = TimeManager.shared
     let statusManager = StatusManager.shared
@@ -18,6 +18,8 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     var recordTime: Int = 0
     var userIsRecordman :Bool = false
     var userHasRecordTime :Bool = false
+    
+    //#TODO: aggiungere BOTTONE per tornare ad indexTracks!!!
  
     @IBOutlet weak var userTimeLabel: UILabel!
     
@@ -62,9 +64,12 @@ class EndPageController: UIViewController, UITextFieldDelegate {
 
     private func getMyTime() {
         if let myFinalTime = statusManager.getStatusProp(key: "myFinalTime"), let myFinalTimeInt = Int(myFinalTime) {
+            print("myfinalTime: \(myFinalTime)")
             let time = timeManager.secondsToHoursMinutesSeconds(seconds: myFinalTimeInt)
             let timeString = timeManager.makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
             userTimeLabel.text = timeString
+            print("timeString: \(timeString)")
+
             userTime = myFinalTimeInt
         } else {
             // "myFinalTime" non è presente o non può essere convertito in Int
@@ -76,6 +81,7 @@ class EndPageController: UIViewController, UITextFieldDelegate {
         if let recordTimeInTrack = track.recordUserTime {
             let time = timeManager.secondsToHoursMinutesSeconds(seconds: recordTimeInTrack)
             let timeString = timeManager.makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
+            print("timeRecord: \(recordTimeInTrack)")
             recordTimeLabel.text = timeString
             recordTime = recordTimeInTrack
         } else {
@@ -84,6 +90,8 @@ class EndPageController: UIViewController, UITextFieldDelegate {
         }
     }
 
+    //#TODO: NON è meglio disinibile il pulsante semplicemente?
+    
     func setupBackButton(){
         let newBackButton = UIBarButtonItem(title: "Annulla", style: .plain, target: self, action: #selector(back(_:)))
         navigationItem.leftBarButtonItem = newBackButton
