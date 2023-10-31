@@ -38,15 +38,11 @@ class TracksTableViewController: UITableViewController {
         print("#############")
         print("# APP START #")
         print("#############")
-        /*
-        print("UNIQUE_1: \(statusManager.getUserUniqueId())")
-        print("UNIQUE_2: \(statusManager.getUserUniqueId())")
-        print("UNIQUE_DEL: \(statusManager.deleteUserUniqueId())")
-        print("UNIQUE_3: \(statusManager.getUserUniqueId())")
-        print("UNIQUE_4: \(statusManager.getUserUniqueId())")
-*/
 
 
+        //print("UNIQUE_DEL: \(statusManager.deleteUserUniqueId())")
+
+        
         // Eseguire l'operazione asincrona all'interno del blocco "async"
         Task {
             do {

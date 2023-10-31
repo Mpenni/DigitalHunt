@@ -652,31 +652,35 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ryb-rx-Mgu">
-                                <rect key="frame" x="78" y="315" width="238" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I9o-RN-tP8">
+                                <rect key="frame" x="71" y="315" width="251" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="251" id="hdR-UX-ERt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="B0E-BX-nTD"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="MHV-XC-z2b" firstAttribute="top" secondItem="ViF-wi-X4V" secondAttribute="bottom" constant="16" id="0hf-un-c0C"/>
                             <constraint firstItem="NOo-SA-Mq0" firstAttribute="top" secondItem="B0E-BX-nTD" secondAttribute="top" constant="32" id="2Az-fQ-5rO"/>
+                            <constraint firstItem="I9o-RN-tP8" firstAttribute="top" secondItem="MHV-XC-z2b" secondAttribute="bottom" constant="32" id="DpQ-pt-I5L"/>
                             <constraint firstItem="Xd8-T0-6au" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="Gy4-2s-ymz"/>
                             <constraint firstItem="NOo-SA-Mq0" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="IoE-vI-E9E"/>
-                            <constraint firstItem="ryb-rx-Mgu" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="U1w-UT-lGY"/>
-                            <constraint firstItem="ryb-rx-Mgu" firstAttribute="top" secondItem="MHV-XC-z2b" secondAttribute="bottom" constant="32" id="Ydl-8d-EQa"/>
                             <constraint firstItem="ViF-wi-X4V" firstAttribute="top" secondItem="Xd8-T0-6au" secondAttribute="bottom" constant="32" id="aDx-rH-4uk"/>
                             <constraint firstItem="Xd8-T0-6au" firstAttribute="top" secondItem="NOo-SA-Mq0" secondAttribute="bottom" constant="16" id="cbF-jD-MeP"/>
+                            <constraint firstItem="I9o-RN-tP8" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="eMz-Be-9JD"/>
                             <constraint firstItem="ViF-wi-X4V" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="jly-PA-fxp"/>
                             <constraint firstItem="MHV-XC-z2b" firstAttribute="centerX" secondItem="y5K-8M-mfy" secondAttribute="centerX" id="qpN-KH-Ujv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="345-db-8GC"/>
                     <connections>
-                        <outlet property="infoLabel" destination="ryb-rx-Mgu" id="rXR-Gk-XZ6"/>
                         <outlet property="recordTimeLabel" destination="MHV-XC-z2b" id="jOJ-jD-GbL"/>
+                        <outlet property="resultLabel" destination="I9o-RN-tP8" id="FZJ-gp-HXl"/>
                         <outlet property="userTimeLabel" destination="Xd8-T0-6au" id="bv4-D4-P8P"/>
                     </connections>
                 </viewController>

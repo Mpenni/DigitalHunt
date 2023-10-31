@@ -13,19 +13,23 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     var track = Track()
     let timeManager = TimeManager.shared
     let statusManager = StatusManager.shared
+    let trackAPIManager = TrackAPIManager.shared
     
     var userTime: Int = 99999999
     var recordTime: Int = 0
     var userIsRecordman :Bool = false
     var userHasRecordTime :Bool = false
     
+    private let showLog: Bool = true
+
+    
     //#TODO: aggiungere BOTTONE per tornare ad indexTracks!!!
  
     @IBOutlet weak var userTimeLabel: UILabel!
     
     @IBOutlet weak var recordTimeLabel: UILabel!
-    
-    @IBOutlet weak var infoLabel: UITextField!
+      
+    @IBOutlet weak var resultLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,42 +38,47 @@ class EndPageController: UIViewController, UITextFieldDelegate {
         
         getMyTime()
         getRecordTime()
-        userIsRecordman = getRecordUserAndCompare()
-        userHasRecordTime = compareResults()
-
+        userHasRecordTime = getRecordUserAndCompare()
         statusManager.resetStatus()
     }
-    
-    private func compareResults() -> Bool {
-        if recordTime > userTime {
-            print("hai tu il miglior tempo!")
-            return true
-        }
-        print("NON hai tu il miglior tempo!")
-        return false
-    }
-    
+
     private func getRecordUserAndCompare() -> Bool{
-        if let recordUserIdInTrack = track.recordUserId {
-            if statusManager.getUserUniqueId() == recordUserIdInTrack {
-                print("tu sei il recordman!")
-                return true
+        if recordTime > userTime {
+            if showLog { print("EndVC - 'recordTime': \(recordTime)")}
+            if showLog { print("EndVC - 'userTime': \(userTime)")}
+            if showLog { print("EndVC - hai tu il miglior tempo!")}
+            updateRecordData()
+            if let recordUserIdInTrack = track.recordUserId {
+                if statusManager.getUserUniqueId() == recordUserIdInTrack {
+                    if showLog { print("EndVC - 'recordID': \(recordUserIdInTrack)")}
+                    if showLog { print("EndVC - 'userID': \(statusManager.getUserUniqueId())")}
+                    if showLog { print("EndVC - Hai migliorato il tuo stesso record")}
+                    resultLabel.text = "Hai migliorato il tuo stesso record"
+                    return true
+                } else {
+                    resultLabel.text = "Hai stabilito il nuovo record!"
+                    if showLog { print("EndVC - Hai stabilito il nuovo record! (exRecordID not NIL)")}
+                    return true
+                }
             } else {
-                print("tu NON sei il recordman!")
-                return false
+                resultLabel.text = "Hai stabilito il nuovo record!"
+                if showLog { print("EndVC - Hai stabilito il nuovo record! (exRecordID NIL)")}
+                return true
             }
+        } else {
+            resultLabel.text = "Non hai stabilito il nuovo record!"
+            if showLog { print("EndVC - Non hai stabilito il nuovo record!")}
+            return false
         }
-        return false
     }
 
     private func getMyTime() {
         if let myFinalTime = statusManager.getStatusProp(key: "myFinalTime"), let myFinalTimeInt = Int(myFinalTime) {
-            print("myfinalTime: \(myFinalTime)")
+            if showLog { print("EndVC - myfinalTime: \(myFinalTime)")}
             let time = timeManager.secondsToHoursMinutesSeconds(seconds: myFinalTimeInt)
             let timeString = timeManager.makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
             userTimeLabel.text = timeString
-            print("timeString: \(timeString)")
-
+            if showLog { print("EndVC - timeString: \(timeString)")}
             userTime = myFinalTimeInt
         } else {
             // "myFinalTime" non è presente o non può essere convertito in Int
@@ -88,6 +97,22 @@ class EndPageController: UIViewController, UITextFieldDelegate {
             // "recordTimeInTrack" non è presente o non può essere convertito in Int
             recordTimeLabel.text = "-nd-"
         }
+    }
+    
+    private func updateRecordData() {
+        let myUserId = statusManager.getUserUniqueId()
+        // Chiamata asincrona
+            Task {
+                do {
+                    try await trackAPIManager.updateTrackRecordData(trackId: track.id, recordUserId: myUserId, recordUserTime: userTime)
+                    if showLog { print("EndVC - update recordData")}
+                    if showLog { print("      -> trackId: \(track.id)")}
+                    if showLog { print("      -> recordUserId: \(myUserId)")}
+                    if showLog { print("      -> userTime: \(userTime)")}
+                } catch {
+                    print("Errore durante l'aggiornamento del track: \(error)")
+                }
+            }
     }
 
     //#TODO: NON è meglio disinibile il pulsante semplicemente?

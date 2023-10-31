@@ -30,6 +30,7 @@ class HuntMapViewController: UIViewController {
     var isEnd: Bool = false
     var distance: Int = -1
     var userIsInsideNode : Bool = false //#TODO: mi serve ancora?!?
+    var setupComplete: Bool = false
     
     //Variabili di Mappa e Posizione
     var coordinates :CLLocationCoordinate2D?
@@ -37,7 +38,7 @@ class HuntMapViewController: UIViewController {
     var nodePin: MKPointAnnotation?
     var radius: Int = 10
     
-    private let showLog: Bool = false
+    private let showLog: Bool = true
 
        
     override func viewDidLoad() {
@@ -60,6 +61,7 @@ class HuntMapViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        setupComplete = false
         if showLog { print("HMapC - inizio 'viewDidAppear'")}
 
         super.viewDidAppear(animated)
@@ -81,6 +83,8 @@ class HuntMapViewController: UIViewController {
         loadUserOnMap()
         drawAreaInMap()
         if showLog { print("HMapC - fine 'viewDidAppear'")}
+        setupComplete = true
+
     }
     
     private func setConfig() {
@@ -160,7 +164,7 @@ class HuntMapViewController: UIViewController {
     private func checkIsInsideNode() {    
         if showLog { print("HMapC - 'checkIsInsideNode()'")}
 
-        if !userIsInsideNode {
+        if !userIsInsideNode && setupComplete {
             
             //radius = 10
             distance = locationManager.calculateDistanceFromHere(lat: currentNode!.lat, long: currentNode!.long)

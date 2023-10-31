@@ -108,6 +108,33 @@ class TrackAPIManager {
 
         }
     }
+    
+    func updateTrackRecordData(trackId: String, recordUserId: String, recordUserTime: Int) async throws {
+        let db = Firestore.firestore()
+        
+        var data: [String: Any] = [
+            "recordUserId": recordUserId,
+            "recordUserTime": recordUserTime
+        ]
+        
+        do {
+            // Prova a recuperare il documento track esistente nel database
+            var existingData = try await db.collection("tracks").document(trackId).getDocument().data()
+            
+            // Se esiste già un documento, unisci i dati esistenti con i nuovi dati
+            if existingData != nil {
+                existingData!.merge(data) { (current, new) in new }
+                data = existingData!
+            }
+            
+            // Aggiorna o inserisci il documento track con i nuovi dati
+            try await db.collection("tracks").document(trackId).setData(data)
+            
+            print("Dati track aggiornati o inseriti con successo per il track ID: \(trackId)")
+        } catch {
+            print("Errore durante l'aggiornamento dei dati del track: \(error)")
+        }
+    }
 
 }
 
