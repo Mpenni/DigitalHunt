@@ -9,11 +9,9 @@ import UIKit
 
 class TrackTableViewCell: UITableViewCell {
     
-    //estende UItrackViewcell
-    
+    //estende UItrackViewcell #TODO: real?
     
     @IBOutlet weak var titleLabel: UILabel!
-    //tutte le celle di tipo TracktablelViewCell avranno una label
       
     @IBOutlet weak var kidFlag: UIImageView!
        
@@ -26,7 +24,6 @@ class TrackTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
 

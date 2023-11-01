@@ -8,8 +8,6 @@
 // #TODO: Gestire altri casi di autorizzazione location, anche durante game, compreso perdita segnale
 // #TODO: popolare track
 // #TODO: creare percorsi simulatore
-// #TODO: gestione record
-// #TODO: rename APImanager in TrackAPImanager
 // #TODO: BIG: QRCODESCANNER
 // #TODO: BIG: DOCUMENTAZIONE
 
@@ -25,8 +23,6 @@ class TracksTableViewController: UITableViewController {
 
     var tracks: [Track] = []
     var trackNames :[String] = []
-    //let statusManager = StatusManager.shared //poi togliere
-    //let configManager = ConfigManager.shared
     let trackAPIManager = TrackAPIManager.shared //#TODO: era in DidLoad!
     
     
@@ -39,11 +35,9 @@ class TracksTableViewController: UITableViewController {
         print("# APP START #")
         print("#############")
 
-
-        //print("UNIQUE_DEL: \(statusManager.deleteUserUniqueId())")
-
+        //print("UNIQUE_DEL: \(statusManager.deleteUserUniqueId())") //per debug
         
-        // Eseguire l'operazione asincrona all'interno del blocco "async"
+        // Eseguo l'operazione asincrona all'interno del blocco "async"
         Task {
             do {
                 var tracks = try await trackAPIManager.getAllTracks()
@@ -53,26 +47,24 @@ class TracksTableViewController: UITableViewController {
                 
                 if showLog {
                     for track in tracks {
-                        //print("Track ID: \(track.id)")
-                        print("TTC - TrackName: \(track.name)")
-                        /*     print("Desc: \(track.desc)")
-                         print("Is Kid: \(track.isKid)")
-                         print("Is Quiz: \(track.isQuiz)")
-                         print("Is scheduledStart: \(track.scheduledStart)")
-                         print("Is scheduledEnd: \(track.scheduledEnd)")
-                         
+                        print("TTC - Track ID: \(track.id)")
+                        print("    -> TrackName: \(track.name)")
+                        print("    -> Desc: \(track.desc)")
+                        print("    -> Is Kid: \(track.isKid)")
+                        print("    ->Is Quiz: \(track.isQuiz)")
+                        print("    ->Is scheduledStart: \(String(describing: track.scheduledStart))")
+                        print("    ->Is scheduledEnd: \(String(describing: track.scheduledEnd))")
                          if !track.Nodes.isEmpty {
-                         print("Nodes:")
+                         print("    ->Nodes:")
                          for node in track.Nodes {
                          //print("Node ID: \(node.id)")
-                         print("      Name: \(node.name)")
-                         print("      Latitude: \(node.lat)")
-                         print("      Longitude: \(node.long)")
+                         print("          ->Name: \(node.name)")
+                         print("          ->Latitude: \(node.lat)")
+                         print("          ->Longitude: \(node.long)")
                          }
                          } else {
-                         print("No Nodes for this track.")
+                         print("          ->No Nodes for this track.")
                          }
-                         */
                     }
                 }
                 
@@ -85,12 +77,13 @@ class TracksTableViewController: UITableViewController {
                 }
                 if showLog { print("TTC - Lunghezza tracks dopo filtro: \(tracks.count)")}
 
+                // Ordino l'array
+                tracks.sort { $0.name < $1.name } // $x elementi di  chiusura di ordinamento (primo elem, secondo elem da confrontare)
                 
-                
-                // Assegna direttamente i dati delle tracce all'array tracks
+                // Assegno direttamente i dati delle tracce all'array tracks #TODO: perchè?
                      self.tracks = tracks
                 
-                // Aggiornare l'UI sulla coda principale
+                // Aggiorno l'UI sulla coda principale
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -98,10 +91,8 @@ class TracksTableViewController: UITableViewController {
                 print("ERROR TTC - Errore nel recupero dei dati delle tracce: \(error)")
             }
         }
-        
-        //checkStatus()
-                
-        tableView.reloadData() //è quella di default di tutti i tableviewcontroller
+                        
+        tableView.reloadData() //è quella di default di tutti i tableviewcontroller //#TODO: verificare se necessario ripeterla
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -136,15 +127,15 @@ class TracksTableViewController: UITableViewController {
         
         //conversione forzata a TrackTableViewCell
         if showLog { print("TTC - creo riga \(indexPath.row + 1)") }
+        
         // Configure the cell...
-        //l'elemento alla posizione 0 sarà il primo percorso
+        // l'elemento alla posizione 0 sarà il primo percorso
         // la tableview è come un array a una dimensione, noi faremo una corrispondenza diretta
         // questo metodo viene chiamato da solo dalla did load
         
         let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice, il .row è l'indice della riga
         
         cell.titleLabel.text = track.name
-                
        
         if track.isKid {
             cell.kidFlag.isHidden = false

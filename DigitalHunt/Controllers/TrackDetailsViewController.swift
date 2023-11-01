@@ -8,7 +8,20 @@
 import UIKit
 import CoreLocation
 
-class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
+class TrackDetailsViewController: UIViewController {
+    
+    //Outlets
+    @IBOutlet weak var descTextField: UITextView!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var isKidIcon: UIImageView!
+    @IBOutlet weak var isKidLabel: UILabel!
+    @IBOutlet weak var isQuizIcon: UIImageView!
+    @IBOutlet weak var isQuizLabel: UILabel!
+    @IBOutlet weak var startLabel: UILabel!
+    @IBOutlet weak var endLabel: UILabel!
+    @IBOutlet weak var startLabelInfo: UILabel!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var endLabelInfo: UILabel!
     
     var track = Track()
     let locationManager = DHLocationManager.shared
@@ -16,41 +29,16 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     let statusManager = StatusManager.shared
 
     var distance :Int = -1
+    
+    private let showLog: Bool = true
 
-    //var location : CLLocation?
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         self.title = track.name
         descTextField.text = track.desc
-        locationManager.locationManager.delegate = self
-        //print("la desc selezionata è \(track.desc)" )
-        //locationManager.startUpdatingLocation()
-        //location = locationManager.myCurrentlocation
-        locationManager.requestAuthorization()
-        locationManager.locationManager.startUpdatingLocation()
-        setupLocation()
-
-
-        //print("La posizione è \(location?.coordinate.latitude)")
-        
-        if track.isKid {
-            // Se isKid è true, assegna l'immagine "figure.and.child.holdinghands" a cell.kidImageView
-            isKidIcon.isHidden = false
-            isKidLabel.isHidden = false
-            //let isKidString = track.isKid ? "true" : "false"
-            //print(track.name + "-" + isKidString )
-        } else {
-            isKidIcon.isHidden = true
-            isKidLabel.isHidden = true
-        }
-        
-        if !track.isQuiz {
-            populateIsNotQuiz()
-        }
-        
-        // se not game disable button if not in range
+        manageLocation()
+        setIcons()
     }
     
     /*
@@ -60,7 +48,55 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
     }
     */
     
+    private func setIcons() {
+        if showLog { print("TDetailsC - sono in 'setIcons()'")}
+
+        if track.isKid {
+            isKidIcon.isHidden = false
+            isKidLabel.isHidden = false
+        } else {
+            isKidIcon.isHidden = true
+            isKidLabel.isHidden = true
+        }
+        if !track.isQuiz {
+            populateIsNotQuiz()
+        }
+    }
+    
+    private func populateIsNotQuiz(){
+        if showLog { print("TDetailsC - sono in 'populateIsNotQuiz()'")}
+
+        isQuizIcon.isHidden = true
+        isQuizLabel.isHidden = true
+        
+        startLabelInfo.isHidden = false
+        endLabelInfo.isHidden = false
+        startLabel.isHidden = false
+        endLabel.isHidden = false
+        
+        startLabel.text = timeManager.getStringFromDate(track.scheduledStart) ?? "-nd-"
+        endLabel.text = timeManager.getStringFromDate(track.scheduledEnd) ?? "-nd-"
+        
+        //se non è QUIZ, devo controllare le date
+        checkDates()
+    }
+    
+    private func checkDates() {
+        if showLog { print("TDetailsC - sono in 'checkDates()'")}
+
+        let currentDate = Date()
+        if showLog { print("          -> currentDate   : \(currentDate)")}
+        if showLog { print("          -> scheduledStart: \(String(describing: track.scheduledStart))")} //describing per silenziare warning in quanto optional
+        if showLog { print("          -> scheduledEnd  : \(String(describing: track.scheduledStart))")}
+
+        if track.scheduledStart! > currentDate || track.scheduledEnd! < currentDate {
+            startButton.isEnabled = false
+            if showLog { print("TDetailsC - disabilito tasto 'START'")}
+        }
+    }
+    
     @IBAction func startGameAction(_ sender: Any) {
+        if showLog { print("TDetailsC - sono in 'startGameAction'")}
         //se esiste un trackId nello Status e non coincide con quello selezionato -> Alert
         if let statusTrackId = statusManager.getStatusProp(key: "currentTrackId"),
            statusTrackId != track.id {
@@ -70,10 +106,10 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
                 preferredStyle: .alert
             )
             
-            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in
+            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in  //TODO: è una closure?
                 //resetto lo status e procedo
                 self!.statusManager.resetStatus()
-                self!.performSegue(withIdentifier: "toHuntMapView", sender: self!.track)
+                self!.performSegue(withIdentifier: "toHuntMapView", sender: self!.track)  //TODO: c'è 2 volte perform Segue
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -83,29 +119,10 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
             
             present(alertController, animated: true, completion: nil)
         } else {
-            self.performSegue(withIdentifier: "toHuntMapView", sender: track)
+            self.performSegue(withIdentifier: "toHuntMapView", sender: track)             //TODO: c'è 2 volte perform Segue
         }
     }
 
-
-    
-    @IBOutlet weak var descTextField: UITextView!
-    
-    @IBOutlet weak var distanceLabel: UILabel!
-    
-    @IBOutlet weak var isKidIcon: UIImageView!
-    
-    @IBOutlet weak var isKidLabel: UILabel!
-    
-    @IBOutlet weak var startLabel: UILabel!
-    
-    @IBOutlet weak var endLabel: UILabel!
-    
-    @IBOutlet weak var startLabelInfo: UILabel!
-        
-    @IBOutlet weak var startButton: UIButton!
-    
-    @IBOutlet weak var endLabelInfo: UILabel!
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -116,47 +133,36 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    
-    private func populateIsNotQuiz(){
-        startLabelInfo.isHidden = false
-        endLabelInfo.isHidden = false
-        startLabel.isHidden = false
-        endLabel.isHidden = false
-        startLabel.text = timeManager.getStringFromDate(track.scheduledStart) ?? "-nd-"
-        endLabel.text = timeManager.getStringFromDate(track.scheduledEnd) ?? "-nd-"
-        checkDates()
-        
-        
-        
-    }
-    
-    private func checkDates() {
-        let currentDate = Date()
-        print (currentDate)
-        print ("start \(track.scheduledStart!)")
-        print ("end \(track.scheduledEnd!)")
+}
 
-        if track.scheduledStart! > currentDate || track.scheduledEnd! < currentDate {
-            startButton.isEnabled = false
-            print("disabilito tasto start")
-        }
-    }
-    
-    
-    private func setupLocation() {
+// MARK: - Location
 
-        if (locationManager.locationManager.location != nil)  {
-            print("Posizione Corrente (TrackDetails-didUpdateLocation): \(locationManager.locationManager.location?.coordinate.latitude) \(locationManager.locationManager.location?.coordinate.latitude)")
-            //print("La posizione è \(locationManager.locationManager.location?.coordinate.latitude)")
-            calculateDistanceFromHere()
-        } else {
-            print("Non ho trovato posizione")
-        }
-        
-    
+extension TrackDetailsViewController: CLLocationManagerDelegate {
+    // metodi CLLocationManagerDelegate  e altri specifiche di localizzazione
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {  //#TODO: possono essere "private"?
+        //print("sono in didUpdateLcoation")
+        setupLocation()
+    }
+ 
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        if showLog { print("TDetailsC - Controllo Autorizzazioni Location")}
+        locationManager.checkLocationAuthorization()
     }
     
-    func calculateDistanceFromHere() {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+    }
+    
+    private func manageLocation() {
+        if showLog { print("TDetailsC - Sono in 'manageLocation'")}
+        locationManager.locationManager.delegate = self
+        locationManager.requestAuthorization()
+        locationManager.locationManager.startUpdatingLocation()
+        setupLocation()
+    }
+    
+    private func calculateDistanceFromHere() {
         distance = locationManager.calculateDistanceFromHere(lat: track.Nodes.first!.lat, long: track.Nodes.first!.long)
         if distance >= 0 {
             distanceLabel.text = "La distanza dalla tua posizione attuale al percorso è di \(distance) metri"
@@ -166,42 +172,15 @@ class TrackDetailsViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    /*
-    func calculateDistanceFromHere2() {
-        //print("LM: \(locationManager.locationManager.location)")
-        //print("FN: \(track.Nodes.first)")
-        if let sourceLocation = locationManager.locationManager.location, let firstNode = track.Nodes.first {
-        
-            
-            let destinationLocation = CLLocation(latitude: firstNode.lat, longitude: firstNode.long)
-
-            // Calcolare la distanza
-            let distance = sourceLocation.distance(from: destinationLocation)
-            
-            distanceLabel.text = "La distanza dalla tua posizione attuale al percorso è di \(Int(distance)) metri"
+    private func setupLocation() {
+        if showLog { print("TDetailsC - sono in setupLocation")}
+        if (locationManager.locationManager.location != nil)  {
+            //print("Posizione Corrente (TrackDetails-didUpdateLocation): \(String(describing: locationManager.locationManager.location?.coordinate.latitude)) \(String(describing: locationManager.locationManager.location?.coordinate.longitude))")
+            if showLog { print("TDetailsC - 'setupLocation': la posizione è valida")}
+            calculateDistanceFromHere()
         } else {
-            distanceLabel.text = "Posizione attuale non disponibile o nessun nodo disponibile per calcolare la distanza."
+            if showLog { print("TDetailsC - 'setupLocation': non c'è una posizione valida")}
         }
-  
-    }
-     */
-    
-    
-    // CLLocationManagerDelegate methods
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //print("sono in didUpdateLcoation")
-        setupLocation()
-    }
- 
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        print("Controllo Autorizzazioni Location (TrackDetails)")
-        locationManager.checkLocationAuthorization()
-        
     }
     
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
-
 }

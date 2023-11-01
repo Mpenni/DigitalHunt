@@ -22,14 +22,15 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     
     private let showLog: Bool = true
 
-    
-    //#TODO: aggiungere BOTTONE per tornare ad indexTracks!!!
+    //#TODO: verificare azione per tornare ad indexTracks!!!
  
     @IBOutlet weak var userTimeLabel: UILabel!
-    
     @IBOutlet weak var recordTimeLabel: UILabel!
-      
     @IBOutlet weak var resultLabel: UILabel!
+    
+    @IBAction func goToTrackTable(_ sender: Any) {
+        self.performSegue(withIdentifier: "toTracksTable", sender: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +53,8 @@ class EndPageController: UIViewController, UITextFieldDelegate {
                 if statusManager.getUserUniqueId() == recordUserIdInTrack {
                     if showLog { print("EndVC - 'recordID': \(recordUserIdInTrack)")}
                     if showLog { print("EndVC - 'userID': \(statusManager.getUserUniqueId())")}
-                    if showLog { print("EndVC - Hai migliorato il tuo stesso record")}
-                    resultLabel.text = "Hai migliorato il tuo stesso record"
+                    if showLog { print("EndVC - Hai migliorato il tuo record")}
+                    resultLabel.text = "Hai migliorato il tuo record!"
                     return true
                 } else {
                     resultLabel.text = "Hai stabilito il nuovo record!"
@@ -132,6 +133,15 @@ class EndPageController: UIViewController, UITextFieldDelegate {
         ac.addAction(yes)
         ac.addAction(no)
         self.present(ac, animated: true, completion: nil)
+    }
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destController = segue.destination as! TracksTableViewController // lo forzo ad essere un TrackView
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
     }
 }
 

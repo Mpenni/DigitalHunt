@@ -40,7 +40,6 @@ class HuntMapViewController: UIViewController {
     
     private let showLog: Bool = true
 
-       
     override func viewDidLoad() {
         if showLog { print("HMapC - inizio 'viewDidLoad'")}
 
@@ -61,8 +60,9 @@ class HuntMapViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        setupComplete = false
         if showLog { print("HMapC - inizio 'viewDidAppear'")}
+        
+        setupComplete = false
 
         super.viewDidAppear(animated)
         userIsInsideNode = false
@@ -79,11 +79,12 @@ class HuntMapViewController: UIViewController {
         statusManager.setStatusProp(key: "currentNodeIndex", value: "\(track.currentNodeIndex)")
         if showLog { print("HMapC - track.currennodeindex e status = \(track.currentNodeIndex)")}
 
-        resetMarker()
+        resetMarker()  //#TODO: lo posso spostanre dentro draw, all'inizio..
         loadUserOnMap()
         drawAreaInMap()
-        if showLog { print("HMapC - fine 'viewDidAppear'")}
         setupComplete = true
+        if showLog { print("HMapC - fine 'viewDidAppear'")}
+
 
     }
     
@@ -123,8 +124,9 @@ class HuntMapViewController: UIViewController {
         isEnd = track.checkIsEndNode()
 
         
-        // prime era: currentNode = track.Nodes[index] //quale è meglio?!?!
-        //sotto codice completo che ho rimosso
+        // #TODO:  1: prime era: currentNode = track.Nodes[index] //quale è meglio?!?!
+        
+        // #TODO:  2:sotto codice completo che ho rimosso
 
         
         
@@ -200,8 +202,8 @@ class HuntMapViewController: UIViewController {
         }
     }
     
-    private func startGame(){   // #TODO: è corretta?
-        //statusManager.printAll()
+    private func startGame(){   // #TODO: è corretta?       posizione      timeManager.startTimer()
+
         if showLog { print("HMapC - 'startGame()'")}
         if statusManager.getStatusProp(key: "startTime") == nil {
             statusManager.setStartTimeNow()
@@ -210,16 +212,16 @@ class HuntMapViewController: UIViewController {
             if showLog { print("HMapC - startTime in STATUS è nil -> lancio 'timeManager.startTimer()'")}
         }
         //timeManager.startTimer()
-        //statusManager.printAll()
     }
     
     private func endGame() {
-        if showLog { print("HMapC - 'endGame()' -> resetStatus e stopTimer")}
+        if showLog { print("HMapC - 'endGame()' -> resetStatus, stopTimer")}
         statusManager.setMyTotalGameTime()
-        //statusManager.resetStatus() fare in EndView
         timeManager.stopTimer()
+        if showLog { print("HMapC - 'endGame()' -> stop updating location")}
+        locationManager.locationManager.stopUpdatingLocation()
         self.performSegue(withIdentifier: "toEndView", sender: track)
-
+        
     }
    
     /*
@@ -259,7 +261,7 @@ class HuntMapViewController: UIViewController {
         if showLog { print("HMapC - sono in func 'back'")}
 
         navigationManager.showCancelConfirmationAlert(on: self) {
-            // Gestisci l'annullamento effettivo qui
+
             if self.showLog { print("HMapC - sono in func 'CancelConfirmation:'")}
 
             self.statusManager.resetStatus()
@@ -282,24 +284,25 @@ class HuntMapViewController: UIViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if segue.identifier == "toQuizView" {
-            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
-            let destController = segue.destination as! TriviaController // lo forzo ad essere un TrackView
+            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (#TODO: non posso modificare sopra "Any?"
+            let destController = segue.destination as! TriviaController // lo forzo ad essere un TriviaController
             destController.track = track
+            
         } else if segue.identifier == "toQRCodeView" {
             let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
             
-            let destController = segue.destination as! QRCodeController // lo forzo ad essere un TrackView
+            let destController = segue.destination as! QRCodeController // lo forzo ad essere un QRCodeController
             destController.track = track
             
-            //let destController = segue.destination as! QRCodeController // lo forzo ad essere un TrackView
-            //destController.track = track
         } else if segue.identifier == "toEndView" {
             let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
             
-            let destController = segue.destination as! EndPageController // lo forzo ad essere un TrackView
+            let destController = segue.destination as! EndPageController // lo forzo ad essere un EndPageController
             destController.track = track
         }
+        
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
@@ -312,7 +315,7 @@ class HuntMapViewController: UIViewController {
 extension HuntMapViewController: MKMapViewDelegate {
     // Funzioni delegate di MKMapView e specifiche di disegno su mappa
     
-    // Funzione per disegnare l'overlay del cerchio
+    // Funzione 'rendererFor', usata per disegnare l'overlay del cerchio
      func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
          if let circleOverlay = overlay as? MKCircle {
              let circleRenderer = MKCircleRenderer(overlay: circleOverlay)

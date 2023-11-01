@@ -14,6 +14,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     
     static let shared = DHLocationManager()  
     var locationManager: CLLocationManager
+    
     private let showLog: Bool = false
 
     
@@ -30,14 +31,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
 
         locationManager.requestWhenInUseAuthorization()
     }
-/*
-    func calculateDistance(to destinationLocation: CLLocation) -> CLLocationDistance? {
-        if locationManager.location != nil {
-            return locationManager.location!.distance(from: destinationLocation)
-        }
-        return nil
-    }
-*/
+
     func checkLocationAuthorization() {
     if showLog { print("LocMan - sono in 'checkLocationAuthorization()'")}
       switch locationManager.authorizationStatus {
@@ -58,7 +52,6 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
       @unknown default:
           print("Unknow error. Unable to get current location.")
       }
-                
     }
     
     func calculateRegion() -> MKCoordinateRegion {
@@ -75,7 +68,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
         return Int(distance ?? -1)
     }
     
-    // CLLocationManagerDelegate methods
+    // CLLocationManagerDelegate methods #TODO: serve lasciarli anche qua!?!?!
 /*
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)")
