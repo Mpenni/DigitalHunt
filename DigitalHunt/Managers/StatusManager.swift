@@ -14,12 +14,7 @@ class StatusManager {
     private let dateFormatter = DateFormatter()
     
     private let showLog: Bool = true
-    
-    //let timeManager = TimeManager.shared
-
-    //private let timeManager = TimeManager.shared
-
-    
+        
     private init() {
     dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
     }
@@ -72,7 +67,7 @@ class StatusManager {
             if let startTime = getDateFromString(startTimeString) {
                 let timeDifference = currentDateTime.timeIntervalSince(startTime)
                 // Ora timeDifference contiene la differenza in secondi tra currentDateTime e startTime
-                print("total time: \(timeDifference)")
+                print("total time: \(timeDifference)")  //TODO: fare con show log
                 setStatusProp(key: "myFinalTime", value: String(Int(round(timeDifference)))) //da 27,0 a 27
             } else {
                 // Se non è possibile convertire la data di inizio
@@ -111,13 +106,9 @@ class StatusManager {
     
     func getDateFromString(_ dateString: String?) -> Date? {
         if dateString == nil {return nil}
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         return dateFormatter.date(from: dateString!)
     }
-    
-
-    
+        
 }
 
 

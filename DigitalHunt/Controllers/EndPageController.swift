@@ -15,62 +15,65 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     let statusManager = StatusManager.shared
     let trackAPIManager = TrackAPIManager.shared
     
-    var userTime: Int = 99999999
-    var recordTime: Int = 0
+    var userTime: Int?
+    var recordTime: Int = Int ()
     var userIsRecordman :Bool = false
     var userHasRecordTime :Bool = false
     
     private let showLog: Bool = true
-
-    //#TODO: verificare azione per tornare ad indexTracks!!!
  
     @IBOutlet weak var userTimeLabel: UILabel!
     @IBOutlet weak var recordTimeLabel: UILabel!
     @IBOutlet weak var resultLabel: UILabel!
     
     @IBAction func goToTrackTable(_ sender: Any) {
-        self.performSegue(withIdentifier: "toTracksTable", sender: nil)
+        if let navigationController = self.navigationController {
+            navigationController.popToRootViewController(animated: true)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupBackButton()
+        navigationItem.hidesBackButton = true
         self.title = "Hai concluso il percorso!"
         
-        getMyTime()
-        getRecordTime()
+        getMyTime() //#TODO: mettere es. usertime = metodo etc
+        getRecordTime() //idem
         userHasRecordTime = getRecordUserAndCompare()
         statusManager.resetStatus()
     }
 
     private func getRecordUserAndCompare() -> Bool{
-        if recordTime > userTime {
-            if showLog { print("EndVC - 'recordTime': \(recordTime)")}
-            if showLog { print("EndVC - 'userTime': \(userTime)")}
-            if showLog { print("EndVC - hai tu il miglior tempo!")}
-            updateRecordData()
-            if let recordUserIdInTrack = track.recordUserId {
-                if statusManager.getUserUniqueId() == recordUserIdInTrack {
-                    if showLog { print("EndVC - 'recordID': \(recordUserIdInTrack)")}
-                    if showLog { print("EndVC - 'userID': \(statusManager.getUserUniqueId())")}
-                    if showLog { print("EndVC - Hai migliorato il tuo record")}
-                    resultLabel.text = "Hai migliorato il tuo record!"
-                    return true
+        if let userTime = userTime {
+            if recordTime > userTime {
+                if showLog { print("EndVC - 'recordTime': \(recordTime)")}
+                if showLog { print("EndVC - 'userTime': \(userTime)")}
+                if showLog { print("EndVC - hai tu il miglior tempo!")}
+                updateRecordData()
+                if let recordUserIdInTrack = track.recordUserId {
+                    if statusManager.getUserUniqueId() == recordUserIdInTrack {
+                        if showLog { print("EndVC - 'recordID': \(recordUserIdInTrack)")}
+                        if showLog { print("EndVC - 'userID': \(statusManager.getUserUniqueId())")}
+                        if showLog { print("EndVC - Hai migliorato il tuo record")}
+                        resultLabel.text = "Hai migliorato il tuo record!"
+                        return true
+                    } else {
+                        resultLabel.text = "Hai stabilito il nuovo record!"
+                        if showLog { print("EndVC - Hai stabilito il nuovo record! (exRecordID not NIL)")}
+                        return true
+                    }
                 } else {
                     resultLabel.text = "Hai stabilito il nuovo record!"
-                    if showLog { print("EndVC - Hai stabilito il nuovo record! (exRecordID not NIL)")}
+                    if showLog { print("EndVC - Hai stabilito il nuovo record! (exRecordID NIL)")}
                     return true
                 }
             } else {
-                resultLabel.text = "Hai stabilito il nuovo record!"
-                if showLog { print("EndVC - Hai stabilito il nuovo record! (exRecordID NIL)")}
-                return true
+                resultLabel.text = "Non hai stabilito il nuovo record!"
+                if showLog { print("EndVC - Non hai stabilito il nuovo record!")}
+                return false
             }
-        } else {
-            resultLabel.text = "Non hai stabilito il nuovo record!"
-            if showLog { print("EndVC - Non hai stabilito il nuovo record!")}
-            return false
         }
+        return false
     }
 
     private func getMyTime() {
@@ -105,43 +108,15 @@ class EndPageController: UIViewController, UITextFieldDelegate {
         // Chiamata asincrona
             Task {
                 do {
-                    try await trackAPIManager.updateTrackRecordData(trackId: track.id, recordUserId: myUserId, recordUserTime: userTime)
+                    try await trackAPIManager.updateTrackRecordData(trackId: track.id, recordUserId: myUserId, recordUserTime: userTime!)
                     if showLog { print("EndVC - update recordData")}
                     if showLog { print("      -> trackId: \(track.id)")}
                     if showLog { print("      -> recordUserId: \(myUserId)")}
-                    if showLog { print("      -> userTime: \(userTime)")}
+                    if showLog { print("      -> userTime: \(String(describing: userTime))")}
                 } catch {
                     print("Errore durante l'aggiornamento del track: \(error)")
                 }
             }
-    }
-
-    //#TODO: NON è meglio disinibile il pulsante semplicemente?
-    
-    func setupBackButton(){
-        let newBackButton = UIBarButtonItem(title: "Annulla", style: .plain, target: self, action: #selector(back(_:)))
-        navigationItem.leftBarButtonItem = newBackButton
-    }
-
-    @objc func back(_ sender: UIBarButtonItem?) {
-        navigationItem.hidesBackButton = true
-        let ac = UIAlertController(title: "Questa azione ti farà uscire dall'applicazione", message: nil, preferredStyle: .alert)
-        let yes = UIAlertAction(title: "Si", style: .destructive, handler: { action in
-            UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
-        })
-        let no = UIAlertAction(title: "No", style: .default, handler: nil)
-        ac.addAction(yes)
-        ac.addAction(no)
-        self.present(ac, animated: true, completion: nil)
-    }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destController = segue.destination as! TracksTableViewController // lo forzo ad essere un TrackView
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
 }
 

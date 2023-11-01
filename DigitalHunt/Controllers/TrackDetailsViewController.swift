@@ -32,7 +32,6 @@ class TrackDetailsViewController: UIViewController {
     
     private let showLog: Bool = true
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = track.name
@@ -40,13 +39,6 @@ class TrackDetailsViewController: UIViewController {
         manageLocation()
         setIcons()
     }
-    
-    /*
-    @IBAction func startGameAction(_ sender: Any) {
-
-        self.performSegue(withIdentifier: "toHuntMapView", sender: track)
-    }
-    */
     
     private func setIcons() {
         if showLog { print("TDetailsC - sono in 'setIcons()'")}
@@ -94,7 +86,7 @@ class TrackDetailsViewController: UIViewController {
             if showLog { print("TDetailsC - disabilito tasto 'START'")}
         }
     }
-    
+    //TODO: aggiungere name track in corso?
     @IBAction func startGameAction(_ sender: Any) {
         if showLog { print("TDetailsC - sono in 'startGameAction'")}
         //se esiste un trackId nello Status e non coincide con quello selezionato -> Alert
@@ -106,10 +98,10 @@ class TrackDetailsViewController: UIViewController {
                 preferredStyle: .alert
             )
             
-            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in  //TODO: è una closure?
+            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in  // è una closure: funzione anonima che passo come parametro
                 //resetto lo status e procedo
                 self!.statusManager.resetStatus()
-                self!.performSegue(withIdentifier: "toHuntMapView", sender: self!.track)  //TODO: c'è 2 volte perform Segue
+                self!.performSegue(withIdentifier: "toHuntMapView", sender: self!.track)
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -119,15 +111,15 @@ class TrackDetailsViewController: UIViewController {
             
             present(alertController, animated: true, completion: nil)
         } else {
-            self.performSegue(withIdentifier: "toHuntMapView", sender: track)             //TODO: c'è 2 volte perform Segue
+            self.performSegue(withIdentifier: "toHuntMapView", sender: track)
         }
     }
-
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+        let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
         let destController = segue.destination as! HuntMapViewController // lo forzo ad essere un TrackView
         destController.track = track
         // Get the new view controller using segue.destination.
@@ -140,8 +132,7 @@ class TrackDetailsViewController: UIViewController {
 extension TrackDetailsViewController: CLLocationManagerDelegate {
     // metodi CLLocationManagerDelegate  e altri specifiche di localizzazione
 
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {  //#TODO: possono essere "private"?
-        //print("sono in didUpdateLcoation")
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         setupLocation()
     }
  

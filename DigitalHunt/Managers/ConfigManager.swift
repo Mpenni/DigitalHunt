@@ -28,9 +28,7 @@ class ConfigManager {
         } else {
             print("Qualcosa è andato storto")
         }
-        
         printConfig()
-        
     }
 
 

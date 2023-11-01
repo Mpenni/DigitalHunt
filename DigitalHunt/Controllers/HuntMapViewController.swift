@@ -79,9 +79,9 @@ class HuntMapViewController: UIViewController {
         statusManager.setStatusProp(key: "currentNodeIndex", value: "\(track.currentNodeIndex)")
         if showLog { print("HMapC - track.currennodeindex e status = \(track.currentNodeIndex)")}
 
-        resetMarker()  //#TODO: lo posso spostanre dentro draw, all'inizio..
         loadUserOnMap()
         drawAreaInMap()
+        
         setupComplete = true
         if showLog { print("HMapC - fine 'viewDidAppear'")}
 
@@ -114,44 +114,18 @@ class HuntMapViewController: UIViewController {
     }
     
     private func defineTargetNode() {
-        if let cn = track.getCurrentNode() {
-            currentNode = cn
-            if showLog { print("HMapC - defineTargetNode(): setto 'currentNode' = \(currentNode?.desc ?? "desc node nd")")}
-            
-        }
+        currentNode = track.getCurrentNode()
+        if showLog { print("HMapC - defineTargetNode(): setto 'currentNode' = \(currentNode?.desc ?? "desc node nd")")}
         
         isStart = track.checkIsStartNode()
         isEnd = track.checkIsEndNode()
 
-        
-        // #TODO:  1: prime era: currentNode = track.Nodes[index] //quale è meglio?!?!
-        
-        // #TODO:  2:sotto codice completo che ho rimosso
-
-        
-        
-        /*
-        if statusManager.getStatusProp(key: "currentNodeIndex") == nil {
-            // non c'è in status currentNode
-            currentNode = track.getCurrentNode()
-            //currentNode = track.Nodes.first!
-            statusManager.setStatusProp(key: "currentNodeIndex", value: "\(track.currentNodeIndex)")
-        } else if let indexString = statusManager.getStatusProp(key: "currentNodeIndex"), let index = Int(indexString) {
-            // Converte la stringa in un intero
-            currentNode = track.Nodes[index]
-        } else {
-            //#TODO: some error go to main
-            }
-        if currentNode == nil {
-            //#TODO: some error go to main
-        }
-         */
     }
 
     private func updateLabels() {
         if showLog { print("HMapC - setto infoLabel e LegLabel")}
         legLabel.text = "\(track.currentNodeIndex) di \(track.Nodes.count - 1)"
-        if track.currentNodeIndex == 0 {
+        if track.checkIsStartNode() {
             infoLabel.text = "Procedi verso l'area 'INIZIO'"
         } else {
             infoLabel.text = "Procedi verso la prossima area"
@@ -167,8 +141,6 @@ class HuntMapViewController: UIViewController {
         if showLog { print("HMapC - 'checkIsInsideNode()'")}
 
         if !userIsInsideNode && setupComplete {
-            
-            //radius = 10
             distance = locationManager.calculateDistanceFromHere(lat: currentNode!.lat, long: currentNode!.long)
             //print("LATITUDE \(String(describing: currentNode?.lat))")
             //print("DISTANCE \(distance)")
@@ -202,7 +174,7 @@ class HuntMapViewController: UIViewController {
         }
     }
     
-    private func startGame(){   // #TODO: è corretta?       posizione      timeManager.startTimer()
+    private func startGame(){
 
         if showLog { print("HMapC - 'startGame()'")}
         if statusManager.getStatusProp(key: "startTime") == nil {
@@ -211,7 +183,6 @@ class HuntMapViewController: UIViewController {
             if showLog { print("HMapC - startTime in STATUS è nil -> lancio 'statusManager.setStartTimeNow()'")}
             if showLog { print("HMapC - startTime in STATUS è nil -> lancio 'timeManager.startTimer()'")}
         }
-        //timeManager.startTimer()
     }
     
     private func endGame() {
@@ -221,10 +192,9 @@ class HuntMapViewController: UIViewController {
         if showLog { print("HMapC - 'endGame()' -> stop updating location")}
         locationManager.locationManager.stopUpdatingLocation()
         self.performSegue(withIdentifier: "toEndView", sender: track)
-        
     }
    
-    /*
+    /* //TODO: tornare alla vecchia
     func setupBackButton(){
         let newBackButton = UIBarButtonItem(title: "Annulla", style: .plain, target: self, action: #selector(back(_:)))
         navigationItem.leftBarButtonItem = newBackButton
@@ -286,12 +256,12 @@ class HuntMapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toQuizView" {
-            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (#TODO: non posso modificare sopra "Any?"
+            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
             let destController = segue.destination as! TriviaController // lo forzo ad essere un TriviaController
             destController.track = track
             
         } else if segue.identifier == "toQRCodeView" {
-            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+            let track = sender as! Track
             
             let destController = segue.destination as! QRCodeController // lo forzo ad essere un QRCodeController
             destController.track = track
@@ -317,6 +287,7 @@ extension HuntMapViewController: MKMapViewDelegate {
     
     // Funzione 'rendererFor', usata per disegnare l'overlay del cerchio
      func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+         if self.showLog { print("HMapC - sono in 'renderFor")}
          if let circleOverlay = overlay as? MKCircle {
              let circleRenderer = MKCircleRenderer(overlay: circleOverlay)
              circleRenderer.fillColor = UIColor.blue.withAlphaComponent(0.3)
@@ -332,10 +303,15 @@ extension HuntMapViewController: MKMapViewDelegate {
         defineTargetNode()
         updateLabels()
         drawMarker()
+        
+        // Chiamo showAnnotations per impostare il livello di zoom in modo da vedere tutti gli marker sulla mappa #TODO: CHECK
+        mapView.showAnnotations(mapView.annotations, animated: true)
+
         checkIsInsideNode()
     }
     
     private func drawMarker() {
+        resetMarker()
         if self.showLog { print("HMapC - sono in 'drawMarker()'")}
         nodePin = MKPointAnnotation()
         nodePin!.coordinate.latitude = currentNode!.lat
@@ -396,6 +372,8 @@ extension HuntMapViewController: CLLocationManagerDelegate {
                 print("Posizione non disponibile.")
                 return
         }
+        
+        //TODO: verificare se usare calculate region in locationManager
         coordinates = locationManager.locationManager.location!.coordinate
         let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: coordinates!, span: spanDegree)

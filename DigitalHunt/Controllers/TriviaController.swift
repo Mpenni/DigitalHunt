@@ -81,7 +81,6 @@ class TriviaController: UIViewController {
                  */
             }else {
                 print("c'è stato un problema")
-                //#TODO: prendi le domande da Json
             }
         }
     }

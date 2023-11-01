@@ -28,7 +28,6 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
 
     func requestAuthorization() {  // lo lascio qua per eventuale riuso o aggiunta operazioni in questa fase
         if showLog { print("LocMan - sono in 'requestAuthorization()'")}
-
         locationManager.requestWhenInUseAuthorization()
     }
 
@@ -54,7 +53,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
       }
     }
     
-    func calculateRegion() -> MKCoordinateRegion {
+    func calculateRegion() -> MKCoordinateRegion {   //TODO: credo non venga mai usata!
         if showLog { print("LocMan - sono in 'calculateRegion()'")}
         let coordinates : CLLocationCoordinate2D = locationManager.location!.coordinate
         let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
@@ -67,13 +66,11 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
         if showLog { print("LocMan - sono in 'calculateDistanceFromHere'")}
         return Int(distance ?? -1)
     }
-    
-    // CLLocationManagerDelegate methods #TODO: serve lasciarli anche qua!?!?!
 /*
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)")
     }
-  */
+*/
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if showLog { print("LocMan - sono in 'locationManagerDidChangeAuthorization' in classe primaria")}
         checkLocationAuthorization()

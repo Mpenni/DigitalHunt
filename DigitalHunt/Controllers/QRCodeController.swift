@@ -30,20 +30,12 @@ class QRCodeController: UIViewController, UITextFieldDelegate {
     }
     
     private func checkCode(insertedCode: String) {
-        //print("par \(insertedCode)")
-        //print("NodeId \(track.getCurrentNode()?.id)")
-        //print("codiceGiusto \(track.getCurrentNode()?.code)")
-        if insertedCode == track.getCurrentNode()?.code {
+
+        if insertedCode == track.getCurrentNode().code {
             infoLabel.text = "Codice corretto"
             print("Codice corretto")
             self.navigationController?.popViewController(animated: true)
         }
-
-    
-        
-        /* if insertedCode == track.getCurrentNode?().code {
-            print("OK")
-        }*/
     }
     
     func setupBackButton(){

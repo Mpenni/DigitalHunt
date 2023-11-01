@@ -11,11 +11,7 @@
 // #TODO: BIG: QRCODESCANNER
 // #TODO: BIG: DOCUMENTAZIONE
 
-// #TODO: BUG: icona quiz in track ma track 00 non è quiz
-// sistemare zoom in did update?
 // in code NON uscire da app (forse anche in game), ma resettare
-
-
 
 import UIKit
 
@@ -23,11 +19,9 @@ class TracksTableViewController: UITableViewController {
 
     var tracks: [Track] = []
     var trackNames :[String] = []
-    let trackAPIManager = TrackAPIManager.shared //#TODO: era in DidLoad!
-    
+    let trackAPIManager = TrackAPIManager.shared
     
     private let showLog: Bool = true
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,13 +34,13 @@ class TracksTableViewController: UITableViewController {
         // Eseguo l'operazione asincrona all'interno del blocco "async"
         Task {
             do {
-                var tracks = try await trackAPIManager.getAllTracks()
+                var allTracks = try await trackAPIManager.getAllTracks()
                 if showLog { print("TTC - chiamo  'trackAPIManager.getAllTracks()'")}
 
                 //trackAPIManager.printTracksData()
                 
                 if showLog {
-                    for track in tracks {
+                    for track in allTracks {
                         print("TTC - Track ID: \(track.id)")
                         print("    -> TrackName: \(track.name)")
                         print("    -> Desc: \(track.desc)")
@@ -68,22 +62,23 @@ class TracksTableViewController: UITableViewController {
                     }
                 }
                 
-                if showLog { print("TTC - Lunghezza tracks prima del filtro: \(tracks.count)") }
+                if showLog { print("TTC - Lunghezza tracks prima del filtro: \(allTracks.count)") }
                 
                 if showLog { print("TTC - Applico filtro a tracks") }
-                tracks = tracks.filter { track in
+                allTracks = allTracks.filter { track in
                     track.Nodes.count >= 2 &&
                     (track.isQuiz || (track.scheduledStart != nil && track.scheduledEnd != nil))
                 }
-                if showLog { print("TTC - Lunghezza tracks dopo filtro: \(tracks.count)")}
+                if showLog { print("TTC - Lunghezza tracks dopo filtro: \(allTracks.count)")}
 
                 // Ordino l'array
-                tracks.sort { $0.name < $1.name } // $x elementi di  chiusura di ordinamento (primo elem, secondo elem da confrontare)
+                allTracks.sort { $0.name < $1.name } // $x elementi di  chiusura di ordinamento (primo elem, secondo elem da confrontare)
                 
-                // Assegno direttamente i dati delle tracce all'array tracks #TODO: perchè?
-                     self.tracks = tracks
+                // Assegno direttamente i dati delle tracce all'array tracks
+                tracks = allTracks
                 
                 // Aggiorno l'UI sulla coda principale
+                // con task sposto (asincronicamente con await) esecuzione in altro thread, ma solo con il main ho il permesso di modifuca UI
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -91,8 +86,10 @@ class TracksTableViewController: UITableViewController {
                 print("ERROR TTC - Errore nel recupero dei dati delle tracce: \(error)")
             }
         }
-                        
+        
+        /*  // non è deterministico, valutare con un calo di connessione
         tableView.reloadData() //è quella di default di tutti i tableviewcontroller //#TODO: verificare se necessario ripeterla
+        */
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -100,12 +97,6 @@ class TracksTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-    /*
-    private func checkStatus() {
-        statusManager.printAll()
-        // #TODO: se non nullo, va a mappa con track giusta
-    }
-    */
     
     // MARK: - Table view data source
 
@@ -120,7 +111,6 @@ class TracksTableViewController: UITableViewController {
         //return tracks.count
         return tracks.count
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as! TrackTableViewCell
@@ -192,13 +182,12 @@ class TracksTableViewController: UITableViewController {
         return true
     }
     */
-
     
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+        let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
         let destController = segue.destination as! TrackDetailsViewController // lo forzo ad essere un TrackView
         destController.track = track
         // Get the new view controller using segue.destination.

@@ -54,11 +54,11 @@ class Track {
         //print("setto index in track da status = \(index)")
     }
     
-    func getCurrentNode() -> Node? {
+    func getCurrentNode() -> Node {
         if currentNodeIndex >= 0, currentNodeIndex < Nodes.count {
             return Nodes[currentNodeIndex]
         } else {
-            return nil
+            return Nodes[0]
         }
     }
     
