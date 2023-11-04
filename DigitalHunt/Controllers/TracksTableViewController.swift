@@ -8,7 +8,7 @@
 // #TODO: Gestire altri casi di autorizzazione location, anche durante game, compreso perdita segnale
 // #TODO: popolare track
 // #TODO: creare percorsi simulatore
-// #TODO: BIG: QRCODESCANNER
+// #TODO: BIG: QRCODESCANNER +  spostare man uale sopra
 // #TODO: BIG: DOCUMENTAZIONE
 
 // in code NON uscire da app (forse anche in game), ma resettare

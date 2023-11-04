@@ -38,7 +38,7 @@ class HuntMapViewController: UIViewController {
     var nodePin: MKPointAnnotation?
     var radius: Int = 10
     
-    private let showLog: Bool = true
+    private let showLog: Bool = false
 
     override func viewDidLoad() {
         if showLog { print("HMapC - inizio 'viewDidLoad'")}

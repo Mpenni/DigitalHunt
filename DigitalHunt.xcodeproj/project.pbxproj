@@ -25,7 +25,6 @@
 		EE884A062ADF31C8007D92C2 /* TracksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */; };
 		EE884A0C2ADF38F0007D92C2 /* TrackTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */; };
 		EEE265752AE05959003E6DFD /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE265742AE05959003E6DFD /* Track.swift */; };
-		EEE265772AE05C62003E6DFD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */; };
 		EEE5FE3D2AEEA35B001C8A4C /* EndPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE5FE3C2AEEA35B001C8A4C /* EndPageController.swift */; };
 		EEF889572AE6FA6B0020DB72 /* TriviaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889562AE6FA6B0020DB72 /* TriviaResponse.swift */; };
 		EEF889592AE6FABA0020DB72 /* TriviaQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889582AE6FABA0020DB72 /* TriviaQuestion.swift */; };
@@ -40,6 +39,9 @@
 		EEF889712AEE45DA0020DB72 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889702AEE45DA0020DB72 /* ConfigManager.swift */; };
 		EEFFEC6F2AF05606000D7B5A /* Track00_00->01.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC6E2AF05606000D7B5A /* Track00_00->01.gpx */; };
 		EEFFEC712AF05933000D7B5A /* Track00_01->02.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC702AF05933000D7B5A /* Track00_01->02.gpx */; };
+		EEFFEC732AF64746000D7B5A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC722AF64746000D7B5A /* GoogleService-Info.plist */; };
+		EEFFEC772AF659D9000D7B5A /* QRCorrect-4321.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC752AF659D8000D7B5A /* QRCorrect-4321.png */; };
+		EEFFEC782AF659D9000D7B5A /* QRWrong-1111.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC762AF659D9000D7B5A /* QRWrong-1111.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,7 +68,6 @@
 		EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
 		EEE265742AE05959003E6DFD /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
-		EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EEE5FE3C2AEEA35B001C8A4C /* EndPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPageController.swift; sourceTree = "<group>"; };
 		EEF889562AE6FA6B0020DB72 /* TriviaResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaResponse.swift; sourceTree = "<group>"; };
 		EEF889582AE6FABA0020DB72 /* TriviaQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaQuestion.swift; sourceTree = "<group>"; };
@@ -82,6 +83,9 @@
 		EEFFEC6D2AF05575000D7B5A /* Track00_00.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Track00_00.gpx; sourceTree = "<group>"; };
 		EEFFEC6E2AF05606000D7B5A /* Track00_00->01.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Track00_00->01.gpx"; sourceTree = "<group>"; };
 		EEFFEC702AF05933000D7B5A /* Track00_01->02.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Track00_01->02.gpx"; sourceTree = "<group>"; };
+		EEFFEC722AF64746000D7B5A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Models/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EEFFEC752AF659D8000D7B5A /* QRCorrect-4321.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCorrect-4321.png"; sourceTree = "<group>"; };
+		EEFFEC762AF659D9000D7B5A /* QRWrong-1111.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRWrong-1111.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,9 +130,9 @@
 		EE54DD4B2ADF242E00DEBA4D /* DigitalHunt */ = {
 			isa = PBXGroup;
 			children = (
+				EEFFEC722AF64746000D7B5A /* GoogleService-Info.plist */,
 				EEF8896D2AEE40830020DB72 /* Resources */,
 				EE5C5EDF2AE572E700EE601B /* GPXforSimulateLocation */,
-				EEE265762AE05C62003E6DFD /* GoogleService-Info.plist */,
 				EE884A072ADF37C3007D92C2 /* Models */,
 				EE884A042ADF3157007D92C2 /* Controllers */,
 				EEF8896C2AEE40390020DB72 /* Managers */,
@@ -224,9 +228,19 @@
 		EEF8896D2AEE40830020DB72 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EEFFEC742AF659B2000D7B5A /* QRCode */,
 				EEF8895F2AE9A9CC0020DB72 /* SpareQuestions */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		EEFFEC742AF659B2000D7B5A /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				EEFFEC752AF659D8000D7B5A /* QRCorrect-4321.png */,
+				EEFFEC762AF659D9000D7B5A /* QRWrong-1111.png */,
+			);
+			path = QRCode;
 			sourceTree = "<group>";
 		};
 		F9FC5C1356FE2882A9D6277A /* Frameworks */ = {
@@ -298,13 +312,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */,
+				EEFFEC772AF659D9000D7B5A /* QRCorrect-4321.png in Resources */,
 				EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */,
 				EEFFEC6F2AF05606000D7B5A /* Track00_00->01.gpx in Resources */,
-				EEE265772AE05C62003E6DFD /* GoogleService-Info.plist in Resources */,
 				EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */,
 				EEF889612AE9AA880020DB72 /* easyQuestions.json in Resources */,
 				EE54DD542ADF242E00DEBA4D /* Main.storyboard in Resources */,
 				EEF8896F2AEE42C10020DB72 /* Config.plist in Resources */,
+				EEFFEC782AF659D9000D7B5A /* QRWrong-1111.png in Resources */,
+				EEFFEC732AF64746000D7B5A /* GoogleService-Info.plist in Resources */,
 				EEF889652AECFFA50020DB72 /* 2_1.gpx in Resources */,
 				EEFFEC712AF05933000D7B5A /* Track00_01->02.gpx in Resources */,
 			);
@@ -537,6 +553,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DigitalHunt/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = NO;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app requires camera permission to scan QR code!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -569,6 +586,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DigitalHunt/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = NO;
+				INFOPLIST_KEY_NSCameraUsageDescription = "The app requires camera permission to scan QR code!";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

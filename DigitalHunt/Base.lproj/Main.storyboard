@@ -92,7 +92,7 @@
                             <outlet property="delegate" destination="cIF-Ex-z5V" id="uNL-gK-CWm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Percorsi" id="76H-3J-ZBv"/>
+                    <navigationItem key="navigationItem" title="Percorsi" largeTitleDisplayMode="always" id="76H-3J-ZBv"/>
                     <connections>
                         <segue destination="7Xv-vz-o2N" kind="show" identifier="toTrackDetails" id="HfE-Sp-s7e"/>
                     </connections>
@@ -569,7 +569,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veZ-Z3-0zP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="veZ-Z3-0zP">
                                 <rect key="frame" x="30" y="765" width="333" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="333" id="60c-0M-RwG"/>
@@ -582,7 +582,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rO8-71-qjj">
-                                <rect key="frame" x="32" y="699" width="200" height="34"/>
+                                <rect key="frame" x="32" y="135" width="200" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="kBs-5C-dut"/>
                                 </constraints>
@@ -590,27 +590,36 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ugd-34-ZjH">
-                                <rect key="frame" x="271.66666666666669" y="698" width="89.333333333333314" height="35"/>
+                                <rect key="frame" x="271.66666666666669" y="134.66666666666666" width="89.333333333333314" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Cancella"/>
                                 <connections>
                                     <action selector="deleteCodeField:" destination="nSX-0y-3dO" eventType="touchUpInside" id="0jx-cX-efX"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="33p-5x-NBI">
+                                <rect key="frame" x="68.666666666666686" y="298" width="256" height="256"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="h3I-TJ-ths"/>
+                                    <constraint firstAttribute="width" constant="256" id="zyI-o7-e8c"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jT4-Pt-5in"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="rO8-71-qjj" firstAttribute="leading" secondItem="jT4-Pt-5in" secondAttribute="leading" constant="32" id="5oi-kj-imO"/>
-                            <constraint firstItem="veZ-Z3-0zP" firstAttribute="top" secondItem="rO8-71-qjj" secondAttribute="bottom" constant="32" id="Ffc-JA-YXZ"/>
-                            <constraint firstItem="jT4-Pt-5in" firstAttribute="trailing" secondItem="Ugd-34-ZjH" secondAttribute="trailing" constant="32" id="TW2-YO-iHI"/>
-                            <constraint firstItem="veZ-Z3-0zP" firstAttribute="top" secondItem="Ugd-34-ZjH" secondAttribute="bottom" constant="32" id="bnz-a4-Oiw"/>
-                            <constraint firstItem="veZ-Z3-0zP" firstAttribute="centerX" secondItem="VUj-Bg-buF" secondAttribute="centerX" id="nJj-6d-fXQ"/>
-                            <constraint firstItem="jT4-Pt-5in" firstAttribute="bottom" secondItem="veZ-Z3-0zP" secondAttribute="bottom" constant="32" id="ywa-jr-IZk"/>
+                            <constraint firstItem="33p-5x-NBI" firstAttribute="centerY" secondItem="VUj-Bg-buF" secondAttribute="centerY" id="C9j-CP-bjB"/>
+                            <constraint firstItem="Ugd-34-ZjH" firstAttribute="centerY" secondItem="rO8-71-qjj" secondAttribute="centerY" id="Ccb-Ts-f57"/>
+                            <constraint firstItem="33p-5x-NBI" firstAttribute="centerX" secondItem="VUj-Bg-buF" secondAttribute="centerX" id="OsY-2P-qcy"/>
+                            <constraint firstItem="rO8-71-qjj" firstAttribute="leading" secondItem="jT4-Pt-5in" secondAttribute="leading" constant="32" id="S7y-7j-gKT"/>
+                            <constraint firstItem="jT4-Pt-5in" firstAttribute="trailing" secondItem="Ugd-34-ZjH" secondAttribute="trailing" constant="32" id="aqp-wx-OPc"/>
+                            <constraint firstItem="rO8-71-qjj" firstAttribute="top" secondItem="jT4-Pt-5in" secondAttribute="top" constant="32" id="dtd-Wj-srM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="trB-Tb-HPc"/>
                     <connections>
+                        <outlet property="cameraView" destination="33p-5x-NBI" id="TMv-G4-Fhz"/>
                         <outlet property="infoLabel" destination="veZ-Z3-0zP" id="PIp-n3-Nrj"/>
                         <outlet property="inputCode" destination="rO8-71-qjj" id="gc5-Xn-Sl8"/>
                     </connections>
