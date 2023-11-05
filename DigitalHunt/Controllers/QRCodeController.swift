@@ -25,7 +25,11 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
         inputCode.text = ""
     }
     
+    private let showLog: Bool = true
+
+    
     override func viewDidLoad() {
+        if showLog { print("QRCodeC - sono in 'viewDidLoad()'")}
         super.viewDidLoad()
         inputCode.delegate = self
         setupBackButton()
@@ -34,32 +38,36 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
         setupCamera()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) { //#TODO: non si può omettere "_" (anche sotto)
+        if showLog { print("QRCodeC - sono in 'viewWillAppear'")}
         super.viewWillAppear(animated)
         startRunning()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        if showLog { print("QRCodeC - sono in 'viewWillDisappear'")}
         super.viewWillDisappear(animated)
-        stopRunning()
+        stopRunning2()
     }
     
     private func checkCode(insertedCode: String) {
+        if showLog { print("QRCodeC - sono in 'checkCode', code:\(insertedCode)")}
 
         if insertedCode == track.getCurrentNode().code {
             infoLabel.textColor = UIColor.green
             infoLabel.text = "Codice corretto"
-            print("Codice corretto")
+            if showLog { print("      -> codice Corretto")}
             self.navigationController?.popViewController(animated: true)
         } else {
             infoLabel.textColor = UIColor.red
             infoLabel.text = "Codice errato, riprova!"
+            if showLog { print("      -> codice Errato")}
             startRunning()
         }
-        
     }
     
     func setupBackButton(){
+        if showLog { print("QRCodeC - setupBackButton()")}
         let newBackButton = UIBarButtonItem(title: "Annulla", style: .plain, target: self, action: #selector(back(_:)))
         navigationItem.leftBarButtonItem = newBackButton
 
@@ -86,21 +94,16 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
         let newText = (previousText as NSString).replacingCharacters(in: range, with: string)
         
         // Esegui il tuo controllo o azione in base al testo inserito
-        if newText.isEmpty {
-            // Nessun testo inserito
-            // Esegui il tuo controllo o azione qui
-        } else {
-            // Del testo è stato inserito o modificato
-            // Esegui il tuo controllo o azione qui
+        if !newText.isEmpty {
             checkCode(insertedCode: newText)
         }
-        
         return true // Ritorna true per consentire la modifica del testo, false per impedirla
     }
 
     //MARK:  AVCaptureMetadataOutputObjectsDelegate
     
     private func setupCamera() {
+        if showLog { print("QRCodeC - setupCamera()")}
         cameraView.backgroundColor = UIColor.black
         captureSession = AVCaptureSession()
 
@@ -144,31 +147,49 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
     }
     
     func failed() {
+        if showLog { print("QRCodeC - failed()")}
+        print("Scanning not supported")
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
         captureSession = nil
     }
     
-    /*
-     Thread Performance Checker: -[AVCaptureSession startRunning] should be called from background thread. Calling it on the main thread can lead to UI unresponsiveness
-     */
-    
     private func startRunning() {
+        if showLog { print("QRCodeC - startRunning()")}
         if (captureSession?.isRunning == false) {
             DispatchQueue.global(qos: .background).async {
                 self.captureSession.startRunning()
             }
+            /*
+             per prevenire errore: "Thread Performance Checker: -[AVCaptureSession startRunning] should be called from background thread. Calling it on the main thread can lead to UI unresponsiveness"
+             */
         }
     }
     
     private func stopRunning() {
+        if showLog { print("QRCodeC - stopRunning()")}
         if (captureSession?.isRunning == true) {
+            print("son qua 1")
             captureSession.stopRunning()
+        }
+        print("son qua 2")
+
+    }
+    
+    private func stopRunning2() {
+        if showLog { print("QRCodeC - stopRunning()")}
+        if (captureSession?.isRunning == true) {
+            DispatchQueue.global().async {
+                // messa asincrona poichè ci mette qualche secondo e bloccherebbe l'app.
+                self.captureSession.stopRunning()
+            }
         }
     }
 
+
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        if showLog { print("QRCodeC - metadataOutput()")}
         captureSession.stopRunning()
 
         if let metadataObject = metadataObjects.first {
@@ -177,12 +198,11 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             found(code: stringValue)
         }
-
         dismiss(animated: true)
     }
 
     func found(code: String) {
-        print("Codice: \(code)")
+        if showLog { print("QRCodeC - CodiceScansionato: \(code)")}
         checkCode(insertedCode: code)
     }
 
@@ -193,7 +213,6 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-    
 }
 
 

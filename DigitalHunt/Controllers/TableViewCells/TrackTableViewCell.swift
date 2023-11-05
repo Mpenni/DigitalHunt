@@ -15,9 +15,8 @@ class TrackTableViewCell: UITableViewCell {
        
     @IBOutlet weak var quizFlag: UIImageView!
     
-    override func awakeFromNib() {
+    override func awakeFromNib() {  //#TODO: che fa?
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -11,9 +11,6 @@ class TimeManager {
     
     static let shared = TimeManager()
     
-    //weak var timer: Timer?
-    //weak var countDowntimer: Timer?
-    
     var timer: Timer = Timer()
     var countDowntimer: Timer = Timer()
     var count:Int = 0
@@ -43,7 +40,6 @@ class TimeManager {
                 if showLog {print("TimeM: Status nil, count = 0")}
                 count = 0
             }
-            //timer?.invalidate()
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCounter), userInfo: nil, repeats: true)}
         else {
             if showLog {print("TimeM: timer già partito (timerEnabled == true)")}
@@ -104,7 +100,7 @@ class TimeManager {
     
     func startCountDown(duration: Int) {
         // Imposta il timer con l'intervallo specificato (ad esempio, 60 secondi)
-        self.countDownDuration = duration
+        self.countDownDuration = duration + 1
         self.countDowntimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerCountDown), userInfo: nil, repeats: true)
     }
 

@@ -16,7 +16,7 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     let trackAPIManager = TrackAPIManager.shared
     
     var userTime: Int?
-    var recordTime: Int = Int ()
+    var recordTime: Int?
     var userIsRecordman :Bool = false
     var userHasRecordTime :Bool = false
     
@@ -37,16 +37,16 @@ class EndPageController: UIViewController, UITextFieldDelegate {
         navigationItem.hidesBackButton = true
         self.title = "Hai concluso il percorso!"
         
-        getMyTime() //#TODO: mettere es. usertime = metodo etc
-        getRecordTime() //idem
+        userTime = getMyTime()
+        recordTime = getRecordTime()
         userHasRecordTime = getRecordUserAndCompare()
         statusManager.resetStatus()
     }
 
     private func getRecordUserAndCompare() -> Bool{
         if let userTime = userTime {
-            if recordTime > userTime {
-                if showLog { print("EndVC - 'recordTime': \(recordTime)")}
+            if recordTime ?? Int.max > userTime {
+                if showLog { print("EndVC - 'recordTime': \(String(describing: recordTime))")}
                 if showLog { print("EndVC - 'userTime': \(userTime)")}
                 if showLog { print("EndVC - hai tu il miglior tempo!")}
                 updateRecordData()
@@ -76,30 +76,33 @@ class EndPageController: UIViewController, UITextFieldDelegate {
         return false
     }
 
-    private func getMyTime() {
+    private func getMyTime() -> Int? {
         if let myFinalTime = statusManager.getStatusProp(key: "myFinalTime"), let myFinalTimeInt = Int(myFinalTime) {
             if showLog { print("EndVC - myfinalTime: \(myFinalTime)")}
             let time = timeManager.secondsToHoursMinutesSeconds(seconds: myFinalTimeInt)
             let timeString = timeManager.makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
             userTimeLabel.text = timeString
             if showLog { print("EndVC - timeString: \(timeString)")}
-            userTime = myFinalTimeInt
+            return myFinalTimeInt
         } else {
             // "myFinalTime" non è presente o non può essere convertito in Int
             userTimeLabel.text = "-nd-"
+            return nil
         }
     }
     
-    private func getRecordTime() {
+    private func getRecordTime() -> Int? {
         if let recordTimeInTrack = track.recordUserTime {
             let time = timeManager.secondsToHoursMinutesSeconds(seconds: recordTimeInTrack)
             let timeString = timeManager.makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
             print("timeRecord: \(recordTimeInTrack)")
             recordTimeLabel.text = timeString
-            recordTime = recordTimeInTrack
+            //recordTime = recordTimeInTrack
+            return recordTimeInTrack
         } else {
             // "recordTimeInTrack" non è presente o non può essere convertito in Int
             recordTimeLabel.text = "-nd-"
+            return nil
         }
     }
     
@@ -119,4 +122,3 @@ class EndPageController: UIViewController, UITextFieldDelegate {
             }
     }
 }
-

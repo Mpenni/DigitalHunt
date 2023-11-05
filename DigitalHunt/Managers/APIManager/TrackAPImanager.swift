@@ -14,8 +14,6 @@ class TrackAPIManager {
     
     private let showLog: Bool = true
 
-
-    
     private init() {}
     
     var tracks: [Track] = [] // Array per archiviare le tracce
@@ -31,18 +29,17 @@ class TrackAPIManager {
         
         var fetchedTracks: [Track] = [] // Crea un array temporaneo per le tracce
         
-        
-        
+
         for document in querySnapshot.documents {
             let data = document.data()
-            if let name = data["name"] as? String, // Verifica se "name" è una stringa
+            if let name = data["name"] as? String, // Verifica se "name" esiste ed è una stringa
                let desc =  data["desc"] as? String,
                let isKid = data["isKid"] as? Bool,
                let isQuiz = data["isQuiz"] as? Bool,
                let idNodes = data["idNodes"] as? [String] {  //per essere valido, il track deve avere almeno un nodo.
                
                 let id = document.documentID
-                //let idNodes = data["idNodes"] as? [String] ?? [] // Leggi l'array "idNodes" con un valore predefinito vuoto
+
                 let scheduledStart = timeManager.getDateFromString(data["scheduledStart"] as? String)
                 let scheduledEnd = timeManager.getDateFromString(data["scheduledEnd"] as? String)
                 let recordUserId = data["recordUserId"] as? String
@@ -88,7 +85,6 @@ class TrackAPIManager {
     // Funzione per stampare ciclicamente i dati delle tracce nell'array
     func printTracksData() {
         for track in tracks {
-            //print("Track ID: \(track.id)")
             print("Name: \(track.name)")
             print("Desc: \(track.desc)")
             print("Is Kid: \(track.isKid)")

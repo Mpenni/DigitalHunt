@@ -8,10 +8,8 @@
 // #TODO: Gestire altri casi di autorizzazione location, anche durante game, compreso perdita segnale
 // #TODO: popolare track
 // #TODO: creare percorsi simulatore
-// #TODO: BIG: QRCODESCANNER +  spostare man uale sopra
-// #TODO: BIG: DOCUMENTAZIONE
 
-// in code NON uscire da app (forse anche in game), ma resettare
+// #TODO: in code NON uscire da app (forse anche in game), ma resettare
 
 import UIKit
 
@@ -21,7 +19,7 @@ class TracksTableViewController: UITableViewController {
     var trackNames :[String] = []
     let trackAPIManager = TrackAPIManager.shared
     
-    private let showLog: Bool = true
+    private let showLog: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +49,6 @@ class TracksTableViewController: UITableViewController {
                          if !track.Nodes.isEmpty {
                          print("    ->Nodes:")
                          for node in track.Nodes {
-                         //print("Node ID: \(node.id)")
                          print("          ->Name: \(node.name)")
                          print("          ->Latitude: \(node.lat)")
                          print("          ->Longitude: \(node.long)")
@@ -88,7 +85,7 @@ class TracksTableViewController: UITableViewController {
         }
         
         /*  // non è deterministico, valutare con un calo di connessione
-        tableView.reloadData() //è quella di default di tutti i tableviewcontroller //#TODO: verificare se necessario ripeterla
+        tableView.reloadData() //è quella di default di tutti i tableviewcontroller //#TODO: lasciare?
         */
         
         // Uncomment the following line to preserve selection between presentations
@@ -125,6 +122,8 @@ class TracksTableViewController: UITableViewController {
         
         let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice, il .row è l'indice della riga
         
+        
+        //popolo gli elementi della view
         cell.titleLabel.text = track.name
        
         if track.isKid {
@@ -148,6 +147,7 @@ class TracksTableViewController: UITableViewController {
         self.performSegue(withIdentifier: "toTrackDetails", sender: track)
     }
     
+    //#TODO: posso rimuovere codice sotto?
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -187,7 +187,7 @@ class TracksTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
+        let track = sender as! Track // specifico che sender è un Track (e ne sono sicuro!)
         let destController = segue.destination as! TrackDetailsViewController // lo forzo ad essere un TrackView
         destController.track = track
         // Get the new view controller using segue.destination.

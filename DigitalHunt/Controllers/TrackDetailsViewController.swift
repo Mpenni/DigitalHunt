@@ -33,6 +33,7 @@ class TrackDetailsViewController: UIViewController {
     private let showLog: Bool = true
 
     override func viewDidLoad() {
+        if showLog { print("TDetailsC - sono in 'viewDidLoad()'")}
         super.viewDidLoad()
         self.title = track.name
         descTextField.text = track.desc
@@ -78,7 +79,7 @@ class TrackDetailsViewController: UIViewController {
 
         let currentDate = Date()
         if showLog { print("          -> currentDate   : \(currentDate)")}
-        if showLog { print("          -> scheduledStart: \(String(describing: track.scheduledStart))")} //describing per silenziare warning in quanto optional
+        if showLog { print("          -> scheduledStart: \(String(describing: track.scheduledStart))")} //(describing per silenziare warning in quanto optional)
         if showLog { print("          -> scheduledEnd  : \(String(describing: track.scheduledStart))")}
 
         if track.scheduledStart! > currentDate || track.scheduledEnd! < currentDate {
@@ -86,7 +87,6 @@ class TrackDetailsViewController: UIViewController {
             if showLog { print("TDetailsC - disabilito tasto 'START'")}
         }
     }
-    //TODO: aggiungere name track in corso?
     @IBAction func startGameAction(_ sender: Any) {
         if showLog { print("TDetailsC - sono in 'startGameAction'")}
         //se esiste un trackId nello Status e non coincide con quello selezionato -> Alert
@@ -98,7 +98,7 @@ class TrackDetailsViewController: UIViewController {
                 preferredStyle: .alert
             )
             
-            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in  // è una closure: funzione anonima che passo come parametro
+            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in  // funzione anonima che passo come parametro (closure)
                 //resetto lo status e procedo
                 self!.statusManager.resetStatus()
                 self!.performSegue(withIdentifier: "toHuntMapView", sender: self!.track)
@@ -166,12 +166,10 @@ extension TrackDetailsViewController: CLLocationManagerDelegate {
     private func setupLocation() {
         if showLog { print("TDetailsC - sono in setupLocation")}
         if (locationManager.locationManager.location != nil)  {
-            //print("Posizione Corrente (TrackDetails-didUpdateLocation): \(String(describing: locationManager.locationManager.location?.coordinate.latitude)) \(String(describing: locationManager.locationManager.location?.coordinate.longitude))")
             if showLog { print("TDetailsC - 'setupLocation': la posizione è valida")}
             calculateDistanceFromHere()
         } else {
             if showLog { print("TDetailsC - 'setupLocation': non c'è una posizione valida")}
         }
     }
-    
 }

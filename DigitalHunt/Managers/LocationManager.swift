@@ -5,7 +5,6 @@
 //  Created by Dave Stops on 20/10/23.
 //
 
-
 import UIKit
 import MapKit
 
@@ -68,7 +67,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     }
 /*
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)")
+        print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)") #TODO: tolgo?
     }
 */
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -79,6 +78,5 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
-    
 }
 

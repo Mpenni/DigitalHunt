@@ -21,7 +21,6 @@ class HuntMapViewController: UIViewController {
     let locationManager = DHLocationManager.shared
     let statusManager = StatusManager.shared
     let timeManager = TimeManager.shared
-    let navigationManager = NavigationManager.shared
     let configManager = ConfigManager.shared
 
     
@@ -29,7 +28,7 @@ class HuntMapViewController: UIViewController {
     var isStart: Bool = false
     var isEnd: Bool = false
     var distance: Int = -1
-    var userIsInsideNode : Bool = false //#TODO: mi serve ancora?!?
+    var userIsInsideNode : Bool = false
     var setupComplete: Bool = false
     
     //Variabili di Mappa e Posizione
@@ -84,8 +83,6 @@ class HuntMapViewController: UIViewController {
         
         setupComplete = true
         if showLog { print("HMapC - fine 'viewDidAppear'")}
-
-
     }
     
     private func setConfig() {
@@ -129,11 +126,8 @@ class HuntMapViewController: UIViewController {
             infoLabel.text = "Procedi verso l'area 'INIZIO'"
         } else {
             infoLabel.text = "Procedi verso la prossima area"
-            //print("timerEnabled: \(timeManager.timerEnabled)")
             timeManager.startTimer()
             if showLog { print("HMapC - richiamo timer (se NON sono in start, per resume game")}
-            //print("timerEnabled: \(timeManager.timerEnabled)")
-            
         }
     }
        
@@ -142,8 +136,7 @@ class HuntMapViewController: UIViewController {
 
         if !userIsInsideNode && setupComplete {
             distance = locationManager.calculateDistanceFromHere(lat: currentNode!.lat, long: currentNode!.long)
-            //print("LATITUDE \(String(describing: currentNode?.lat))")
-            //print("DISTANCE \(distance)")
+
             if showLog { print("HMapC - 'checkIsInsideNode()', calcolo distanza: \(distance)")}
             if distance < 0 {
                 distanceLabel.text = "-nd-"
@@ -175,7 +168,6 @@ class HuntMapViewController: UIViewController {
     }
     
     private func startGame(){
-
         if showLog { print("HMapC - 'startGame()'")}
         if statusManager.getStatusProp(key: "startTime") == nil {
             statusManager.setStartTimeNow()
@@ -194,20 +186,34 @@ class HuntMapViewController: UIViewController {
         self.performSegue(withIdentifier: "toEndView", sender: track)
     }
    
-    /* //TODO: tornare alla vecchia
+    // MARK: - Navigation
+
     func setupBackButton(){
+        if showLog { print("HMapC - 'setupBackButton()'")}
+        
         let newBackButton = UIBarButtonItem(title: "Annulla", style: .plain, target: self, action: #selector(back(_:)))
         navigationItem.leftBarButtonItem = newBackButton
 
     }
 
     @objc func back(_ sender: UIBarButtonItem?) {
+        if showLog { print("HMapC - sono in func 'back'")}
+
         navigationItem.hidesBackButton = true
         let ac = UIAlertController(title: "Annullare la gara in corso? Questa azione cancellerà tutti i tuoi progressi", message: nil, preferredStyle: .alert)
         let yes = UIAlertAction(title: "Si", style: .destructive, handler: { action in
+            if self.showLog { print("HMapC - Annullo gara in corso'")}
+
             self.statusManager.resetStatus()
-            self.statusManager.printAll()
+            if self.showLog { print("     -> resetStatus")}
+            
+            self.track.setCurrentNodeIndex(index: -1)  //#TODO: da verificare
+            if self.showLog { print("     -> setCurrentNodeIndex in track a -1")}
+
             self.timeManager.stopTimer()
+            if self.showLog { print("     -> stopTimer")}
+
+            if self.showLog { print("HMapC - effettuo navigazione back")}
             self.navigationController?.popViewController(animated: true)
         })
         let no = UIAlertAction(title: "No", style: .default, handler: nil)
@@ -216,15 +222,7 @@ class HuntMapViewController: UIViewController {
         self.present(ac, animated: true, completion: nil)
     }
 
-    */
-       
-    // MARK: - Navigation
-    
-    private func setupBackButton() {
-        if showLog { print("HMapC - 'setupBackButton()'")}
-
-        navigationManager.setupBackButton(for: self, target: self, action: #selector(back))
-    }
+    /* OLD:
     
     @objc func back() {   //valutare se tenere o ripristinare vecchio codice
         navigationItem.hidesBackButton = true
@@ -250,8 +248,7 @@ class HuntMapViewController: UIViewController {
 
         }
     }
-    
-
+*/
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -267,16 +264,14 @@ class HuntMapViewController: UIViewController {
             destController.track = track
             
         } else if segue.identifier == "toEndView" {
-            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro (non posso modificare sopra "Any?"
+            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
             
             let destController = segue.destination as! EndPageController // lo forzo ad essere un EndPageController
             destController.track = track
         }
-        
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-
 }
 
 // MARK: - Maps
@@ -304,7 +299,7 @@ extension HuntMapViewController: MKMapViewDelegate {
         updateLabels()
         drawMarker()
         
-        // Chiamo showAnnotations per impostare il livello di zoom in modo da vedere tutti gli marker sulla mappa #TODO: CHECK
+        // Chiamo showAnnotations per impostare il livello di zoom in modo da vedere tutti gli marker sulla mappa
         mapView.showAnnotations(mapView.annotations, animated: true)
 
         checkIsInsideNode()
@@ -373,7 +368,7 @@ extension HuntMapViewController: CLLocationManagerDelegate {
                 return
         }
         
-        //TODO: verificare se usare calculate region in locationManager
+        //#TODO: verificare se usare calculate region in locationManager
         coordinates = locationManager.locationManager.location!.coordinate
         let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: coordinates!, span: spanDegree)

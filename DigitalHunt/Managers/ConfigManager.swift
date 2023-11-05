@@ -8,7 +8,10 @@
 import Foundation
 
 class ConfigManager {
+    
     static let shared = ConfigManager()
+    
+    private let showLog: Bool = true
 
     private init() {
         loadConfig()
@@ -17,20 +20,20 @@ class ConfigManager {
     private var config: [String: Any]?
 
     private func loadConfig() {
+        if showLog { print("ConfigMan - 'loadConfig()'") }
         if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
            let xml = FileManager.default.contents(atPath: path) {
             do {
                 config = try PropertyListSerialization.propertyList(from: xml, options: .mutableContainersAndLeaves, format: nil) as? [String: Any]
-                print("Config caricato con successo!")
+                if showLog { print("ConfigMan - Config caricato con successo!") }
             } catch {
-                print("Errore durante il caricamento del file plist: \(error)")
+                print("ERROR: ConfigMan - Errore durante il caricamento del file plist: \(error)")
             }
         } else {
-            print("Qualcosa è andato storto")
+            print("ERROR: ConfigMan - Errore generico")
         }
         printConfig()
     }
-
 
     func getValue(forKey key: String) -> Any? {
         return config?[key]
@@ -39,11 +42,10 @@ class ConfigManager {
     func printConfig() {
         if let config = config {
             for (key, value) in config {
-                print("Chiave: \(key), Valore: \(value)")
+                if showLog { print("ConfigMan - Chiave: \(key), Valore: \(value)") }
             }
         } else {
-            print("Config è nullo.")
+            if showLog { print("ConfigMan - Config è nullo") }
         }
     }
-
 }

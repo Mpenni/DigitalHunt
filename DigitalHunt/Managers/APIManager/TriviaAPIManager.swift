@@ -11,30 +11,35 @@ class TriviaAPIManager {
     
     static let shared = TriviaAPIManager()
     let configManager = ConfigManager.shared
-
     
+    private let showLog: Bool = true
+
     private init() {} // Per assicurarci di avere una singola istanza condivisa
 
 
     func fetchTriviaQuestions(isKid: Bool, completion: @escaping ([TriviaQuestion]?, Error?) -> Void) {
-        //var apiUrl = "https://opentdb.com/api.php?amount=3&"
+        if showLog { print("TriviaAPIMan - 'fetchTriviaQuestions'")}
+
+
         var apiUrl = "https://opentdb.com/api.php?amount="
         
         if let questionNumber = configManager.getValue(forKey: "trivia.questionNumber") as? Int {
-            print("TriviaAPIMan - trivia.questionNumber Value: \(questionNumber)")
+            if showLog { print("TriviaAPIMan - trivia.questionNumber Value: \(questionNumber)")}
             apiUrl += String(questionNumber)
             } else {
-            print("in TriviaAPI qualcosa non sta funzioanndo")
+                if showLog { print("TriviaAPIMan - non riesco a recuperare numero domande, setto default")}
             apiUrl += "3" //uso un valore di default nel caso mancasse la configurazione
         }
                     
         if isKid {
+            if showLog { print("TriviaAPIMan - is kid")}
             apiUrl += "&difficulty=easy&type=multiple"
         } else {
+            if showLog { print("TriviaAPIMan - is NOT kid")}
             apiUrl += "&difficulty=medium&type=multiple"
         }
             
-        print("apiUrl: \(apiUrl)")
+        if showLog { print("TriviaAPIMan - url: \(apiUrl)")}
             
         guard let url = URL(string: apiUrl) else {
             completion(nil, NSError(domain: "Invalid URL", code: 0, userInfo: nil))
@@ -61,13 +66,15 @@ class TriviaAPIManager {
                     completion(nil, error)
                 }
             } else {
-                completion(nil, NSError(domain: "No Data Received", code: 0, userInfo: nil))  ///????
+                completion(nil, NSError(domain: "No Data Received", code: 0, userInfo: nil))  //#TODO: ????
             }
         }
         task.resume()
     }
 
     func loadQuestionsFromJSON(isKid: Bool, completion: @escaping ([TriviaQuestion]?, Error?) -> Void) {
+        if showLog { print("TriviaAPIMan - estraggo domande da JSON (loadQuestionsFromJSON)")}
+
         // Cerca il file JSON nel bundle dell'app
         print("prendo domande da json")
         let fileName = isKid ? "easyQuestions" : "normalQuestions"

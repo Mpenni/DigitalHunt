@@ -34,7 +34,6 @@
 		EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = EEF889622AE9AADD0020DB72 /* normalQuestions.json */; };
 		EEF889652AECFFA50020DB72 /* 2_1.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEF889642AECFFA50020DB72 /* 2_1.gpx */; };
 		EEF889672AED58380020DB72 /* QRCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889662AED58380020DB72 /* QRCodeController.swift */; };
-		EEF8896B2AEDA4900020DB72 /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8896A2AEDA4900020DB72 /* NavigationManager.swift */; };
 		EEF8896F2AEE42C10020DB72 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEF8896E2AEE42C00020DB72 /* Config.plist */; };
 		EEF889712AEE45DA0020DB72 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889702AEE45DA0020DB72 /* ConfigManager.swift */; };
 		EEFFEC6F2AF05606000D7B5A /* Track00_00->01.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC6E2AF05606000D7B5A /* Track00_00->01.gpx */; };
@@ -42,6 +41,8 @@
 		EEFFEC732AF64746000D7B5A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC722AF64746000D7B5A /* GoogleService-Info.plist */; };
 		EEFFEC772AF659D9000D7B5A /* QRCorrect-4321.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC752AF659D8000D7B5A /* QRCorrect-4321.png */; };
 		EEFFEC782AF659D9000D7B5A /* QRWrong-1111.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC762AF659D9000D7B5A /* QRWrong-1111.png */; };
+		EEFFEC7B2AF796DB000D7B5A /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC7A2AF796DB000D7B5A /* logo.png */; };
+		EEFFEC7D2AF7E5DC000D7B5A /* Track01_00.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEFFEC7C2AF7E5DC000D7B5A /* Track01_00.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +64,7 @@
 		EE5C5ED92AE4123C00EE601B /* StatusManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusManager.swift; sourceTree = "<group>"; };
 		EE5C5EDB2AE50B3E00EE601B /* TrackAPImanager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackAPImanager.swift; sourceTree = "<group>"; };
 		EE5C5EDD2AE558BB00EE601B /* TimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeManager.swift; sourceTree = "<group>"; };
-		EE5C5EE02AE5763600EE601B /* 1_0.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = 1_0.gpx; sourceTree = "<group>"; };
+		EE5C5EE02AE5763600EE601B /* Track01_00->01.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Track01_00->01.gpx"; sourceTree = "<group>"; };
 		EE7C00EB2AE18D890054A2B3 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TracksTableViewController.swift; sourceTree = "<group>"; };
 		EE884A0B2ADF38F0007D92C2 /* TrackTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackTableViewCell.swift; sourceTree = "<group>"; };
@@ -77,7 +78,6 @@
 		EEF889622AE9AADD0020DB72 /* normalQuestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = normalQuestions.json; sourceTree = "<group>"; };
 		EEF889642AECFFA50020DB72 /* 2_1.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 2_1.gpx; sourceTree = "<group>"; };
 		EEF889662AED58380020DB72 /* QRCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeController.swift; sourceTree = "<group>"; };
-		EEF8896A2AEDA4900020DB72 /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
 		EEF8896E2AEE42C00020DB72 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		EEF889702AEE45DA0020DB72 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		EEFFEC6D2AF05575000D7B5A /* Track00_00.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Track00_00.gpx; sourceTree = "<group>"; };
@@ -86,6 +86,8 @@
 		EEFFEC722AF64746000D7B5A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Models/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EEFFEC752AF659D8000D7B5A /* QRCorrect-4321.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRCorrect-4321.png"; sourceTree = "<group>"; };
 		EEFFEC762AF659D9000D7B5A /* QRWrong-1111.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QRWrong-1111.png"; sourceTree = "<group>"; };
+		EEFFEC7A2AF796DB000D7B5A /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
+		EEFFEC7C2AF7E5DC000D7B5A /* Track01_00.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Track01_00.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +134,6 @@
 			children = (
 				EEFFEC722AF64746000D7B5A /* GoogleService-Info.plist */,
 				EEF8896D2AEE40830020DB72 /* Resources */,
-				EE5C5EDF2AE572E700EE601B /* GPXforSimulateLocation */,
 				EE884A072ADF37C3007D92C2 /* Models */,
 				EE884A042ADF3157007D92C2 /* Controllers */,
 				EEF8896C2AEE40390020DB72 /* Managers */,
@@ -151,7 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				EEF889642AECFFA50020DB72 /* 2_1.gpx */,
-				EE5C5EE02AE5763600EE601B /* 1_0.gpx */,
+				EEFFEC7C2AF7E5DC000D7B5A /* Track01_00.gpx */,
+				EE5C5EE02AE5763600EE601B /* Track01_00->01.gpx */,
 				EEFFEC6D2AF05575000D7B5A /* Track00_00.gpx */,
 				EEFFEC6E2AF05606000D7B5A /* Track00_00->01.gpx */,
 				EEFFEC702AF05933000D7B5A /* Track00_01->02.gpx */,
@@ -219,7 +221,6 @@
 				EE5C5EDD2AE558BB00EE601B /* TimeManager.swift */,
 				EE5C5ED62AE3077D00EE601B /* LocationManager.swift */,
 				EE5C5ED92AE4123C00EE601B /* StatusManager.swift */,
-				EEF8896A2AEDA4900020DB72 /* NavigationManager.swift */,
 				EEF889702AEE45DA0020DB72 /* ConfigManager.swift */,
 			);
 			path = Managers;
@@ -228,6 +229,8 @@
 		EEF8896D2AEE40830020DB72 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				EEFFEC792AF796C4000D7B5A /* img */,
+				EE5C5EDF2AE572E700EE601B /* GPXforSimulateLocation */,
 				EEFFEC742AF659B2000D7B5A /* QRCode */,
 				EEF8895F2AE9A9CC0020DB72 /* SpareQuestions */,
 			);
@@ -241,6 +244,14 @@
 				EEFFEC762AF659D9000D7B5A /* QRWrong-1111.png */,
 			);
 			path = QRCode;
+			sourceTree = "<group>";
+		};
+		EEFFEC792AF796C4000D7B5A /* img */ = {
+			isa = PBXGroup;
+			children = (
+				EEFFEC7A2AF796DB000D7B5A /* logo.png */,
+			);
+			path = img;
 			sourceTree = "<group>";
 		};
 		F9FC5C1356FE2882A9D6277A /* Frameworks */ = {
@@ -311,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEFFEC7B2AF796DB000D7B5A /* logo.png in Resources */,
 				EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */,
 				EEFFEC772AF659D9000D7B5A /* QRCorrect-4321.png in Resources */,
 				EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */,
@@ -322,6 +334,7 @@
 				EEFFEC782AF659D9000D7B5A /* QRWrong-1111.png in Resources */,
 				EEFFEC732AF64746000D7B5A /* GoogleService-Info.plist in Resources */,
 				EEF889652AECFFA50020DB72 /* 2_1.gpx in Resources */,
+				EEFFEC7D2AF7E5DC000D7B5A /* Track01_00.gpx in Resources */,
 				EEFFEC712AF05933000D7B5A /* Track00_01->02.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,7 +399,6 @@
 				EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */,
 				EEF889672AED58380020DB72 /* QRCodeController.swift in Sources */,
 				EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */,
-				EEF8896B2AEDA4900020DB72 /* NavigationManager.swift in Sources */,
 				EEE265752AE05959003E6DFD /* Track.swift in Sources */,
 				EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */,
 				EEF8895E2AE6FC8A0020DB72 /* TriviaController.swift in Sources */,
