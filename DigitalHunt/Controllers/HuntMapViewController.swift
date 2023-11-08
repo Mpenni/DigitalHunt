@@ -37,7 +37,7 @@ class HuntMapViewController: UIViewController {
     var nodePin: MKPointAnnotation?
     var radius: Int = 10
     
-    private let showLog: Bool = false
+    private let showLog: Bool = true
 
     override func viewDidLoad() {
         if showLog { print("HMapC - inizio 'viewDidLoad'")}
@@ -193,7 +193,6 @@ class HuntMapViewController: UIViewController {
         
         let newBackButton = UIBarButtonItem(title: "Annulla", style: .plain, target: self, action: #selector(back(_:)))
         navigationItem.leftBarButtonItem = newBackButton
-
     }
 
     @objc func back(_ sender: UIBarButtonItem?) {

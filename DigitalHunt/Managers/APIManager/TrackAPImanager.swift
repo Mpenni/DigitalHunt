@@ -26,10 +26,8 @@ class TrackAPIManager {
         let querySnapshot = try await db.collection("tracks").getDocuments()
         if showLog { print("TrackAPIMan - dimensione risultato query: \(querySnapshot.documents.count)") }
 
-        
         var fetchedTracks: [Track] = [] // Crea un array temporaneo per le tracce
         
-
         for document in querySnapshot.documents {
             let data = document.data()
             if let name = data["name"] as? String, // Verifica se "name" esiste ed è una stringa
@@ -37,9 +35,7 @@ class TrackAPIManager {
                let isKid = data["isKid"] as? Bool,
                let isQuiz = data["isQuiz"] as? Bool,
                let idNodes = data["idNodes"] as? [String] {  //per essere valido, il track deve avere almeno un nodo.
-               
                 let id = document.documentID
-
                 let scheduledStart = timeManager.getDateFromString(data["scheduledStart"] as? String)
                 let scheduledEnd = timeManager.getDateFromString(data["scheduledEnd"] as? String)
                 let recordUserId = data["recordUserId"] as? String
@@ -117,13 +113,13 @@ class TrackAPIManager {
             // Prova a recuperare il documento track esistente nel database
             var existingData = try await db.collection("tracks").document(trackId).getDocument().data()
             
-            // Se esiste già un documento, unisci i dati esistenti con i nuovi dati
+            // Se esiste già un documento, unisce i dati esistenti con i nuovi dati
             if existingData != nil {
                 existingData!.merge(data) { (current, new) in new }
                 data = existingData!
             }
             
-            // Aggiorna o inserisci il documento track con i nuovi dati
+            // Aggiorna o inserisce il documento track con i nuovi dati
             try await db.collection("tracks").document(trackId).setData(data)
             
             print("Dati track aggiornati o inseriti con successo per il track ID: \(trackId)")

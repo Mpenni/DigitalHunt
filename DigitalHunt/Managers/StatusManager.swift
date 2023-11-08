@@ -90,7 +90,7 @@ class StatusManager {
         }
     }
     
-    func deleteUserUniqueId() { //solo per scopi di debug
+    func deleteUserUniqueId() { //solo per scopi di test e debug
         setStatusProp(key: "UserUniqueId", value: nil)
     }
         
