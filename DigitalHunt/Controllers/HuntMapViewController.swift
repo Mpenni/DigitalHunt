@@ -206,7 +206,7 @@ class HuntMapViewController: UIViewController {
             self.statusManager.resetStatus()
             if self.showLog { print("     -> resetStatus")}
             
-            self.track.setCurrentNodeIndex(index: -1)  //#TODO: da verificare
+            self.track.setCurrentNodeIndex(index: -1)
             if self.showLog { print("     -> setCurrentNodeIndex in track a -1")}
 
             self.timeManager.stopTimer()

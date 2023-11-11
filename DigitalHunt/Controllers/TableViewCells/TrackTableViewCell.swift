@@ -15,7 +15,7 @@ class TrackTableViewCell: UITableViewCell {
        
     @IBOutlet weak var quizFlag: UIImageView!
     
-    override func awakeFromNib() {  //#TODO: che fa?
+    override func awakeFromNib() {  //necessaria per protocollo UITableViewCell
         super.awakeFromNib()
     }
 

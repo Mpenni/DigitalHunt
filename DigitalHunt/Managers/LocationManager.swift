@@ -65,11 +65,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
         if showLog { print("LocMan - sono in 'calculateDistanceFromHere'")}
         return Int(distance ?? -1)
     }
-/*
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("sono in didUpdateLcoation è la posizione è  \(locationManager.location)") #TODO: tolgo?
-    }
-*/
+
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         if showLog { print("LocMan - sono in 'locationManagerDidChangeAuthorization' in classe primaria")}
         checkLocationAuthorization()

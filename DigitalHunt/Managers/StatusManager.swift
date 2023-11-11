@@ -66,7 +66,7 @@ class StatusManager {
             if let startTime = getDateFromString(startTimeString) {
                 let timeDifference = currentDateTime.timeIntervalSince(startTime)
                 // Ora timeDifference contiene la differenza in secondi tra currentDateTime e startTime
-                print("total time: \(timeDifference)")  //TODO: fare con show log
+                if showLog { print("total time: \(timeDifference)") }
                 setStatusProp(key: "myFinalTime", value: String(Int(round(timeDifference)))) //da 27,0 a 27
             } else {
                 // Se non è possibile convertire la data di inizio

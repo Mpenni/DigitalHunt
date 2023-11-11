@@ -199,7 +199,7 @@ class TriviaController: UIViewController {
         qAns04.isEnabled = enable
     }
     
-    func disableButtonAtIndex(_ index: Int) {  //#TODO: è obbligatorio il _?
+    func disableButtonAtIndex(_ index: Int) { //_ in quanto il parametro è anonimo 
         if showLog { print("TriviaC - 'disableButtonAtIndex': \(index)")}
         switch index {
         case 0:

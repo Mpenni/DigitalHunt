@@ -38,7 +38,7 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
         setupCamera()
     }
     
-    override func viewWillAppear(_ animated: Bool) { //#TODO: non si può omettere "_" (anche sotto)
+    override func viewWillAppear(_ animated: Bool) { 
         if showLog { print("QRCodeC - sono in 'viewWillAppear'")}
         super.viewWillAppear(animated)
         startRunning()

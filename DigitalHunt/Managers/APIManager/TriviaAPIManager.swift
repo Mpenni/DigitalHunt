@@ -66,7 +66,7 @@ class TriviaAPIManager {
                     completion(nil, error)
                 }
             } else {
-                completion(nil, NSError(domain: "No Data Received", code: 0, userInfo: nil))  //#TODO: ????
+                completion(nil, NSError(domain: "No Data Received", code: 0, userInfo: nil))
             }
         }
         task.resume()
