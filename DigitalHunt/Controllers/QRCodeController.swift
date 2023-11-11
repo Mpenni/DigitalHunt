@@ -90,10 +90,9 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
         // Testo prima della modifica
         let previousText = textField.text ?? ""
         
-        // Calcola il nuovo testo dopo la modifica
+        // Calcolo il nuovo testo dopo la modifica
         let newText = (previousText as NSString).replacingCharacters(in: range, with: string)
         
-        // Esegui il tuo controllo o azione in base al testo inserito
         if !newText.isEmpty {
             checkCode(insertedCode: newText)
         }

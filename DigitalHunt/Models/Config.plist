@@ -5,8 +5,8 @@
 	<key>map.radius</key>
 	<integer>10</integer>
 	<key>trivia.penalty</key>
-	<integer>10</integer>
+	<integer>2</integer>
 	<key>trivia.questionNumber</key>
-	<integer>1</integer>
+	<integer>3</integer>
 </dict>
 </plist>

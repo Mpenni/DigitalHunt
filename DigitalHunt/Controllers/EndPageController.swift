@@ -41,6 +41,7 @@ class EndPageController: UIViewController, UITextFieldDelegate {
         recordTime = getRecordTime()
         userHasRecordTime = getRecordUserAndCompare()
         statusManager.resetStatus()
+        track.initializeTrack()
     }
 
     private func getRecordUserAndCompare() -> Bool{
@@ -118,6 +119,8 @@ class EndPageController: UIViewController, UITextFieldDelegate {
                     if showLog { print("      -> userTime: \(String(describing: userTime))")}
                 } catch {
                     print("Errore durante l'aggiornamento del track: \(error)")
+                    ErrorManager.showError(view: self, message: "Per problemi tecnici non è stato possibile salvare il tuo record.", gotoRoot: true)
+
                 }
             }
     }

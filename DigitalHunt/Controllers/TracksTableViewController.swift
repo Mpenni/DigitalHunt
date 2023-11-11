@@ -6,17 +6,12 @@
 //
 
 // #TODO: Gestire altri casi di autorizzazione location, anche durante game, compreso perdita segnale
-// #TODO: popolare track
-// #TODO: creare percorsi simulatore
-
-// #TODO: in code NON uscire da app (forse anche in game), ma resettare
 
 import UIKit
 
 class TracksTableViewController: UITableViewController {
 
     var tracks: [Track] = []
-    var trackNames :[String] = []
     let trackAPIManager = TrackAPIManager.shared
     
     private let showLog: Bool = false
@@ -46,9 +41,9 @@ class TracksTableViewController: UITableViewController {
                         print("    ->Is Quiz: \(track.isQuiz)")
                         print("    ->Is scheduledStart: \(String(describing: track.scheduledStart))")
                         print("    ->Is scheduledEnd: \(String(describing: track.scheduledEnd))")
-                         if !track.Nodes.isEmpty {
+                         if !track.nodes.isEmpty {
                          print("    ->Nodes:")
-                         for node in track.Nodes {
+                         for node in track.nodes {
                          print("          ->Name: \(node.name)")
                          print("          ->Latitude: \(node.lat)")
                          print("          ->Longitude: \(node.long)")
@@ -63,7 +58,7 @@ class TracksTableViewController: UITableViewController {
                 
                 if showLog { print("TTC - Applico filtro a tracks") }
                 allTracks = allTracks.filter { track in
-                    track.Nodes.count >= 2 &&
+                    track.nodes.count >= 2 &&
                     (track.isQuiz || (track.scheduledStart != nil && track.scheduledEnd != nil))
                 }
                 if showLog { print("TTC - Lunghezza tracks dopo filtro: \(allTracks.count)")}
@@ -81,6 +76,7 @@ class TracksTableViewController: UITableViewController {
                 }
             } catch {
                 print("ERROR TTC - Errore nel recupero dei dati delle tracce: \(error)")
+                ErrorManager.showError(view: self, message: "Purtroppo attualmente il servizio è in manutenzione. Riprovare più tardi", gotoRoot: true)
             }
         }
         
@@ -117,7 +113,6 @@ class TracksTableViewController: UITableViewController {
         // questo metodo viene chiamato da solo dalla did load
         
         let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice, il .row è l'indice della riga
-        
         
         //popolo gli elementi della view
         cell.titleLabel.text = track.name

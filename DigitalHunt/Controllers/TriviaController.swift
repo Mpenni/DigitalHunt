@@ -12,7 +12,6 @@ class TriviaController: UIViewController {
     var track = Track()
     let triviaAPIManager = TriviaAPIManager.shared
     let timeManager = TimeManager.shared
-    let statusManager = StatusManager.shared
     let configManager = ConfigManager.shared
 
     var currentQuestionIndex :Int = -1
@@ -40,9 +39,9 @@ class TriviaController: UIViewController {
     private let showLog: Bool = true
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         if showLog { print("TriviaC - Did Load")}
         setupBackButton()
-        super.viewDidLoad()
         self.title = "QUIZ per Tappa \(track.currentNodeIndex+1)"
         setConfig()
         fetchTriviaQuestionsFromAPI()
@@ -63,6 +62,7 @@ class TriviaController: UIViewController {
                 self.triviaAPIManager.loadQuestionsFromJSON(isKid: self.track.isKid) { (questions, error) in
                     if let error = error {
                         print("ERRORE TriviaC: Errore nel caricamento delle domande dal JSON: \(error)")
+                        ErrorManager.showError(view: self, message: "TriviaC: Errore nel caricamento delle domande dal JSON", gotoRoot: true)
                     } else if let questions = questions {
                         // Salvo le domande dal Json API all'array questions
                         if self.showLog { print("TriviaC - Domande caricate con successo dal JSON: \(questions)")}
@@ -82,6 +82,7 @@ class TriviaController: UIViewController {
                  */
             }else {
                 print("ERRORE TriviaC: c'è stato un problema")
+                ErrorManager.showError(view: self, message: "Non è possibile recuperae le domande", gotoRoot: true)
             }
         }
     }
@@ -90,12 +91,13 @@ class TriviaController: UIViewController {
         if showLog { print("TriviaC - sono in 'populateView()'")}
         DispatchQueue.main.async { [self] in // per risolvere errore "Main Thread Checker": si tente di modificare l'interfaccia utente (nello specifico, stai cercando di impostare il testo di una UILabel) da un thread diverso dal thread principale. Tutto ciò che riguarda l'interfaccia utente deve essere eseguito sul thread principale in iOS.
             // Controlla se ci sono domande disponibili prima di incrementare l'indice
-            if currentQuestionIndex + 1 < triviaQuestions?.count ?? 0 {
+            if currentQuestionIndex + 1 < triviaQuestions!.count {
                 nextQuestion()
-            } else if currentQuestionIndex == ((triviaQuestions?.count ?? 0) - 1) {
+            } else if currentQuestionIndex == triviaQuestions!.count - 1 {
                 stopQuestion()
             } else {
                 print("ERRORE TriviaC: c'è stato un problema")
+                ErrorManager.showError(view: self, message: "C'è stato un problema. Riprova a selezionare il percorso.", gotoRoot: true)
             }
         }
     }
@@ -107,6 +109,7 @@ class TriviaController: UIViewController {
             self.currentQuestion = nextQ
         } else {
             print("ERRORE TriviaC: Errore nell'accesso alla prossima domanda")
+            ErrorManager.showError(view: self, message: "C'è stato un problema: riprova a selezionare il percorso", gotoRoot: true)
         }
         self.qNumber.text = "Domanda \(self.currentQuestionIndex + 1) di \(triviaQuestions!.count)"
         self.qCategory.text = decode(from: currentQuestion!.category)

@@ -80,11 +80,34 @@ class HuntMapViewController: UIViewController {
 
         loadUserOnMap()
         drawAreaInMap()
-        
+
+        locationManager.setupUserTrackingButtonAndScaleView(mapView: mapView, view: view)
+        //#TODO: check
+
         setupComplete = true
         if showLog { print("HMapC - fine 'viewDidAppear'")}
     }
-    
+/*
+    private func setupUserTrackingButtonAndScaleView() {
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        
+        let scale = MKScaleView(mapView: mapView)
+        scale.legendAlignment = .trailing
+        scale.translatesAutoresizingMaskIntoConstraints = false
+        self.mapView.addSubview(scale)
+        
+        NSLayoutConstraint.activate([button.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10),
+                                     button.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10),
+                                     scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
+                                     scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
+    }
+*/
     private func setConfig() {
         if  let confRadius = configManager.getValue(forKey: "map.radius") as? Int {
             if showLog { print("HMapC - load radius from config: \(confRadius)")}
@@ -121,7 +144,7 @@ class HuntMapViewController: UIViewController {
 
     private func updateLabels() {
         if showLog { print("HMapC - setto infoLabel e LegLabel")}
-        legLabel.text = "\(track.currentNodeIndex) di \(track.Nodes.count - 1)"
+        legLabel.text = "\(track.currentNodeIndex) di \(track.nodes.count - 1)"
         if track.checkIsStartNode() {
             infoLabel.text = "Procedi verso l'area 'INIZIO'"
         } else {
@@ -131,7 +154,7 @@ class HuntMapViewController: UIViewController {
         }
     }
        
-    private func checkIsInsideNode() {    
+    private func checkIsInsideNode() {
         if showLog { print("HMapC - 'checkIsInsideNode()'")}
 
         if !userIsInsideNode && setupComplete {
@@ -185,7 +208,10 @@ class HuntMapViewController: UIViewController {
         locationManager.locationManager.stopUpdatingLocation()
         self.performSegue(withIdentifier: "toEndView", sender: track)
     }
-   
+ 
+    
+
+
     // MARK: - Navigation
 
     func setupBackButton(){
@@ -221,33 +247,6 @@ class HuntMapViewController: UIViewController {
         self.present(ac, animated: true, completion: nil)
     }
 
-    /* OLD:
-    
-    @objc func back() {   //valutare se tenere o ripristinare vecchio codice
-        navigationItem.hidesBackButton = true
-        if showLog { print("HMapC - sono in func 'back'")}
-
-        navigationManager.showCancelConfirmationAlert(on: self) {
-
-            if self.showLog { print("HMapC - sono in func 'CancelConfirmation:'")}
-
-            self.statusManager.resetStatus()
-            if self.showLog { print("     -> resetStatus")}
-
-            self.track.setCurrentNodeIndex(index: -1)  //#TODO: da verificare
-            if self.showLog { print("     -> setCurrentNodeIndex in track a -1")}
-
-            //self.statusManager.printAll()
-            self.timeManager.stopTimer()
-            if self.showLog { print("     -> stopTimer")}
-
-            if self.showLog { print("HMapC - effettuo navigazione back")}
-
-            self.navigationController!.popViewController(animated: true)
-
-        }
-    }
-*/
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -357,7 +356,7 @@ extension HuntMapViewController: CLLocationManagerDelegate {
                 return
         }
         coordinates = locationManager.locationManager.location!.coordinate
-        mapView.setCenter(coordinates!, animated: true)
+        //mapView.setCenter(coordinates!, animated: true)
     }
     
     private func loadUserOnMap() {
@@ -366,13 +365,15 @@ extension HuntMapViewController: CLLocationManagerDelegate {
                 print("Posizione non disponibile.")
                 return
         }
-        
-        //#TODO: verificare se usare calculate region in locationManager
+        mapView.setRegion(locationManager.calculateRegion(), animated: true)
+        mapView.showsUserLocation = true
+        /*
+        //#TODO: rimuovere
         coordinates = locationManager.locationManager.location!.coordinate
         let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: coordinates!, span: spanDegree)
         mapView.setRegion(region, animated: true)
-        mapView.showsUserLocation = true
+        mapView.showsUserLocation = true*/
     }
 }
 

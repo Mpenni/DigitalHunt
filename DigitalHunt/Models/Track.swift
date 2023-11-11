@@ -11,23 +11,23 @@ class Track {
     let id: String
     let name: String
     let desc: String
-    let Nodes: [Node]
+    let nodes: [Node]
     let isKid: Bool
     let isQuiz: Bool
     var currentNodeIndex: Int
     let scheduledStart: Date?
     let scheduledEnd: Date?
-    let recordUserId: String?
-    let recordUserTime: Int?
+    var recordUserId: String?
+    var recordUserTime: Int?
     
     init () {
         self.id = ""
         self.name = ""
         self.desc = ""
-        self.Nodes = []  // NON VA MINUSCOLO?!?
+        self.nodes = []
         self.isKid = false
         self.isQuiz = false
-        self.currentNodeIndex = 0
+        self.currentNodeIndex = -1
         self.scheduledStart = nil
         self.scheduledEnd = nil
         self.recordUserId = nil
@@ -39,7 +39,7 @@ class Track {
         self.id = id
         self.name = name
         self.desc = desc
-        self.Nodes = nodes
+        self.nodes = nodes
         self.isKid = isKid
         self.isQuiz = isQuiz
         self.currentNodeIndex = -1
@@ -55,10 +55,10 @@ class Track {
     }
     
     func getCurrentNode() -> Node {
-        if currentNodeIndex >= 0, currentNodeIndex < Nodes.count {
-            return Nodes[currentNodeIndex]
+        if currentNodeIndex >= 0, currentNodeIndex < nodes.count {
+            return nodes[currentNodeIndex]
         } else {
-            return Nodes[0]
+            return nodes[0]
         }
     }
     
@@ -67,12 +67,22 @@ class Track {
     }
     
     func checkIsEndNode() -> Bool {
-        return currentNodeIndex == Nodes.count - 1
+        return currentNodeIndex == nodes.count - 1
     }
     
     func changeNode() -> Node {
         currentNodeIndex += 1
-        return Nodes[currentNodeIndex]
+        if currentNodeIndex >= 0, currentNodeIndex < nodes.count {
+            return nodes[currentNodeIndex]
+        } else {
+            return nodes[0]
+        }
+    }
+    
+    func initializeTrack() {
+        currentNodeIndex = -1
+        recordUserId = nil
+        recordUserTime = nil
     }
     
     

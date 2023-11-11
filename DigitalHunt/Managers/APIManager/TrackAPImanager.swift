@@ -86,9 +86,9 @@ class TrackAPIManager {
             print("Is Kid: \(track.isKid)")
             print("Is Quiz: \(track.isQuiz)")
 
-            if !track.Nodes.isEmpty {
+            if !track.nodes.isEmpty {
                 print("Nodes:")
-                for node in track.Nodes {
+                for node in track.nodes {
                     //print("Node ID: \(node.id)")
                     print("      Name: \(node.name)")
                     print("      Latitude: \(node.lat)")

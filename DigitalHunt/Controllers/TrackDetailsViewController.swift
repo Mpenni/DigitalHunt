@@ -27,14 +27,13 @@ class TrackDetailsViewController: UIViewController {
     let locationManager = DHLocationManager.shared
     let timeManager = TimeManager.shared
     let statusManager = StatusManager.shared
-
-    var distance :Int = -1
     
     private let showLog: Bool = true
 
     override func viewDidLoad() {
         if showLog { print("TDetailsC - sono in 'viewDidLoad()'")}
         super.viewDidLoad()
+        //ErrorManager.showError(view: self, message: "messaggio", gotoRoot: true)
         self.title = track.name
         descTextField.text = track.desc
         manageLocation()
@@ -154,7 +153,8 @@ extension TrackDetailsViewController: CLLocationManagerDelegate {
     }
     
     private func calculateDistanceFromHere() {
-        distance = locationManager.calculateDistanceFromHere(lat: track.Nodes.first!.lat, long: track.Nodes.first!.long)
+        var distance :Int
+        distance = locationManager.calculateDistanceFromHere(lat: track.nodes.first!.lat, long: track.nodes.first!.long)
         if distance >= 0 {
             distanceLabel.text = "La distanza dalla tua posizione attuale al percorso è di \(distance) metri"
         } else {

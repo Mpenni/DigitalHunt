@@ -20,9 +20,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     override init() {
         locationManager = CLLocationManager()
         super.init()  //perchè devo fare override dell'init del padre
-        //locationManager.delegate = self   //appoggiati come delegate su questa stessa classe
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //locationManager.startUpdatingLocation()
     }
 
     func requestAuthorization() {  // lo lascio qua per eventuale riuso o aggiunta operazioni in questa fase
@@ -73,6 +71,26 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+    }
+    
+    func setupUserTrackingButtonAndScaleView(mapView: MKMapView, view: UIView) {
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        
+        let scale = MKScaleView(mapView: mapView)
+        scale.legendAlignment = .trailing
+        scale.translatesAutoresizingMaskIntoConstraints = false
+        mapView.addSubview(scale)
+        
+        NSLayoutConstraint.activate([button.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -10),
+                                     button.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -10),
+                                     scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
+                                     scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
     }
 }
 

@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		75EA5256DD0D002ECD02573A /* Pods_DigitalHunt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 207B0C9FEF46F96B96759274 /* Pods_DigitalHunt.framework */; };
+		EE13B3992AFF7AD100484FEB /* Track01_01->02.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EE13B3982AFF7AD100484FEB /* Track01_01->02.gpx */; };
+		EE13B39B2AFF7BE500484FEB /* Track01_02->03.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EE13B39A2AFF7BE500484FEB /* Track01_02->03.gpx */; };
+		EE13B39D2AFF8AEA00484FEB /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE13B39C2AFF8AEA00484FEB /* ErrorManager.swift */; };
 		EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */; };
 		EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */; };
-		EE54DD512ADF242E00DEBA4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD502ADF242E00DEBA4D /* ViewController.swift */; };
 		EE54DD542ADF242E00DEBA4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD522ADF242E00DEBA4D /* Main.storyboard */; };
 		EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD552ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld */; };
 		EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD582ADF242F00DEBA4D /* Assets.xcassets */; };
@@ -49,10 +51,12 @@
 		117BA6E29A78EDB2FF86995B /* Pods-DigitalHunt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DigitalHunt.debug.xcconfig"; path = "Target Support Files/Pods-DigitalHunt/Pods-DigitalHunt.debug.xcconfig"; sourceTree = "<group>"; };
 		207B0C9FEF46F96B96759274 /* Pods_DigitalHunt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DigitalHunt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		983DA105525EEF1F58206DE1 /* Pods-DigitalHunt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DigitalHunt.release.xcconfig"; path = "Target Support Files/Pods-DigitalHunt/Pods-DigitalHunt.release.xcconfig"; sourceTree = "<group>"; };
+		EE13B3982AFF7AD100484FEB /* Track01_01->02.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Track01_01->02.gpx"; sourceTree = "<group>"; };
+		EE13B39A2AFF7BE500484FEB /* Track01_02->03.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Track01_02->03.gpx"; sourceTree = "<group>"; };
+		EE13B39C2AFF8AEA00484FEB /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
 		EE54DD492ADF242E00DEBA4D /* DigitalHunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DigitalHunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EE54DD502ADF242E00DEBA4D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		EE54DD532ADF242E00DEBA4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EE54DD562ADF242E00DEBA4D /* DigitalHunt.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DigitalHunt.xcdatamodel; sourceTree = "<group>"; };
 		EE54DD582ADF242F00DEBA4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 				EEF889642AECFFA50020DB72 /* 2_1.gpx */,
 				EEFFEC7C2AF7E5DC000D7B5A /* Track01_00.gpx */,
 				EE5C5EE02AE5763600EE601B /* Track01_00->01.gpx */,
+				EE13B3982AFF7AD100484FEB /* Track01_01->02.gpx */,
+				EE13B39A2AFF7BE500484FEB /* Track01_02->03.gpx */,
 				EEFFEC6D2AF05575000D7B5A /* Track00_00.gpx */,
 				EEFFEC6E2AF05606000D7B5A /* Track00_00->01.gpx */,
 				EEFFEC702AF05933000D7B5A /* Track00_01->02.gpx */,
@@ -165,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				EE884A0A2ADF38B6007D92C2 /* TableViewCells */,
-				EE54DD502ADF242E00DEBA4D /* ViewController.swift */,
 				EEF8895D2AE6FC8A0020DB72 /* TriviaController.swift */,
 				EE884A052ADF31C8007D92C2 /* TracksTableViewController.swift */,
 				EE5C5ED22AE1D43E00EE601B /* TrackDetailsViewController.swift */,
@@ -222,6 +227,7 @@
 				EE5C5ED62AE3077D00EE601B /* LocationManager.swift */,
 				EE5C5ED92AE4123C00EE601B /* StatusManager.swift */,
 				EEF889702AEE45DA0020DB72 /* ConfigManager.swift */,
+				EE13B39C2AFF8AEA00484FEB /* ErrorManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -323,8 +329,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEFFEC7B2AF796DB000D7B5A /* logo.png in Resources */,
+				EE13B3992AFF7AD100484FEB /* Track01_01->02.gpx in Resources */,
 				EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */,
 				EEFFEC772AF659D9000D7B5A /* QRCorrect-4321.png in Resources */,
+				EE13B39B2AFF7BE500484FEB /* Track01_02->03.gpx in Resources */,
 				EE54DD5C2ADF242F00DEBA4D /* LaunchScreen.storyboard in Resources */,
 				EEFFEC6F2AF05606000D7B5A /* Track00_00->01.gpx in Resources */,
 				EE54DD592ADF242F00DEBA4D /* Assets.xcassets in Resources */,
@@ -388,7 +396,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE54DD512ADF242E00DEBA4D /* ViewController.swift in Sources */,
 				EE5C5ED52AE1DDA300EE601B /* HuntMapViewController.swift in Sources */,
 				EEE5FE3D2AEEA35B001C8A4C /* EndPageController.swift in Sources */,
 				EEF889592AE6FABA0020DB72 /* TriviaQuestion.swift in Sources */,
@@ -398,6 +405,7 @@
 				EE54DD572ADF242E00DEBA4D /* DigitalHunt.xcdatamodeld in Sources */,
 				EE5C5ED32AE1D43F00EE601B /* TrackDetailsViewController.swift in Sources */,
 				EEF889672AED58380020DB72 /* QRCodeController.swift in Sources */,
+				EE13B39D2AFF8AEA00484FEB /* ErrorManager.swift in Sources */,
 				EE7C00EC2AE18D890054A2B3 /* Node.swift in Sources */,
 				EEE265752AE05959003E6DFD /* Track.swift in Sources */,
 				EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */,
