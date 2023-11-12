@@ -35,7 +35,6 @@
 		EEF8895E2AE6FC8A0020DB72 /* TriviaController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF8895D2AE6FC8A0020DB72 /* TriviaController.swift */; };
 		EEF889612AE9AA880020DB72 /* easyQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = EEF889602AE9AA880020DB72 /* easyQuestions.json */; };
 		EEF889632AE9B6DB0020DB72 /* normalQuestions.json in Resources */ = {isa = PBXBuildFile; fileRef = EEF889622AE9AADD0020DB72 /* normalQuestions.json */; };
-		EEF889652AECFFA50020DB72 /* 2_1.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EEF889642AECFFA50020DB72 /* 2_1.gpx */; };
 		EEF889672AED58380020DB72 /* QRCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889662AED58380020DB72 /* QRCodeController.swift */; };
 		EEF8896F2AEE42C10020DB72 /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEF8896E2AEE42C00020DB72 /* Config.plist */; };
 		EEF889712AEE45DA0020DB72 /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEF889702AEE45DA0020DB72 /* ConfigManager.swift */; };
@@ -82,7 +81,6 @@
 		EEF8895D2AE6FC8A0020DB72 /* TriviaController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriviaController.swift; sourceTree = "<group>"; };
 		EEF889602AE9AA880020DB72 /* easyQuestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = easyQuestions.json; sourceTree = "<group>"; };
 		EEF889622AE9AADD0020DB72 /* normalQuestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = normalQuestions.json; sourceTree = "<group>"; };
-		EEF889642AECFFA50020DB72 /* 2_1.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 2_1.gpx; sourceTree = "<group>"; };
 		EEF889662AED58380020DB72 /* QRCodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeController.swift; sourceTree = "<group>"; };
 		EEF8896E2AEE42C00020DB72 /* Config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		EEF889702AEE45DA0020DB72 /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
@@ -157,7 +155,6 @@
 		EE5C5EDF2AE572E700EE601B /* GPXforSimulateLocation */ = {
 			isa = PBXGroup;
 			children = (
-				EEF889642AECFFA50020DB72 /* 2_1.gpx */,
 				EEFFEC7C2AF7E5DC000D7B5A /* Track01_00.gpx */,
 				EE5C5EE02AE5763600EE601B /* Track01_00->01.gpx */,
 				EE13B3982AFF7AD100484FEB /* Track01_01->02.gpx */,
@@ -345,7 +342,6 @@
 				EEFFEC782AF659D9000D7B5A /* QRWrong-1111.png in Resources */,
 				EEFFEC732AF64746000D7B5A /* GoogleService-Info.plist in Resources */,
 				EE13B39F2B0016FE00484FEB /* happyFox.png in Resources */,
-				EEF889652AECFFA50020DB72 /* 2_1.gpx in Resources */,
 				EEFFEC7D2AF7E5DC000D7B5A /* Track01_00.gpx in Resources */,
 				EEFFEC712AF05933000D7B5A /* Track00_01->02.gpx in Resources */,
 			);

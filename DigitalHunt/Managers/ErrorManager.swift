@@ -9,7 +9,7 @@ import UIKit
 
 class ErrorManager {
     
-    static func showError (view: UIViewController, message: String, gotoRoot: Bool) {
+    static func showError (view: UIViewController, message: String, gotoRoot: Bool) {  //static (si riferisce al tipo e non alle sue istanze)
         let alertController = UIAlertController (title: "ERRORE", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { _ in
             if gotoRoot {

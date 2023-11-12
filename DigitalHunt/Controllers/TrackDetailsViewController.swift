@@ -28,7 +28,7 @@ class TrackDetailsViewController: UIViewController {
     let timeManager = TimeManager.shared
     let statusManager = StatusManager.shared
     
-    private let showLog: Bool = true
+    private let showLog: Bool = false
 
     override func viewDidLoad() {
         if showLog { print("TDetailsC - sono in 'viewDidLoad()'")}
@@ -77,7 +77,7 @@ class TrackDetailsViewController: UIViewController {
 
         let currentDate = Date()
         if showLog { print("          -> currentDate   : \(currentDate)")}
-        if showLog { print("          -> scheduledStart: \(String(describing: track.scheduledStart))")} //(describing per silenziare warning in quanto optional)
+        if showLog { print("          -> scheduledStart: \(String(describing: track.scheduledStart))")} //(describing per silenziare warning in quanto è optional type)
         if showLog { print("          -> scheduledEnd  : \(String(describing: track.scheduledStart))")}
 
         if track.scheduledStart! > currentDate || track.scheduledEnd! < currentDate {
@@ -96,7 +96,7 @@ class TrackDetailsViewController: UIViewController {
                 preferredStyle: .alert
             )
             
-            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in  // funzione anonima che passo come parametro (closure)
+            let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in  // funzione anonima che passo come parametro (closure), in questo caso handler
                 
                 self!.statusManager.resetStatus() //resetto lo status e procedo
                 self!.performSegue(withIdentifier: "toHuntMapView", sender: self!.track)
@@ -117,7 +117,7 @@ class TrackDetailsViewController: UIViewController {
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
+        let track = sender as! Track // specifico che sender è un Track
         let destController = segue.destination as! HuntMapViewController // lo forzo ad essere un TrackView
         destController.track = track
     }

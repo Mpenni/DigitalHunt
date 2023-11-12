@@ -46,17 +46,17 @@ class HuntMapViewController: UIViewController {
         mapView.delegate = self
         self.title = track.name
         
-        checkStatus()
+        checkStatus()  // verifico la presenza di uno status per permettere il ripristino di una partita interrotta
         
-        setupBackButton()
+        setupBackButton()  //assegno al backButton comportamento personalizzato
         
-        setConfig()
+        setConfig()  // carico la configurazione
 
         locationManager.locationManager.delegate = self
         
         locationManager.locationManager.startUpdatingLocation()
         
-        setupUserTrackingButtonAndScaleView()
+        setupUserTrackingButtonAndScaleView()  // implemento il bottone "seguimi" e la scala in legenda
         
         if showLog { print("HMapC - fine 'viewDidLoad'")}
     }
@@ -70,7 +70,7 @@ class HuntMapViewController: UIViewController {
 
         userIsInsideNode = false
 
-        timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}
+        timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}   //update del timer con handler invocato da TimeManager (gli passo una funzione anonima istanziata e chiamata da TimeManager)
 
         if showLog { print("HMapC - track.currennodeindex= \(track.currentNodeIndex)")}
         
@@ -82,6 +82,7 @@ class HuntMapViewController: UIViewController {
         statusManager.setStatusProp(key: "currentNodeIndex", value: "\(track.currentNodeIndex)")
         if showLog { print("HMapC - track.currennodeindex e status = \(track.currentNodeIndex)")}
 
+        //carico i dettagli grafici della mappa
         loadUserOnMap()
         drawAreaInMap()
 
@@ -122,6 +123,7 @@ class HuntMapViewController: UIViewController {
     }
     
     private func defineTargetNode() {
+        //definisco nodo corrente e definisco se è un nodo speciale (Start/End)
         currentNode = track.getCurrentNode()
         if showLog { print("HMapC - defineTargetNode(): setto 'currentNode' = \(currentNode?.desc ?? "desc node nd")")}
         
@@ -129,7 +131,7 @@ class HuntMapViewController: UIViewController {
         isEnd = track.checkIsEndNode()
     }
 
-    private func updateLabels() {
+    private func updateLabels() { //legLabel & infoLabel
         if showLog { print("HMapC - setto infoLabel e LegLabel")}
         legLabel.text = "\(track.currentNodeIndex) di \(track.nodes.count - 1)"
         if track.checkIsStartNode() {
@@ -142,9 +144,10 @@ class HuntMapViewController: UIViewController {
     }
        
     private func checkIsInsideNode() {
+        //Calcolo la distanza tra l'utente e area di trigger di un nodo, e se è all'interno, lancio insideNode()
         if showLog { print("HMapC - 'checkIsInsideNode()'")}
 
-        if !userIsInsideNode && setupComplete {
+        if !userIsInsideNode && setupComplete {  //aspetto il completamento del setup prima di iniziare il check
             distance = locationManager.calculateDistanceFromHere(lat: currentNode!.lat, long: currentNode!.long)
 
             if showLog { print("HMapC - 'checkIsInsideNode()', calcolo distanza: \(distance)")}
@@ -160,6 +163,8 @@ class HuntMapViewController: UIViewController {
     }
     
     private func insideNode(){
+        // gestisce l'arrivo dell'utente all'interno del nodo e devia il flusso in base al tipo di percorso (assistito/non assistito)
+        
         if showLog { print("HMapC - 'insideNode()'")}
         userIsInsideNode = true
         infoLabel.text = "Hai raggiunto la destinazione"
@@ -178,6 +183,7 @@ class HuntMapViewController: UIViewController {
     }
     
     private func startGame(){
+        // Inizia formalmente il gioco: viene settato il dateTime attuale come quello di partenza e faccio partire il timer
         if showLog { print("HMapC - 'startGame()'")}
         if statusManager.getStatusProp(key: "startTime") == nil {
             statusManager.setStartTimeNow()
@@ -188,6 +194,7 @@ class HuntMapViewController: UIViewController {
     }
     
     private func endGame() {
+        // Finisce formalmente il gioco: si calcola il proprio tempo, si ferma il timer, si ferma la localizzazione e si naviga alla pagina finale.
         if showLog { print("HMapC - 'endGame()' -> resetStatus, stopTimer")}
         statusManager.setMyTotalGameTime()
         timeManager.stopTimer()
@@ -236,7 +243,7 @@ class HuntMapViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "toQuizView" {
-            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
+            let track = sender as! Track // specifico che sender è un Track
             let destController = segue.destination as! TriviaController // lo forzo ad essere un TriviaController
             destController.track = track
             
@@ -247,7 +254,7 @@ class HuntMapViewController: UIViewController {
             destController.track = track
             
         } else if segue.identifier == "toEndView" {
-            let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
+            let track = sender as! Track
             
             let destController = segue.destination as! EndPageController // lo forzo ad essere un EndPageController
             destController.track = track
@@ -259,12 +266,12 @@ class HuntMapViewController: UIViewController {
 
 
 extension HuntMapViewController: MKMapViewDelegate {
-    // Funzioni delegate di MKMapView e specifiche di disegno su mappa
+    // Funzioni delegate di MKMapView e specifiche di disegno e gestione della mappa
     
-    // Funzione 'rendererFor', usata per disegnare l'overlay del cerchio
+    // Funzione 'rendererFor', usata per disegnare l'overlay del cerchio (render)
      func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
          if self.showLog { print("HMapC - sono in 'renderFor")}
-         if let circleOverlay = overlay as? MKCircle {
+         if let circleOverlay = overlay as? MKCircle {  //se overlay è MKCircle
              let circleRenderer = MKCircleRenderer(overlay: circleOverlay)
              circleRenderer.fillColor = UIColor.blue.withAlphaComponent(0.3)
              circleRenderer.strokeColor = UIColor.blue
@@ -282,11 +289,11 @@ extension HuntMapViewController: MKMapViewDelegate {
         
         // Chiamo showAnnotations per impostare il livello di zoom in modo da vedere tutti gli marker sulla mappa
         mapView.showAnnotations(mapView.annotations, animated: true)
-
         checkIsInsideNode()
     }
     
     private func drawMarker() {
+        // disegno sulla mappa il marker del nodo corrente e l'area di trigger
         resetMarker()
         if self.showLog { print("HMapC - sono in 'drawMarker()'")}
         nodePin = MKPointAnnotation()
@@ -301,11 +308,14 @@ extension HuntMapViewController: MKMapViewDelegate {
         }
         //nodePin.subtitle = "Subtitle"
         mapView.addAnnotation(nodePin!)
+        
+        // aggiungo alla view l'area di trigger (il render lo farà il metodo delegato "RenderFor")
         areaCircle = MKCircle(center: nodePin!.coordinate, radius: CLLocationDistance(radius))
         mapView.addOverlay(areaCircle!)
     }
     
     private func resetMarker() {
+        // rimuovo dalla mappa il marker/area attuale
         if self.showLog { print("HMapC - sono in 'resetMarker()'")}
         if let circle = areaCircle {
             mapView.removeOverlay(circle)
@@ -318,6 +328,8 @@ extension HuntMapViewController: MKMapViewDelegate {
     }
     
     func setupUserTrackingButtonAndScaleView() {
+        // aggiungo un bottone sulla mappa che gestisce la funzionalità di seguire l'utente.
+        
         if showLog { print("LocMan - sono in 'setupUserTrackingButtonAndScaleView'")}
         mapView.showsUserLocation = true
         let button = MKUserTrackingButton(mapView: mapView)
@@ -340,27 +352,7 @@ extension HuntMapViewController: MKMapViewDelegate {
     }
 }
 
-/*
-    private func setupUserTrackingButtonAndScaleView() {
-        let button = MKUserTrackingButton(mapView: mapView)
-        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        button.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(button)
-        
-        let scale = MKScaleView(mapView: mapView)
-        scale.legendAlignment = .trailing
-        scale.translatesAutoresizingMaskIntoConstraints = false
-        self.mapView.addSubview(scale)
-        
-        NSLayoutConstraint.activate([button.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10),
-                                     button.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10),
-                                     scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
-                                     scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
-    }
-*/
+
 
 // MARK: - Location
 
@@ -368,7 +360,7 @@ extension HuntMapViewController: CLLocationManagerDelegate {
     // Funzioni delegate di MKMapView e specifiche di localizzazione
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if self.showLog { print("HMapC - sono in 'didUpdateLocations'")}
+        if self.showLog { print("HMapC - sono in 'didUpdateLocations'")}  
         //updateLocationOnMap()
         checkIsInsideNode()
     }

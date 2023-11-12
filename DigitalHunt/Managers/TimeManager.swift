@@ -15,8 +15,8 @@ class TimeManager {
     var countDowntimer: Timer = Timer()
     var count:Int = 0
     var timerCounting = false  
-    var updateHandler: ((String) -> Void)?
-    var updateHandlerCD: ((Int) -> Void)?
+    var updateHandler: ((String) -> Void)?   // istanzio la funzione che è definita in HuntMapController
+    var updateHandlerCD: ((Int) -> Void)?    // istanzio la funzione che è definita in HuntMapController
     var countDownDuration:Int = 0
     let statusManager = StatusManager.shared
     var timerEnabled: Bool = false
@@ -54,7 +54,7 @@ class TimeManager {
         if timerEnabled {
             if showLog {print("TimeM: timeCounter (update timer!)")}
             if showLog {print("TimeM: timeCounter: \(timeString)")}
-            updateHandler?(timeString)}
+            updateHandler?(timeString)}  //lancio funzione definita in HuntMap, passandogli nuova stringa
         else {
             timer.invalidate()
             if showLog {print("TimeM: timerCounter (timer NOT updated)")}
@@ -68,7 +68,7 @@ class TimeManager {
     }
 
     
-    func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int)
+    func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int)  //restituisco una tupla
     {
         return ((seconds / 3600), ((seconds % 3600) / 60),((seconds % 3600) % 60))
     }
@@ -110,7 +110,7 @@ class TimeManager {
         if countDownDuration < 0 {
             countDowntimer.invalidate()
         } else {
-            updateHandlerCD?(countDownDuration)
+            updateHandlerCD?(countDownDuration) //lancio funzione definita in HuntMap, passandogli nuova stringa
         }
     }
 

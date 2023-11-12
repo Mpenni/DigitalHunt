@@ -42,8 +42,8 @@ class TriviaController: UIViewController {
         if showLog { print("TriviaC - Did Load")}
         setupBackButton()
         self.title = "QUIZ per Tappa \(track.currentNodeIndex+1)"
-        setConfig()
-        fetchTriviaQuestionsFromAPI()
+        setConfig()                        //carico configurazione
+        fetchTriviaQuestionsFromAPI()      //carico le domande
     }
     
     private func setConfig() {
@@ -57,6 +57,7 @@ class TriviaController: UIViewController {
         if showLog { print("TriviaC - sono in 'fetchTriviaQuestionsFromAPI()'")}
         triviaAPIManager.fetchTriviaQuestions(isKid: track.isKid) { (fetchedTriviaQuestions, error) in
             if let error = error {
+                //c'è un errore nel servizio API, provo ad estrarre domande da file json
                 print("ERRORE TriviaC: Errore nella richiesta API: \(error)")
                 self.triviaAPIManager.loadQuestionsFromJSON(isKid: self.track.isKid) { (questions, error) in
                     if let error = error {
@@ -69,11 +70,12 @@ class TriviaController: UIViewController {
                         self.populateView()
                     }
                 }
-                } else if let questions = fetchedTriviaQuestions {
+                
+            } else if let questions = fetchedTriviaQuestions {  // ottengo domande da API e le memorizzo
                 self.triviaQuestions = questions
                 self.populateView()
 
-            }else {
+            } else {  // fetchedTriviaQuestions + error nulli
                 print("ERRORE TriviaC: c'è stato un problema")
                 ErrorManager.showError(view: self, message: "Non è possibile recuperae le domande", gotoRoot: true)
             }
@@ -82,7 +84,8 @@ class TriviaController: UIViewController {
        
     private func populateView() {
         if showLog { print("TriviaC - sono in 'populateView()'")}
-        DispatchQueue.main.async { [self] in // per risolvere errore "Main Thread Checker": si tente di modificare l'interfaccia utente (nello specifico, stai cercando di impostare il testo di una UILabel) da un thread diverso dal thread principale. Tutto ciò che riguarda l'interfaccia utente deve essere eseguito sul thread principale in iOS.
+        DispatchQueue.main.async { [self] in // per risolvere errore "Main Thread Checker": si tenta di modificare l'interfaccia utente da un thread diverso dal thread principale. Tutto ciò che riguarda l'interfaccia utente deve essere eseguito sul thread principale in iOS.
+            
             // Controlla se ci sono domande disponibili prima di incrementare l'indice
             if currentQuestionIndex + 1 < triviaQuestions!.count {
                 //controllo l'esistenza dell'elemento successivo dell'array
@@ -91,16 +94,19 @@ class TriviaController: UIViewController {
                 stopQuestion()
             } else {
                 print("ERRORE TriviaC: c'è stato un problema")
+                // l'errore è bloccante, torno alla schermata iniziale
                 ErrorManager.showError(view: self, message: "C'è stato un problema. Riprova a selezionare il percorso.", gotoRoot: true)
             }
         }
     }
     
     private func nextQuestion() {
+        // carico nella view la domanda
         if showLog { print("TriviaC - sono in 'nextQuestion()'")}
-        currentQuestionIndex += 1
+        currentQuestionIndex += 1    // incremento l'index della domanda
         if triviaQuestions?[self.currentQuestionIndex] == nil {
             print("ERRORE TriviaC: Errore nell'accesso alla prossima domanda")
+            // l'errore è bloccante, torno alla schermata iniziale
             ErrorManager.showError(view: self, message: "C'è stato un problema: riprova a selezionare il percorso", gotoRoot: true)
         }
         self.qNumber.text = "Domanda \(self.currentQuestionIndex + 1) di \(triviaQuestions!.count)"
@@ -111,6 +117,7 @@ class TriviaController: UIViewController {
     }
     
     private func stopQuestion() {
+        // il set corrente di domande è terminato, sconto eventuale penalità e torno alla view principale
         if showLog { print("TriviaC -  sono in 'stopQuestion()'")}
         if showLog { print("        -> Tutte le domande sono state mostrate")}
         setupButton(enable: false)
@@ -121,16 +128,17 @@ class TriviaController: UIViewController {
             if countDownDuration == 0 {
                 self?.navigationController?.popViewController(animated: true)
             }
-        }
+        } //update del countdown timer con handler invocato da TimeManager (gli passo una funzione anonima istanziata e chiamata da TimeManager)
     }
     
     private func populateButtons() {
+        // Popolo i 4 buttons delle risposte
         if showLog { print("TriviaC -  sono in 'populateButtons()'")}
         setupButton(enable: true)
         allAnswers = triviaQuestions![currentQuestionIndex].incorrect_answers
         allAnswers.append(triviaQuestions![currentQuestionIndex].correct_answer)
          
-        // Mescola l'array in modo casuale
+        // Mischio l'array in modo casuale
         allAnswers.shuffle()
         
         // Assegna le risposte mescolate ai bottoni
@@ -139,7 +147,7 @@ class TriviaController: UIViewController {
         qAns03.setTitle(decode(from: allAnswers[2]), for: .normal)
         qAns04.setTitle(decode(from: allAnswers[3]), for: .normal)
         
-        // Gestisci le risposte per ciascun bottone
+        // Gestisco le risposte per ciascun bottone
         qAns01.addTarget(self, action: #selector(handleAnswer), for: .touchUpInside)
         qAns02.addTarget(self, action: #selector(handleAnswer), for: .touchUpInside)
         qAns03.addTarget(self, action: #selector(handleAnswer), for: .touchUpInside)
@@ -148,7 +156,6 @@ class TriviaController: UIViewController {
     
     @objc func handleAnswer(sender: UIButton) {
         if showLog { print("TriviaC - 'handleAnswer'")}
-        // Questa azione verrà chiamata quando uno dei bottoni viene premuto
         let selectedAnswer = sender.titleLabel?.text
         if selectedAnswer == decode(from: triviaQuestions![currentQuestionIndex].correct_answer) {
             correctAnswer()
@@ -163,6 +170,7 @@ class TriviaController: UIViewController {
     }
     
     private func wrongAnswer(sender: UIButton){
+        // gestisco la risposta sbagliata, accumulando il ritardo
         if showLog { print("TriviaC - 'wrongAnswer'")}
         sender.isEnabled = false
         delay += penalty
@@ -175,6 +183,7 @@ class TriviaController: UIViewController {
     }
     
     private func decode(from :String) -> String {
+        // decodifico il dato da codifica HTML a stringa normale
         if let decodedData = from.data(using: .utf8) {
             if let attributedString = try? NSAttributedString(data: decodedData, options: [.documentType: NSAttributedString.DocumentType.html], documentAttributes: nil) {
                 return attributedString.string
@@ -208,6 +217,7 @@ class TriviaController: UIViewController {
     }
     
     func help() {
+        // Disabilito 2 delle 3 risposte errate
         if showLog { print("TriviaC - 'help()'")}
         let correctAnswerIndex = allAnswers.firstIndex(of: triviaQuestions![currentQuestionIndex].correct_answer)
         

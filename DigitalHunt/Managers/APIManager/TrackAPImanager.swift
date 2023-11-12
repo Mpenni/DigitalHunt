@@ -17,7 +17,7 @@ class TrackAPIManager {
 
     private init() {}
     
-    var tracks: [Track] = [] // Array per archiviare le tracce
+    var tracks: [Track] = []
     
     // Funzione asincrona per recuperare tutti i tracks da Firebase
     func getAllTracks() async throws -> [Track] {
@@ -103,6 +103,7 @@ class TrackAPIManager {
     }
     
     func updateTrackRecordData(trackId: String, recordUserId: String, recordUserTime: Int) async throws {
+        //persisto il nuovo record di tempo a DB
         let db = Firestore.firestore()
         
         var data: [String: Any] = [

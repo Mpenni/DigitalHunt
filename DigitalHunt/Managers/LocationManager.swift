@@ -19,7 +19,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     
     override init() {
         locationManager = CLLocationManager()
-        super.init()  //perchè devo fare override dell'init del padre
+        super.init()  //override dell'init del padre
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
 

@@ -38,7 +38,7 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
         setupCamera()
     }
     
-    override func viewWillAppear(_ animated: Bool) { 
+    override func viewWillAppear(_ animated: Bool) {  // precaricamento ("will")
         if showLog { print("QRCodeC - sono in 'viewWillAppear'")}
         super.viewWillAppear(animated)
         startRunning()
@@ -87,6 +87,7 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
 
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // con questo metodo posso triggerare il code senza uno specifico bottone di action
         // Testo prima della modifica
         let previousText = textField.text ?? ""
         
@@ -96,7 +97,7 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
         if !newText.isEmpty {
             checkCode(insertedCode: newText)
         }
-        return true // Ritorna true per consentire la modifica del testo, false per impedirla
+        return true // Ritorno true per consentire la modifica del testo
     }
 
     //MARK:  AVCaptureMetadataOutputObjectsDelegate
@@ -104,26 +105,27 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
     private func setupCamera() {
         if showLog { print("QRCodeC - setupCamera()")}
         cameraView.backgroundColor = UIColor.black
-        captureSession = AVCaptureSession()
+        captureSession = AVCaptureSession()      // inizia sessione di cattura AV
 
-        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
-        let videoInput: AVCaptureDeviceInput
+        guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }  // se trovi device, istanzia la videoCaptureDevice
+        
+        let videoInput: AVCaptureDeviceInput //istanzio flusso AVCapture
 
         do {
-            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)
+            videoInput = try AVCaptureDeviceInput(device: videoCaptureDevice)  //provo a definire il flusso AV
         } catch {
             failed()
             return
         }
 
-        if (captureSession.canAddInput(videoInput)) {
+        if (captureSession.canAddInput(videoInput)) {  //se flusso è valido, lo aggiungo alla sessione
             captureSession.addInput(videoInput)
         } else {
             failed()
             return
         }
 
-        let metadataOutput = AVCaptureMetadataOutput()
+        let metadataOutput = AVCaptureMetadataOutput()  //uso costruttore standard classe nativa AVCaptureMetadataOutput
 
         if (captureSession.canAddOutput(metadataOutput)) {
             captureSession.addOutput(metadataOutput)
@@ -141,11 +143,12 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
         cameraView.layer.addSublayer(previewLayer)
 
         DispatchQueue.main.async {
-            self.captureSession.startRunning()
+            self.captureSession.startRunning()  //start running di captureSession
         }
     }
     
     func failed() {
+        //gestisco problemi con il device di cattura o il flusso AV
         if showLog { print("QRCodeC - failed()")}
         print("Scanning not supported")
         let ac = UIAlertController(title: "Scanning not supported", message: "Your device does not support scanning a code from an item. Please use a device with a camera.", preferredStyle: .alert)
@@ -165,16 +168,7 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
              */
         }
     }
-    
-    private func stopRunning() {
-        if showLog { print("QRCodeC - stopRunning()")}
-        if (captureSession?.isRunning == true) {
-            print("son qua 1")
-            captureSession.stopRunning()
-        }
-        print("son qua 2")
 
-    }
     
     private func stopRunning2() {
         if showLog { print("QRCodeC - stopRunning()")}
@@ -188,19 +182,22 @@ class QRCodeController: UIViewController, UITextFieldDelegate, AVCaptureMetadata
 
 
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        //ho un output
         if showLog { print("QRCodeC - metadataOutput()")}
         captureSession.stopRunning()
 
+        //gestisco l'output
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))  // vibra il device
             found(code: stringValue)
         }
         dismiss(animated: true)
     }
 
     func found(code: String) {
+        // verifica output
         if showLog { print("QRCodeC - CodiceScansionato: \(code)")}
         checkCode(insertedCode: code)
     }

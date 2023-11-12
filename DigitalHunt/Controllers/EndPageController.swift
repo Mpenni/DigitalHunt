@@ -20,7 +20,7 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     var userIsRecordman :Bool = false
     var userHasRecordTime :Bool = false
     
-    private let showLog: Bool = true
+    private let showLog: Bool = false
  
     @IBOutlet weak var userTimeLabel: UILabel!
     @IBOutlet weak var recordTimeLabel: UILabel!
@@ -81,6 +81,7 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     }
 
     private func getMyTime() -> Int? {
+        //calcolo la mia performance
         if let myFinalTime = statusManager.getStatusProp(key: "myFinalTime"), let myFinalTimeInt = Int(myFinalTime) {
             if showLog { print("EndVC - myfinalTime: \(myFinalTime)")}
             let time = timeManager.secondsToHoursMinutesSeconds(seconds: myFinalTimeInt)
@@ -96,6 +97,7 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     }
     
     private func getRecordTime() -> Int? {
+        //recupero informazioni record da track
         if let recordTimeInTrack = track.recordUserTime {
             let time = timeManager.secondsToHoursMinutesSeconds(seconds: recordTimeInTrack)
             let timeString = timeManager.makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
@@ -110,6 +112,7 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     }
     
     private func updateRecordData() {
+        // Persisto il mio record su cloud
         let myUserId = statusManager.getUserUniqueId()
         // Chiamata asincrona
             Task {

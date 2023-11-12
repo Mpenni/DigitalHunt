@@ -65,7 +65,7 @@ class StatusManager {
         if let startTimeString = getStatusProp(key: "startTime") {
             if let startTime = getDateFromString(startTimeString) {
                 let timeDifference = currentDateTime.timeIntervalSince(startTime)
-                // Ora timeDifference contiene la differenza in secondi tra currentDateTime e startTime
+                // differenza in secondi tra currentDateTime e startTime
                 if showLog { print("total time: \(timeDifference)") }
                 setStatusProp(key: "myFinalTime", value: String(Int(round(timeDifference)))) //da 27,0 a 27
             } else {
@@ -97,7 +97,7 @@ class StatusManager {
     private func generateUniqueAlphanumericCode() -> String {
         let uuid = UUID()
         let uuidString = uuid.uuidString
-        // Rimuovi trattini e converti in maiuscolo (per codice più pulito, standardizzato e caseSensitive)
+        // per codice più pulito, standardizzato e caseSensitive -> Rimuovo trattini e converto in maiuscolo
         let alphanumericCode = uuidString.replacingOccurrences(of: "-", with: "").uppercased()
         return alphanumericCode
     }

@@ -11,7 +11,7 @@ class ConfigManager {
     
     static let shared = ConfigManager()
     
-    private let showLog: Bool = true
+    private let showLog: Bool = false
 
     private init() {
         loadConfig()
@@ -21,7 +21,7 @@ class ConfigManager {
 
     private func loadConfig() {
         if showLog { print("ConfigMan - 'loadConfig()'") }
-        if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+        if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),  //controllo esistenza file
            let xml = FileManager.default.contents(atPath: path) {
             do {
                 config = try PropertyListSerialization.propertyList(from: xml, options: .mutableContainersAndLeaves, format: nil) as? [String: Any]

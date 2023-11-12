@@ -4,7 +4,7 @@
 //
 //  Created by Dave Stops on 23/10/23.
 //
-// Questo manager serve a recuperare i le domande (quiz)
+// Questo manager serve a recuperare le domande (quiz)
 
 
 import Foundation

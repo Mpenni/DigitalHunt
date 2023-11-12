@@ -23,7 +23,7 @@ class TracksTableViewController: UITableViewController {
 
         //print("UNIQUE_DEL: \(statusManager.deleteUserUniqueId())") //per debug
         
-        // Eseguo l'operazione asincrona all'interno del blocco "async"
+        // Eseguo l'operazione asincrona all'interno del blocco "async" per recuperare i tracks
         Task {
             do {
                 var allTracks = try await trackAPIManager.getAllTracks()
@@ -62,14 +62,13 @@ class TracksTableViewController: UITableViewController {
                 }
                 if showLog { print("TTC - Lunghezza tracks dopo filtro: \(allTracks.count)")}
 
-                // Ordino l'array
+                // Ordino l'array in ordine alfabetico
                 allTracks.sort { $0.name < $1.name } // $x elementi di  chiusura di ordinamento (primo elem, secondo elem da confrontare)
                 
-                // Assegno direttamente i dati delle tracce all'array tracks
                 tracks = allTracks
                 
                 // Aggiorno l'UI sulla coda principale
-                // (con task ho spostato, asincronicamente con await, esecuzione in altro thread, ma solo con il main ho il permesso di modifuca UI)
+                // (con task ho spostato, asincronicamente con await, l'esecuzione in altro thread, ma solo con il main ho il permesso di modifuca UI)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -78,41 +77,31 @@ class TracksTableViewController: UITableViewController {
                 ErrorManager.showError(view: self, message: "Purtroppo attualmente il servizio è in manutenzione. Riprovare più tardi", gotoRoot: true)
             }
         }
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+        //numero delle sezioni
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        // il return sarà la count dell'array
+        // numero delle righe (celle)
+        // il return sarà la count dell'array (= numero di righe)
         return tracks.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as! TrackTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TrackCell", for: indexPath) as! TrackTableViewCell      //conversione forzata a TrackTableViewCell
         
-        //conversione forzata a TrackTableViewCell
+        //Metodo chiamato in automatico dalla UITableViewController per popolare ogni cella
+        
         if showLog { print("TTC - creo riga \(indexPath.row + 1)") }
-        
-        // Configure the cell...
-        // l'elemento alla posizione 0 sarà il primo percorso
-        // la tableview è come un array a una dimensione, noi faremo una corrispondenza diretta
-        // questo metodo viene chiamato da solo dalla did load
         
         let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice, il .row è l'indice della riga
         
-        //popolo gli elementi della view
+        //popolo i 3 elementi della view della cella
         cell.titleLabel.text = track.name
        
         if track.isKid {
@@ -131,7 +120,7 @@ class TracksTableViewController: UITableViewController {
     }
                
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice
+        let track = tracks[indexPath.row] // Accedi all'oggetto Track corrispondente all'indice (click)
         if showLog { print("TTC - goToTrackDetails per riga \(indexPath.row + 1)") }
         self.performSegue(withIdentifier: "toTrackDetails", sender: track)
     }
@@ -140,10 +129,8 @@ class TracksTableViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let track = sender as! Track // specifico che sender è un Track (e ne sono sicuro!)
-        let destController = segue.destination as! TrackDetailsViewController // lo forzo ad essere un TrackView
+        let track = sender as! Track // specifico che sender è un Track
+        let destController = segue.destination as! TrackDetailsViewController // lo forzo ad essere un TrackViewController
         destController.track = track
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
 }
