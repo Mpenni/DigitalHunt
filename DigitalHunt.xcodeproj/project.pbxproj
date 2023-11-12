@@ -11,6 +11,7 @@
 		EE13B3992AFF7AD100484FEB /* Track01_01->02.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EE13B3982AFF7AD100484FEB /* Track01_01->02.gpx */; };
 		EE13B39B2AFF7BE500484FEB /* Track01_02->03.gpx in Resources */ = {isa = PBXBuildFile; fileRef = EE13B39A2AFF7BE500484FEB /* Track01_02->03.gpx */; };
 		EE13B39D2AFF8AEA00484FEB /* ErrorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE13B39C2AFF8AEA00484FEB /* ErrorManager.swift */; };
+		EE13B39F2B0016FE00484FEB /* happyFox.png in Resources */ = {isa = PBXBuildFile; fileRef = EE13B39E2B0016FE00484FEB /* happyFox.png */; };
 		EE54DD4D2ADF242E00DEBA4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */; };
 		EE54DD4F2ADF242E00DEBA4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */; };
 		EE54DD542ADF242E00DEBA4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EE54DD522ADF242E00DEBA4D /* Main.storyboard */; };
@@ -54,6 +55,7 @@
 		EE13B3982AFF7AD100484FEB /* Track01_01->02.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Track01_01->02.gpx"; sourceTree = "<group>"; };
 		EE13B39A2AFF7BE500484FEB /* Track01_02->03.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Track01_02->03.gpx"; sourceTree = "<group>"; };
 		EE13B39C2AFF8AEA00484FEB /* ErrorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorManager.swift; sourceTree = "<group>"; };
+		EE13B39E2B0016FE00484FEB /* happyFox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = happyFox.png; sourceTree = "<group>"; };
 		EE54DD492ADF242E00DEBA4D /* DigitalHunt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DigitalHunt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE54DD4C2ADF242E00DEBA4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EE54DD4E2ADF242E00DEBA4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		EEFFEC792AF796C4000D7B5A /* img */ = {
 			isa = PBXGroup;
 			children = (
+				EE13B39E2B0016FE00484FEB /* happyFox.png */,
 				EEFFEC7A2AF796DB000D7B5A /* logo.png */,
 			);
 			path = img;
@@ -341,6 +344,7 @@
 				EEF8896F2AEE42C10020DB72 /* Config.plist in Resources */,
 				EEFFEC782AF659D9000D7B5A /* QRWrong-1111.png in Resources */,
 				EEFFEC732AF64746000D7B5A /* GoogleService-Info.plist in Resources */,
+				EE13B39F2B0016FE00484FEB /* happyFox.png in Resources */,
 				EEF889652AECFFA50020DB72 /* 2_1.gpx in Resources */,
 				EEFFEC7D2AF7E5DC000D7B5A /* Track01_00.gpx in Resources */,
 				EEFFEC712AF05933000D7B5A /* Track00_01->02.gpx in Resources */,
@@ -573,14 +577,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DigitalHunt/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = NO;
-				INFOPLIST_KEY_NSCameraUsageDescription = "The app requires camera permission to scan QR code!";
+				INFOPLIST_KEY_NSCameraUsageDescription = "bla vla vla";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -606,14 +609,13 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DigitalHunt/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = NO;
-				INFOPLIST_KEY_NSCameraUsageDescription = "The app requires camera permission to scan QR code!";
+				INFOPLIST_KEY_NSCameraUsageDescription = "bla vla vla";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "The app requires location to work!";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

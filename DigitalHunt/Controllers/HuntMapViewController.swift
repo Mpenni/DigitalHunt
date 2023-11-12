@@ -53,7 +53,10 @@ class HuntMapViewController: UIViewController {
         setConfig()
 
         locationManager.locationManager.delegate = self
+        
         locationManager.locationManager.startUpdatingLocation()
+        
+        setupUserTrackingButtonAndScaleView()
         
         if showLog { print("HMapC - fine 'viewDidLoad'")}
     }
@@ -61,9 +64,10 @@ class HuntMapViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         if showLog { print("HMapC - inizio 'viewDidAppear'")}
         
+        super.viewDidAppear(animated)
+
         setupComplete = false
 
-        super.viewDidAppear(animated)
         userIsInsideNode = false
 
         timeManager.updateHandler = { [weak self] timeString in self!.timeLabel.text = timeString}
@@ -81,33 +85,11 @@ class HuntMapViewController: UIViewController {
         loadUserOnMap()
         drawAreaInMap()
 
-        locationManager.setupUserTrackingButtonAndScaleView(mapView: mapView, view: view)
-        //#TODO: check
-
         setupComplete = true
         if showLog { print("HMapC - fine 'viewDidAppear'")}
     }
-/*
-    private func setupUserTrackingButtonAndScaleView() {
-        let button = MKUserTrackingButton(mapView: mapView)
-        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        button.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(button)
-        
-        let scale = MKScaleView(mapView: mapView)
-        scale.legendAlignment = .trailing
-        scale.translatesAutoresizingMaskIntoConstraints = false
-        self.mapView.addSubview(scale)
-        
-        NSLayoutConstraint.activate([button.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10),
-                                     button.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10),
-                                     scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
-                                     scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
-    }
-*/
+
+    
     private func setConfig() {
         if  let confRadius = configManager.getValue(forKey: "map.radius") as? Int {
             if showLog { print("HMapC - load radius from config: \(confRadius)")}
@@ -131,6 +113,12 @@ class HuntMapViewController: UIViewController {
             
             if showLog { print("HMapC - Status.ccurrentNodeIndex non è nil, setto 'track.currentNodeIndex a suo valore meno uno' : \(index - 1)")}
         }
+        
+        //se l'utente ha raggiunto l'inizio, ma non ha concluso la tappa, il timer è partito e va visualizzato
+        if statusManager.getStatusProp(key: "startTime") != nil {
+            timeManager.startTimer()
+        }
+        
     }
     
     private func defineTargetNode() {
@@ -139,7 +127,6 @@ class HuntMapViewController: UIViewController {
         
         isStart = track.checkIsStartNode()
         isEnd = track.checkIsEndNode()
-
     }
 
     private func updateLabels() {
@@ -210,8 +197,6 @@ class HuntMapViewController: UIViewController {
     }
  
     
-
-
     // MARK: - Navigation
 
     func setupBackButton(){
@@ -267,8 +252,6 @@ class HuntMapViewController: UIViewController {
             let destController = segue.destination as! EndPageController // lo forzo ad essere un EndPageController
             destController.track = track
         }
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
 }
 
@@ -333,7 +316,51 @@ extension HuntMapViewController: MKMapViewDelegate {
             nodePin = nil
         }
     }
+    
+    func setupUserTrackingButtonAndScaleView() {
+        if showLog { print("LocMan - sono in 'setupUserTrackingButtonAndScaleView'")}
+        mapView.showsUserLocation = true
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        
+        let scale = MKScaleView(mapView: mapView)
+        scale.legendAlignment = .trailing
+        scale.translatesAutoresizingMaskIntoConstraints = false
+        mapView.addSubview(scale)
+        
+        NSLayoutConstraint.activate([button.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -10),
+                                     button.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -10),
+                                     scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
+                                     scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
+    }
 }
+
+/*
+    private func setupUserTrackingButtonAndScaleView() {
+        let button = MKUserTrackingButton(mapView: mapView)
+        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
+        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(button)
+        
+        let scale = MKScaleView(mapView: mapView)
+        scale.legendAlignment = .trailing
+        scale.translatesAutoresizingMaskIntoConstraints = false
+        self.mapView.addSubview(scale)
+        
+        NSLayoutConstraint.activate([button.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10),
+                                     button.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10),
+                                     scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
+                                     scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
+    }
+*/
 
 // MARK: - Location
 
@@ -342,7 +369,7 @@ extension HuntMapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if self.showLog { print("HMapC - sono in 'didUpdateLocations'")}
-        updateLocationOnMap()
+        //updateLocationOnMap()
         checkIsInsideNode()
     }
     
@@ -350,13 +377,14 @@ extension HuntMapViewController: CLLocationManagerDelegate {
         print("ERROR HMapC - Errore nell'aggiornamento della posizione: \(error.localizedDescription)")
     }
     
+    //funzione precendete alla gestione dello zoom/centratura con button apposito (MKUserTrackingButton)
     private func updateLocationOnMap() {
         guard locationManager.locationManager.location != nil else {
             if self.showLog { print("HMapC - posizione non disponibile")}
                 return
         }
         coordinates = locationManager.locationManager.location!.coordinate
-        //mapView.setCenter(coordinates!, animated: true)
+        mapView.setCenter(coordinates!, animated: true)
     }
     
     private func loadUserOnMap() {
@@ -367,13 +395,7 @@ extension HuntMapViewController: CLLocationManagerDelegate {
         }
         mapView.setRegion(locationManager.calculateRegion(), animated: true)
         mapView.showsUserLocation = true
-        /*
-        //#TODO: rimuovere
-        coordinates = locationManager.locationManager.location!.coordinate
-        let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
-        let region = MKCoordinateRegion(center: coordinates!, span: spanDegree)
-        mapView.setRegion(region, animated: true)
-        mapView.showsUserLocation = true*/
+    
     }
 }
 

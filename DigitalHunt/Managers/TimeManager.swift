@@ -14,7 +14,7 @@ class TimeManager {
     var timer: Timer = Timer()
     var countDowntimer: Timer = Timer()
     var count:Int = 0
-    var timerCounting = false  //mi serve?
+    var timerCounting = false  
     var updateHandler: ((String) -> Void)?
     var updateHandlerCD: ((Int) -> Void)?
     var countDownDuration:Int = 0

@@ -51,7 +51,6 @@ class Track {
     
     func setCurrentNodeIndex(index: Int) {
         currentNodeIndex = index
-        //print("setto index in track da status = \(index)")
     }
     
     func getCurrentNode() -> Node {
@@ -79,10 +78,13 @@ class Track {
         }
     }
     
+    func setMyRecord(recordUserId: String, recordUserTime: Int){
+        self.recordUserId = recordUserId
+        self.recordUserTime = recordUserTime
+    }
+    
     func initializeTrack() {
         currentNodeIndex = -1
-        recordUserId = nil
-        recordUserTime = nil
     }
     
     

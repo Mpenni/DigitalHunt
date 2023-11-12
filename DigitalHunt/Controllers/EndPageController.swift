@@ -26,6 +26,8 @@ class EndPageController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var recordTimeLabel: UILabel!
     @IBOutlet weak var resultLabel: UILabel!
     
+    @IBOutlet weak var winnerImage: UIImageView!
+    
     @IBAction func goToTrackTable(_ sender: Any) {
         if let navigationController = self.navigationController {
             navigationController.popToRootViewController(animated: true)
@@ -50,6 +52,7 @@ class EndPageController: UIViewController, UITextFieldDelegate {
                 if showLog { print("EndVC - 'recordTime': \(String(describing: recordTime))")}
                 if showLog { print("EndVC - 'userTime': \(userTime)")}
                 if showLog { print("EndVC - hai tu il miglior tempo!")}
+                winnerImage.isHidden = false
                 updateRecordData()
                 if let recordUserIdInTrack = track.recordUserId {
                     if statusManager.getUserUniqueId() == recordUserIdInTrack {
@@ -98,7 +101,6 @@ class EndPageController: UIViewController, UITextFieldDelegate {
             let timeString = timeManager.makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
             print("timeRecord: \(recordTimeInTrack)")
             recordTimeLabel.text = timeString
-            //recordTime = recordTimeInTrack
             return recordTimeInTrack
         } else {
             // "recordTimeInTrack" non è presente o non può essere convertito in Int
@@ -123,5 +125,8 @@ class EndPageController: UIViewController, UITextFieldDelegate {
 
                 }
             }
+        
+        // setto record anche in track, per persistere il dato in caso di ri-selezione stesso percorso, evitando di ricaricare dati dal cloud
+        track.setMyRecord(recordUserId: myUserId, recordUserTime: userTime!)
     }
 }

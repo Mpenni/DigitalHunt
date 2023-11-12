@@ -5,7 +5,6 @@
 //  Created by Dave Stops on 17/10/23.
 //
 
-// #TODO: Gestire altri casi di autorizzazione location, anche durante game, compreso perdita segnale
 
 import UIKit
 
@@ -70,7 +69,7 @@ class TracksTableViewController: UITableViewController {
                 tracks = allTracks
                 
                 // Aggiorno l'UI sulla coda principale
-                // con task sposto (asincronicamente con await) esecuzione in altro thread, ma solo con il main ho il permesso di modifuca UI
+                // (con task ho spostato, asincronicamente con await, esecuzione in altro thread, ma solo con il main ho il permesso di modifuca UI)
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -97,7 +96,6 @@ class TracksTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         // il return sarà la count dell'array
-        //return tracks.count
         return tracks.count
     }
     

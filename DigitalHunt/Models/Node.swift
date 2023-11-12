@@ -23,10 +23,9 @@ class Node {
         self.code = code
     }
     
-    convenience init(id: String, data: [String :Any]) {  //coinvenience: se dentro un costruttore chiamo altro costruttore
+    convenience init(id: String, data: [String :Any]) {  //coinvenience: poichè dentro un costruttore chiamo altro costruttore
         
-        let name = data["name"] as? String ?? "noData" //con as? cerca di convertirlo in String, ma è optional, a me non va bene, quindi se non qualcosa va storto scrive "nodata", a
-                                                       // altra possibilità fare as! al posto di as?, mi prendo la responsabilità di dichiarare che son sicuro sia String (force casting)
+        let name = data["name"] as? String ?? "noData" //con as? cerca di convertirlo in String,
         let lat = data["lat"] as? Double ?? 0.0
         let long = data["long"] as? Double ?? 0.0
         let desc = data["desc"] as? String

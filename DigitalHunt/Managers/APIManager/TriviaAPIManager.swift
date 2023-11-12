@@ -4,6 +4,8 @@
 //
 //  Created by Dave Stops on 23/10/23.
 //
+// Questo manager serve a recuperare i le domande (quiz)
+
 
 import Foundation
 
@@ -75,7 +77,7 @@ class TriviaAPIManager {
     func loadQuestionsFromJSON(isKid: Bool, completion: @escaping ([TriviaQuestion]?, Error?) -> Void) {
         if showLog { print("TriviaAPIMan - estraggo domande da JSON (loadQuestionsFromJSON)")}
 
-        // Cerca il file JSON nel bundle dell'app
+        // Cerca il file JSON
         print("prendo domande da json")
         let fileName = isKid ? "easyQuestions" : "normalQuestions"
         if let jsonURL = Bundle.main.url(forResource: fileName, withExtension: "json") {

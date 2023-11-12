@@ -33,7 +33,6 @@ class TrackDetailsViewController: UIViewController {
     override func viewDidLoad() {
         if showLog { print("TDetailsC - sono in 'viewDidLoad()'")}
         super.viewDidLoad()
-        //ErrorManager.showError(view: self, message: "messaggio", gotoRoot: true)
         self.title = track.name
         descTextField.text = track.desc
         manageLocation()
@@ -98,8 +97,8 @@ class TrackDetailsViewController: UIViewController {
             )
             
             let continueAction = UIAlertAction(title: "Continue", style: .destructive) { [weak self] _ in  // funzione anonima che passo come parametro (closure)
-                //resetto lo status e procedo
-                self!.statusManager.resetStatus()
+                
+                self!.statusManager.resetStatus() //resetto lo status e procedo
                 self!.performSegue(withIdentifier: "toHuntMapView", sender: self!.track)
             }
             
@@ -121,8 +120,6 @@ class TrackDetailsViewController: UIViewController {
         let track = sender as! Track // specifico che sender è un Track e ne sono sicuro
         let destController = segue.destination as! HuntMapViewController // lo forzo ad essere un TrackView
         destController.track = track
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
 }
 

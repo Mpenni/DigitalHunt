@@ -50,7 +50,7 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
       }
     }
     
-    func calculateRegion() -> MKCoordinateRegion {   //TODO: credo non venga mai usata!
+    func calculateRegion() -> MKCoordinateRegion {
         if showLog { print("LocMan - sono in 'calculateRegion()'")}
         let coordinates : CLLocationCoordinate2D = locationManager.location!.coordinate
         let spanDegree = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
@@ -72,25 +72,6 @@ class DHLocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
-    
-    func setupUserTrackingButtonAndScaleView(mapView: MKMapView, view: UIView) {
-        let button = MKUserTrackingButton(mapView: mapView)
-        button.layer.backgroundColor = UIColor(white: 1, alpha: 0.8).cgColor
-        button.layer.borderColor = UIColor.white.cgColor
-        button.layer.borderWidth = 1
-        button.layer.cornerRadius = 5
-        button.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(button)
-        
-        let scale = MKScaleView(mapView: mapView)
-        scale.legendAlignment = .trailing
-        scale.translatesAutoresizingMaskIntoConstraints = false
-        mapView.addSubview(scale)
-        
-        NSLayoutConstraint.activate([button.bottomAnchor.constraint(equalTo: mapView.bottomAnchor, constant: -10),
-                                     button.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: -10),
-                                     scale.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -10),
-                                     scale.centerYAnchor.constraint(equalTo: button.centerYAnchor)])
-    }
+
 }
 

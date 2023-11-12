@@ -1,9 +1,10 @@
 //
-//  APImanager2.swift
+//  TrackAPIManager.swift
 //  DigitalHunt
 //
 //  Created by Dave Stops on 19/10/23.
 //
+// Questo manager serve a recuperare i percorsi (tracks) dal cloud
 
 import Foundation
 import FirebaseFirestore
@@ -78,7 +79,7 @@ class TrackAPIManager {
         return nodes
     }
     
-    // Funzione per stampare ciclicamente i dati delle tracce nell'array
+    // Funzione per stampare ciclicamente i dati delle tracce nell'array (x debug)
     func printTracksData() {
         for track in tracks {
             print("Name: \(track.name)")
